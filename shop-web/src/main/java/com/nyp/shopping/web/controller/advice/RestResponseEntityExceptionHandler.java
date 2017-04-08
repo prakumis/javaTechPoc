@@ -46,11 +46,11 @@ import com.nyp.shopping.web.model.ValidationBean;
 @ControllerAdvice()
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-	private Logger logger = LoggerFactory.getLogger(getClass());
+	private Logger log = LoggerFactory.getLogger(getClass());
 
 	@InitBinder
 	public void dataBindingGlobal(WebDataBinder binder) {
-		logger.debug("RestResponseEntityExceptionHandler.dataBindingGlobal()");
+		log.debug("RestResponseEntityExceptionHandler.dataBindingGlobal()");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		dateFormat.setLenient(false);
 		binder.registerCustomEditor(Date.class, "dob", new CustomDateEditor(dateFormat, true));
@@ -97,7 +97,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 	@ExceptionHandler(value = { ServiceNotFoundException.class })
 	protected ResponseBean<Object> handleServiceNotFoundException(Exception ex, WebRequest request) {
 
-		logger.error("Unable to find service 1", ex);
+		log.error("Unable to find service 1", ex);
 		return new ResponseBean<>(HttpStatus.NOT_FOUND.value(), ex.getMessage());
 	}
 
@@ -106,7 +106,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 	@ExceptionHandler(value = { EntityNotFoundException.class })
 	protected ResponseBean<Object> handleEntityNotFoundException(Exception ex, WebRequest request) {
 
-		logger.error("Unable to find service 2", ex);
+		log.error("Unable to find service 2", ex);
 		return new ResponseBean<>(HttpStatus.NOT_FOUND.value(), ex.getMessage());
 	}
 
@@ -114,14 +114,14 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(value = { PersistenceException.class })
 	protected ErrorBean handleEntityNotFoundException2(Exception ex, WebRequest request) {
-		logger.error("Unable to find service 3", ex);
+		log.error("Unable to find service 3", ex);
 		return new ErrorBean(ErrorCode.ENTITY_NOT_FOUND, ex.getMessage());
 	}
 
 	@Override
 	protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers,
 			HttpStatus status, WebRequest request) {
-		logger.warn(ex.getMessage(), ex);
+		log.warn(ex.getMessage(), ex);
 		return super.handleExceptionInternal(ex, body, headers, status, request);
 
 	}

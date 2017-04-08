@@ -21,8 +21,6 @@ public class ErrorCode {
     public static final String PROFILE_EMAIL_NOT_FOUND = "PROFILE_EMAIL_NOT_FOUND";
     public static final String PROFILE_EMAIL_REQUIRED = "PROFILE_EMAIL_REQUIRED";
     public static final String PROFILE_VALIDATION_ERROR = "PROFILE_VALIDATION_ERROR";
-    public static final String OLD_PASSWORD_REQUIRED = "OLD_PASSWORD_REQUIRED";
-    public static final String NEW_PASSWORD_REQUIRED = "NEW_PASSWORD_REQUIRED";
     public static final String PROFILE_DISTRIBUTION_LIST_NOT_EMPTY = "PROFILE_DISTRIBUTION_LIST_NOT_EMPTY";
 
     public static final String ORGANIZATION_ERROR = "ORGANIZATION_ERROR";
