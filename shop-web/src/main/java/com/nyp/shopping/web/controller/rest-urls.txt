@@ -1,0 +1,2 @@
+http://stackoverflow.com/questions/29943149/e-commerce-rest-api-for-categories
+http://stackoverflow.com/questions/33786421/rest-shopping-cart

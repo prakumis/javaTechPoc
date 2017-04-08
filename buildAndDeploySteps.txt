@@ -1,0 +1,17 @@
+1. Check out project
+2. Create tomcat app server
+3. Add the following in $TOMCAT/conf/tomcat-users.xml
+      <role rolename="tomcat"/>
+      <role rolename="role1"/>
+      <role rolename="manager-gui"/>
+      <role rolename="manager-script"/>
+      <role rolename="manager-jmx"/>
+      <role rolename="manager-status"/>
+      <user username="tomcat" password="tomcat" roles="tomcat,role1,manager-gui,manager-jmx,manager-script,manager-status"/>
+      <user username="both" password="both" roles="tomcat,role1,manager-gui,manager-jmx,manager-script,manager-status"/>
+      <user username="role1" password="role1" roles="tomcat,role1,manager-gui,manager-jmx,manager-script,manager-status"/>
+4. Update the buildAndDeplyShop.sh with following properties
+        APP_SERVER_HOME
+        WEB_SERVER_HOME
+        SRC_WEB_APP_ROOT_LOC
+5. run the buildAndDeployShop.sh in GitBash

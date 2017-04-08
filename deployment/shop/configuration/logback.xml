@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" packagingData="true">
+	<contextName>SHOP</contextName>
+	<!-- contextListener class="com.ericsson.etme.processing.logging.listener.LoggerStartupListener"/ -->
+
+	<!-- proxy,common,util,web log appender -->
+	<appender name="SHOP-GENERAL"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_LOC}/shop.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>[%d{yyyy-MM-dd HH:mm:ss,SSS}] %-5level [%file %method] -
+				 | %X{request} | %X{organization} | %X{userId} | %X{client} | %X{session} | %X{service} | %msg%n</Pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_LOC}/archived/shop.%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<!-- asset management log appender -->
+	<appender name="SHOP-CATALOG-MANAGEMENT"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_LOC}/shop-catalog-management.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>[%d{yyyy-MM-dd HH:mm:ss,SSS}] %-5level [%file %method] -
+				 | %X{request} | %X{organization} | %X{userId} | %X{client} | %X{session} | %X{service} | %msg%n</Pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_LOC}/archived/shop-catalog-management.%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<logger name="com.nyp.shopping" level="DEBUG" additivity="false">
+		<appender-ref ref="SHOP-GENERAL" />
+	</logger>
+
+	<logger name="org.springframework" level="DEBUG" additivity="false">
+		<appender-ref ref="SHOP-GENERAL" />
+	</logger>
+
+	<logger name="net.sf.ehcache" level="ERROR" additivity="false">
+		<appender-ref ref="SHOP-GENERAL" />
+	</logger>
+
+	<logger name="org.hibernate" level="ERROR" additivity="false">
+		<appender-ref ref="SHOP-GENERAL" />
+	</logger>
+
+	<root level="DEBUG">
+		<appender-ref ref="SHOP-GENERAL" />
+	</root>
+
+</configuration>

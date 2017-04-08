@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+	<!-- Favicon start -->
+	<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<!-- Favicon End -->
+
+	<link href="local/css/override.css" rel="stylesheet">
+	<!-- <link href="local/css/styles.css" rel="stylesheet"> -->
+	<link href="thirdParty/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">
+	<link href="thirdParty/bootstrap-3.3.7-dist/css/bootstrap-theme.css" rel="stylesheet">
+
+	<!-- Font Family used in this app -->
+	<link href="thirdParty/font-awesome-4.6.3/css/font-awesome.css" rel="stylesheet">
+
+	<!-- Bootstrap libs. Note: Bootstrap's JavaScript requires jQuery -->
+	<script src="thirdParty/jquery/jquery-3.1.1.js"></script>
+
+	<title>Angular JS, BootStrap Application</title>
+</head>
+<body ng-app="dashboardApp">
+
+	<header>
+		<nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="row">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#divToBeDisplayed" aria-expanded="false" >
+							<span class="sr-only">Toggle Navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#">Project Name</a>
+					</div>
+					<div id="divToBeDisplayed" class="collapse navbar-collapse">
+						<ul class="nav navbar-nav navbar-left">
+							<li class="active"><a href="#">Home</a>
+							<li class="active"><a href="#about">About</a>
+							<li class="active"><a href="#contact">Contact</a>
+							<li class="dropdown"><a href="#dummy" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" >Dummy Dropdown</a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#">Action</a></li>
+								<li class="divider"></li>
+								<li><a href="#">Action Returns</a>
+								<li><a href="#">Action Again</a></li>
+							</ul>
+						</ul>
+						<form action="" class="navbar-form navbar-left">
+							<div class="form-group"><input type="text" class="form-control" placeholder="search"></div>
+							<button type="submit" class="btn btn-default">Submit</button>
+						</form>
+						<ul class="nav navbar-nav navbar-right">
+							<li class="active"><a href="http://getbootstrap.com/css/#tables"><i class="glyphicon-alert"></i>Bootstrap</a>
+							<li class="active"><a href="http://fontawesome.io/get-started/"><i class="fa fa-user" aria-hidden="true">FontAwesome</i></a>
+							<li class="active"><a href="#">Link3</a>
+							<li class="active"><a href="#">Link4</a>
+						</ul>
+					</div>
+				</div>
+				<div class="row">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#catDivToBeDisplayed" aria-expanded="false" >
+							<span class="sr-only">Toggle Navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+					</div>
+					<div id="catDivToBeDisplayed" class="collapse navbar-collapse">
+						<ul class="nav navbar-nav navbar-left">
+							<li class="active"><a href="#">Cat 1</a>
+							<li class="active"><a href="#about">Cat 2</a>
+							<li class="active"><a href="#contact">Cat 3</a>
+							<li class="dropdown"><a href="#dummy" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" >Dummy Dropdown</a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#">Action</a></li>
+								<li class="divider"></li>
+								<li><a href="#">Action Returns</a>
+								<li><a href="#">Action Again</a></li>
+							</ul>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header><br><br><br><br><br><br>
+
+	<!-- login modal starts -->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Modal Header</h4>
+				</div>
+				<div class="modal-body">
+					<p>This is a small modal display.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- login modal ends -->
+	
+	<div class="container">		<!-- <div class="container-fluid"> -->
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+				<ui-view></ui-view>
+
+			</div>	<!-- End of 12-column definition class -->
+		</div>	<!-- End of row class -->
+	</div> <!-- End of container class -->
+	<footer class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert-success">
+		<p class="text-center">&copy; copyright 2014-16</p>
+	</footer>
+	<!-- Angular JS libs -->
+	<script src="thirdParty/angularjs/js/angular.v1.5.8.js"></script>
+	<!-- Angular JS Routers: ui-router	 -->
+	<!-- <script src="thirdParty/angularjs/js/ng-router/angular-route.js"></script> -->
+	<script src="thirdParty/angularjs/js/ui-router/angular-ui-router.v0.2.18.js"></script>
+	<!-- <script src="thirdParty/jquery/jquery.min.1.11.3.js"></script> -->
+	<script src="thirdParty/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+
+	<!-- Local angular JS config libs -->
+	<script src="local/js/main.js"></script>
+	<script src="local/js/controllers/dashboardController.js"></script>
+	<script src="local/js/controllers/offersController.js"></script>
+</body>
+</html>

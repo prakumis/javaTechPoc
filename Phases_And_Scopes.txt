@@ -1,0 +1,15 @@
+Phase 1 Scopes:
+1. Upload Product_And_Category_Excel
+2. REST URLs for category and products
+3. Cart Management
+4. Check-Out
+
+
+Phase 2 Scopes:
+0. Images
+1. Discount
+2. Return/Exchange
+3. Delivery/Billing Address Change
+
+Phase 3 Scopes:
+1. 
