@@ -32,7 +32,7 @@ import com.nyp.shopping.web.model.ResponseBean;
  * @author pmis30
  *
  */
-@RestController
+@RestController 
 //@RequestMapping("/cat")
 @RequestMapping(path = "/cat", produces = { WebConstants.MEDIA_TYPE_XML_VERSION_0_1, WebConstants.MEDIA_TYPE_JSON_VERSION_0_1 }, consumes = { WebConstants.MEDIA_TYPE_XML_VERSION_0_1, WebConstants.MEDIA_TYPE_JSON_VERSION_0_1 })
 //@RequestMapping(path = "/cat", consumes = { "application/json", "application/xml" }, produces = { "application/json", "application/xml" }, headers = { "X-API-Version=v1" })

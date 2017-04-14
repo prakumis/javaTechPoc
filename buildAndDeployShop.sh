@@ -5,7 +5,7 @@ APP_SERVER_HOME="D:/Application/apache-tomcat-9.0.0.M9_shop"
 WEB_SERVER_HOME="C:/Apache24/htdocs"
 APP_SERVER_START_MODE="debug"
 PROJECT_VERSION="0.0.1-SNAPSHOT"
-SRC_WEB_APP_ROOT_LOC="D:/Work/Repository/shopping-master"
+SRC_WEB_APP_ROOT_LOC="D:/Work/Repository/JavaTechPoc/javaTechPoc"
 
 # Comment the follwoing variables if not required.
 #MAVEN_SKIP_TEST="-DskipTests=true"
@@ -140,7 +140,7 @@ startApache() {
 
 # start calling your functions
 #deployStatic;
-stopAppServer;
+#stopAppServer;
 mavenBuild;
 executeDeployment;
-startAppServer;
+#startAppServer;

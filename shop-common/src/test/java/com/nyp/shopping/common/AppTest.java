@@ -1,4 +1,4 @@
-package org.shop.shopping.common;
+package com.nyp.shopping.common;
 
 import org.junit.Assert;
 import org.junit.Test;

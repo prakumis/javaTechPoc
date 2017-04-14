@@ -4,7 +4,7 @@
 package com.nyp.shopping.business.service.adaptor;
 
 /**
- * @author rahul
+ * @author
  *
  */
 public class BaseAdaptor {

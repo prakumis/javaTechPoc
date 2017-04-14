@@ -37,7 +37,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
 	@Override
 	public List<ProductCategoryVO> findTopCategories() {
-		List<ProductCategory> productCategoryList = productCategoryAS.findTopCategories(null);
+		List<ProductCategory> productCategoryList = productCategoryAS.findTopCategories();
 		return productCategoryAdaptor.toVO(productCategoryList);
 	}
 

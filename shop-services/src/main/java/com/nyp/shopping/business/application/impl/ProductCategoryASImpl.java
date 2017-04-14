@@ -32,7 +32,7 @@ public class ProductCategoryASImpl implements ProductCategoryAS {
 	}
 
 	@Override
-	public List<ProductCategory> findTopCategories(ProductCategory parentCategory) {
+	public List<ProductCategory> findTopCategories() {
 		return productCategoryRepository.findTopCategories();
 	}
 

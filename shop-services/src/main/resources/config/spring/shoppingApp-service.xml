@@ -18,9 +18,6 @@
         http://www.springframework.org/schema/tx 
         http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-	<!-- Import Services Services -->
-	<!-- <import resource="classpath:etme-commons-appContext.xml" /> -->
-
     <context:component-scan base-package="com.nyp.shopping.business" />
 
 	<!-- ensure that the below transactional advice runs for any execution of 

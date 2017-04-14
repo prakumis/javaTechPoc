@@ -25,6 +25,6 @@ public interface ProductCategoryAS {
 
 	void deleteCategory(ProductCategory category);
 
-	List<ProductCategory> findTopCategories(ProductCategory parentCategory);
+	List<ProductCategory> findTopCategories();
 
 }

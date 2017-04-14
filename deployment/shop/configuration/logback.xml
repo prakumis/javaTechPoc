@@ -45,7 +45,7 @@
 		<appender-ref ref="SHOP-GENERAL" />
 	</logger>
 
-	<logger name="org.springframework" level="DEBUG" additivity="false">
+	<logger name="org.springframework" level="ERROR" additivity="false">
 		<appender-ref ref="SHOP-GENERAL" />
 	</logger>
 
@@ -57,7 +57,7 @@
 		<appender-ref ref="SHOP-GENERAL" />
 	</logger>
 
-	<root level="DEBUG">
+	<root level="ERROR">
 		<appender-ref ref="SHOP-GENERAL" />
 	</root>
 

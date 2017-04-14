@@ -1,4 +1,4 @@
-package com.nyp.shopping.services;
+package com.nyp.shopping.business;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -27,6 +27,7 @@ public class AppTest {
 	 */
 	@Test
 	public void testApp3() {
+		System.out.println("Services-testApp3()");
 		Assert.assertEquals(false, false);
 	}
 }
