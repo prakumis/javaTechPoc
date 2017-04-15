@@ -16,7 +16,8 @@ public class ErrorBean extends ResponseBean<Object> {
 		// no arg constructor
 	}
 
-	public ErrorBean(String code, String message) {
+	public ErrorBean(int httpStatucCode, String code, String message) {
+		super(httpStatucCode);
 		this.errorCode=code;
 		this.errorMessage=message;
 	}

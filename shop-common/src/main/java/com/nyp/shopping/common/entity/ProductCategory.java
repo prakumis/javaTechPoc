@@ -25,7 +25,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  */
 @Entity
 @Table(name = "PRODUCT_CATEGORY")
-@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region="ProductCategory")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "ProductCategory")
 public class ProductCategory implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -55,7 +55,7 @@ public class ProductCategory implements Serializable {
 	private ProductCategory parentCategory;
 
 	@Transient
-	private int productCount;
+	private Integer productCount;
 
 	public ProductCategory() {
 		super();
@@ -122,11 +122,11 @@ public class ProductCategory implements Serializable {
 		this.name = name;
 	}
 
-	public int getProductCount() {
+	public Integer getProductCount() {
 		return productCount;
 	}
 
-	public void setProductCount(int productCount) {
+	public void setProductCount(Integer productCount) {
 		this.productCount = productCount;
 	}
 
@@ -161,4 +161,8 @@ public class ProductCategory implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("Id: %s, Name: %s, Description: %s", this.getId(), this.getName(), this.getDescription());
+	}
 }

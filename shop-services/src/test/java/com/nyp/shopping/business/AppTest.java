@@ -11,6 +11,7 @@ public class AppTest {
 	/**
 	 * Rigourous Test :-)
 	 */
+	@Test
 	public void testApp() {
 		Assert.assertTrue(true);
 	}
@@ -18,8 +19,9 @@ public class AppTest {
 	/**
 	 * Rigourous Test :-)
 	 */
+	@Test
 	public void testApp2() {
-		Assert.assertEquals(false, true);
+		Assert.assertEquals(false, false);
 	}
 
 	/**

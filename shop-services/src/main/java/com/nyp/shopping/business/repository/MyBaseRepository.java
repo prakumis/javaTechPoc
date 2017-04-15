@@ -17,6 +17,5 @@ interface MyBaseRepository<T, ID extends Serializable> extends JpaRepository<T, 
 
   T findOne(ID id);
 
-//  T save(T entity);
   <S extends T> S save(S entity);
 }

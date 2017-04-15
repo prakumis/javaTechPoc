@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.nyp.shopping.web.exception.ApplicationValidationException;
-import com.nyp.shopping.web.exception.CradleDashboardException;
+import com.nyp.shopping.web.exception.DashboardException;
 import com.nyp.shopping.web.exception.ErrorCode;
 import com.nyp.shopping.web.exception.KeywordNotFoundException;
 import com.nyp.shopping.web.model.ErrorBean;
@@ -60,7 +61,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 	 * The below @ModelAttribute annotated method is not required in case of
 	 * REST service. It may be useful in case there is a view/jsp associated.
 	 * 
-2q	1	 * @param model
+	 * 2q 1 * @param model
 	 */
 	@ModelAttribute
 	public void globalAttributes(Model model) {
@@ -80,8 +81,8 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 	}
 
 	@ResponseBody
-	@ExceptionHandler(value = { CradleDashboardException.class })
-	protected ErrorBean handleConflict(CradleDashboardException ex, WebRequest request) {
+	@ExceptionHandler(value = { DashboardException.class })
+	protected ErrorBean handleConflict(DashboardException ex, WebRequest request) {
 
 		HttpServletResponse response = ((ServletWebRequest) request).getResponse();
 		if (ex.getHttpCode() != null) {
@@ -89,7 +90,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 		} else {
 			response.setStatus(500);
 		}
-		return new ErrorBean(ex.getExceptionCode(), ex.getExceptionMessage());
+		return new ErrorBean(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getExceptionCode(), ex.getExceptionMessage());
 	}
 
 	@ResponseBody
@@ -115,7 +116,16 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 	@ExceptionHandler(value = { PersistenceException.class })
 	protected ErrorBean handleEntityNotFoundException2(Exception ex, WebRequest request) {
 		log.error("Unable to find service 3", ex);
-		return new ErrorBean(ErrorCode.ENTITY_NOT_FOUND, ex.getMessage());
+		return new ErrorBean(HttpStatus.NOT_FOUND.value(), ErrorCode.ENTITY_NOT_FOUND, ex.getMessage());
+	}
+
+	@ResponseBody
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(value = { DataAccessException.class })
+	protected ErrorBean handleExceptionInternal(Exception ex, WebRequest request) {
+		log.error("Internal Exception caught: " + ex.getMessage(), ex);
+		return new ErrorBean(HttpStatus.INTERNAL_SERVER_ERROR.value(), ErrorCode.INTERNAL_SERVER_ERROR,
+				ex.getMessage());
 	}
 
 	@Override

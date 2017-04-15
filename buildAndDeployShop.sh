@@ -8,7 +8,7 @@ PROJECT_VERSION="0.0.1-SNAPSHOT"
 SRC_WEB_APP_ROOT_LOC="D:/Work/Repository/JavaTechPoc/javaTechPoc"
 
 # Comment the follwoing variables if not required.
-#MAVEN_SKIP_TEST="-DskipTests=true"
+MAVEN_SKIP_TEST="-DskipTests=true"
 #MAVEN_SKIP_TEST="-DsharedLocation=${APP_SERVER_HOME}/config -Dcatalina.home=${APP_SERVER_HOME}"
 #SONAR_BUILD="sonar:sonar"
 
@@ -140,7 +140,7 @@ startApache() {
 
 # start calling your functions
 #deployStatic;
-#stopAppServer;
+stopAppServer;
 mavenBuild;
 executeDeployment;
-#startAppServer;
+startAppServer;

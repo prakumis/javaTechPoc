@@ -13,11 +13,20 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 import com.nyp.shopping.web.interceptor.CustomRequestHandler;
+import com.nyp.shopping.web.listener.LogbackConfigListener;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = { "com.nyp.shopping" })
 public class WebConfig extends WebMvcConfigurerAdapter {
+
+	public static LogbackConfigListener logbackConfigListener = new LogbackConfigListener();
+	static {
+		System.out.println("Static started");
+		System.setProperty("catalina.home", "D:/Application/apache-tomcat-9.0.0.M9_shop");
+		logbackConfigListener.contextInitialized(null);
+		System.out.println("Static Completed");
+	}
 
 	@Override
     public void addInterceptors(InterceptorRegistry registry) {

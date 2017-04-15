@@ -18,7 +18,6 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.nyp.shopping.web.config.WebConfig;
-import com.nyp.shopping.web.listener.LogbackConfigListener;
 
 /**
  * 
@@ -34,14 +33,6 @@ import com.nyp.shopping.web.listener.LogbackConfigListener;
 //@ContextConfiguration({ "classpath:config/spring/shoppingApp-servlet-test.xml"})
 @ContextConfiguration(classes = { WebConfig.class })
 public class WACTestConfiguration {
-
-	public static LogbackConfigListener logbackConfigListener=new LogbackConfigListener();
-	static {
-		System.out.println("Static started");
-		System.setProperty("catalina.home", "D:/Application/apache-tomcat-9.0.0.M9_shop");
-		logbackConfigListener.contextInitialized(null);
-		System.out.println("Static Completed");
-	}
 
 	@Autowired
     private WebApplicationContext ctx;

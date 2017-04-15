@@ -9,8 +9,4 @@ package com.nyp.shopping.business.service.adaptor;
  */
 public class BaseAdaptor {
 
-	/*@Bean
-	public ModelMapper modelMapper() {
-	    return new ModelMapper();
-	}*/
 }

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.management.ServiceNotFoundException;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.stereotype.Service;
@@ -37,7 +36,7 @@ public class ProductCategoryASImpl implements ProductCategoryAS {
 	}
 
 	@Override
-	public List<ProductCategory> getCategoryById(Long id) throws ServiceNotFoundException {
+	public List<ProductCategory> getCategoryById(Long id) {
 		checkIfEntityExists(id);
 		List<ProductCategory> productCategoryList = new ArrayList<>();
 		productCategoryList.add(productCategoryRepository.findOne(id));

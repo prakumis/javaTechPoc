@@ -31,6 +31,7 @@
 		<version.ch.qos.logback>1.1.5</version.ch.qos.logback>
 		<version.fasterxml.jackson>2.5.0-rc1</version.fasterxml.jackson>
 		<version.modelmapper>0.7.5</version.modelmapper>
+		<version.json-path>2.2.0</version.json-path>
 	</properties>
 
 	<build>
@@ -240,6 +241,12 @@
 			</dependency>
 
 			<!-- Dependency for json api: jackson -->
+	        <dependency>
+	            <groupId>com.jayway.jsonpath</groupId>
+	            <artifactId>json-path</artifactId>
+	            <version>${version.json-path}</version>
+	            <scope>test</scope>
+	        </dependency>
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-annotations</artifactId>

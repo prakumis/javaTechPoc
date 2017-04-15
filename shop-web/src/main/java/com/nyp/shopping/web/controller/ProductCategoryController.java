@@ -52,9 +52,10 @@ public class ProductCategoryController extends BaseController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.GET)
-	public List<ProductCategoryVO> findAllCategories() {
-		return productCatalogService.findAllCategories();
+	@RequestMapping(method = RequestMethod.GET, path="/test")
+	public String testMethod() {
+		logger.debug("testMethod called");
+		return "testMethod success";
 	}
 
 	/**
@@ -63,10 +64,9 @@ public class ProductCategoryController extends BaseController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.GET, path="/test")
-	public String testMethod() {
-		logger.debug("testMethod called");
-		return "testMethod success";
+	@RequestMapping(method = RequestMethod.GET)
+	public List<ProductCategoryVO> findAllCategories() {
+		return productCatalogService.findAllCategories();
 	}
 
 	/**

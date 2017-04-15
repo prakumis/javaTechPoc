@@ -6,7 +6,6 @@ package com.nyp.shopping.business.service.impl;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.management.ServiceNotFoundException;
 
 import org.springframework.stereotype.Repository;
 
@@ -42,7 +41,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	}
 
 	@Override
-	public List<ProductCategoryVO> getCategoryById(Long id) throws ServiceNotFoundException {
+	public List<ProductCategoryVO> getCategoryById(Long id) {
 		List<ProductCategory> productCategoryList = productCategoryAS.getCategoryById(id);
 		return productCategoryAdaptor.toVO(productCategoryList);
 	}

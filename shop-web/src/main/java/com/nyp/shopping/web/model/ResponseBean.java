@@ -20,6 +20,11 @@ public class ResponseBean<T> {
 	private T data;
 
 	public ResponseBean() {
+		// do nothing
+	}
+
+	public ResponseBean(int httpStatucCode) {
+		this.httpStatucCode = httpStatucCode;
 	}
 
 	public ResponseBean(String message) {

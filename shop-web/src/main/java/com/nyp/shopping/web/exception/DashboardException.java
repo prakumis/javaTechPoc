@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 /**
  * Created by francesco on 2/11/14.
  */
-public class CradleDashboardException extends Exception {
+public class DashboardException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -14,46 +14,46 @@ public class CradleDashboardException extends Exception {
     private boolean error = true;
     private Integer httpCode;
 
-    public CradleDashboardException() {
+    public DashboardException() {
     }
 
-    public CradleDashboardException( final String message ) {
+    public DashboardException( final String message ) {
         super( message );
     }
 
-    public CradleDashboardException( final String message, final Throwable cause ) {
+    public DashboardException( final String message, final Throwable cause ) {
         super( message, cause );
     }
 
-    public CradleDashboardException( final Throwable cause ) {
+    public DashboardException( final Throwable cause ) {
         super( cause );
     }
 
-    public CradleDashboardException( final String exceptionCode, final String message, final Throwable cause ) {
+    public DashboardException( final String exceptionCode, final String message, final Throwable cause ) {
         super( message, cause );
         this.exceptionCode = exceptionCode;
         this.exceptionMessage = message;
     }
 
-    public CradleDashboardException( final String exceptionCode, final String exceptionMessage ) {
+    public DashboardException( final String exceptionCode, final String exceptionMessage ) {
         this.exceptionCode = exceptionCode;
         this.exceptionMessage = exceptionMessage;
     }
 
-    public CradleDashboardException( final String exceptionCode, final String exceptionMessage, final boolean error ) {
+    public DashboardException( final String exceptionCode, final String exceptionMessage, final boolean error ) {
         this.exceptionCode = exceptionCode;
         this.exceptionMessage = exceptionMessage;
         this.error = error;
     }
 
-    public CradleDashboardException( final String exceptionCode, final String exceptionMessage, final boolean error, final Integer httpCode ) {
+    public DashboardException( final String exceptionCode, final String exceptionMessage, final boolean error, final Integer httpCode ) {
         this.exceptionCode = exceptionCode;
         this.exceptionMessage = exceptionMessage;
         this.error = error;
         this.httpCode = httpCode;
     }
 
-	public CradleDashboardException( final String exceptionCode, final String exceptionMessage, final boolean error, final HttpStatus httpCode ) {
+	public DashboardException( final String exceptionCode, final String exceptionMessage, final boolean error, final HttpStatus httpCode ) {
 		this( exceptionCode, exceptionMessage, error, httpCode != null ? httpCode.value() : null );
 	}
 

@@ -14,7 +14,10 @@ public class ErrorCode {
 
     public static final String ENTITY_NOT_FOUND = "ENTITY_NOT_FOUND";
 
+    public static final String INTERNAL_SERVER_ERROR = "INTERNAL_SERVER_ERROR";
+
     public static final String GENERIC_ERROR = "GEN_001";
+    public static final String VALIDATION_ERROR = "VALIDATION_ERROR";
 
     public static final String PROFILE_NOT_FOUND = "PRO_001";
     public static final String PROFILE_ERROR = "PRO_002";

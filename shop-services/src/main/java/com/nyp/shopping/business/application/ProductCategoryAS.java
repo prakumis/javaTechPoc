@@ -5,8 +5,6 @@ package com.nyp.shopping.business.application;
 
 import java.util.List;
 
-import javax.management.ServiceNotFoundException;
-
 import com.nyp.shopping.common.entity.ProductCategory;
 
 /**
@@ -17,7 +15,7 @@ public interface ProductCategoryAS {
 
 	List<ProductCategory> findAllCategories();
 
-	List<ProductCategory> getCategoryById(Long id) throws ServiceNotFoundException;
+	List<ProductCategory> getCategoryById(Long id);
 
 	Long createCategory(ProductCategory category);
 

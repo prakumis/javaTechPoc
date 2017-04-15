@@ -1,3 +1,4 @@
+package com.nyp.shopping.common.dataformat.json;
 
 import java.io.IOException;
 import java.text.ParseException;

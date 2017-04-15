@@ -1,11 +1,14 @@
 package com.nyp.shopping.business.service.adaptor;
 
+import org.springframework.stereotype.Component;
+
 import com.nyp.shopping.common.entity.RecordInfo;
 import com.nyp.shopping.common.vo.BaseVO;
 
+@Component
 public class RecordInfoAdaptor {
 
-	public static RecordInfo toRecordInfo(BaseVO baseVO) {
+	public RecordInfo toRecordInfo(BaseVO baseVO) {
 
 		RecordInfo recordInfo = new RecordInfo();
 		recordInfo.setCreatedBy(baseVO.getCreatedBy());
@@ -15,7 +18,7 @@ public class RecordInfoAdaptor {
 		return recordInfo;
 	}
 
-	public static BaseVO fromRecordInfo(BaseVO baseVO, RecordInfo recordInfo) {
+	public BaseVO fromRecordInfo(BaseVO baseVO, RecordInfo recordInfo) {
 
 		if(null==recordInfo) {
 			return null;
