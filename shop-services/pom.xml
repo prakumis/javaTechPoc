@@ -73,6 +73,11 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+		<!-- https://mvnrepository.com/artifact/hsqldb/hsqldb -->
+		<dependency>
+		    <groupId>hsqldb</groupId>
+		    <artifactId>hsqldb</artifactId>
+		</dependency>
 
         <!-- Spring Core-->
         <dependency>
