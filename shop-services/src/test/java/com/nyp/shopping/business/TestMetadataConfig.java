@@ -21,15 +21,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author pmis30
  *
  */
+//@ActiveProfiles("testMysql")
+//@Profile("testMysql")
+//@ActiveProfiles("testHsql")
+//@Profile("testHsql")
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@ContextConfiguration(classes = { TransactionalDevTest.class })
-@ImportResource({ "classpath*:/config/spring/shoppingApp-persistence.xml",
-		"classpath*:/config/spring/shoppingApp-service.xml" })
+@ContextConfiguration(classes = { TestMetadataConfig.class })
+@ImportResource({ "classpath*:config/spring/shoppingApp-persistence.xml", "classpath*:config/spring/shoppingApp-service.xml" })
+//@ImportResource({ "classpath*:/config/spring/shoppingApp-service-test.xml" })
 @Configuration
-// @Profile("test")
-// @ActiveProfiles("dev")
 @Transactional(value = TxType.NOT_SUPPORTED)
 @RunWith(SpringJUnit4ClassRunner.class)
-public @interface TransactionalDevTest {
+public @interface TestMetadataConfig {
 }

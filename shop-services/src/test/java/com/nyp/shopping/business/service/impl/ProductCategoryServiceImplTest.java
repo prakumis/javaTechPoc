@@ -13,14 +13,17 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.nyp.shopping.business.AbstractDatabaseTest;
-import com.nyp.shopping.business.TransactionalDevTest;
+import com.nyp.shopping.business.AbstractCommonTest;
+import com.nyp.shopping.business.TestMetadataConfig;
 import com.nyp.shopping.business.service.ProductCategoryService;
 import com.nyp.shopping.common.vo.ProductCategoryVO;
 
-@TransactionalDevTest
+@TestMetadataConfig
 @RunWith(SpringJUnit4ClassRunner.class)
-public class ProductCategoryServiceImplTest extends AbstractDatabaseTest {
+public class ProductCategoryServiceImplTest extends AbstractCommonTest {
+
+    static final String STATEMENT_SEPARATOR = ";;";
+    static final String INIT_DB_FILE_NAME = "productNutrition.sql";
 
 	@Autowired
 	private ProductCategoryService productCategoryService;

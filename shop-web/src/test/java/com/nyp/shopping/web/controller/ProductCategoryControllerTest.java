@@ -21,7 +21,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.nyp.shopping.common.vo.ProductCategoryVO;
 import com.nyp.shopping.web.config.WebConfig;
@@ -36,21 +35,21 @@ import com.nyp.shopping.web.config.WebConfig;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@EnableWebMvc
-// @ContextConfiguration({"classpath:config/spring/shoppingApp-servlet-test.xml"})
 @ContextConfiguration(classes = { WebConfig.class })
 public class ProductCategoryControllerTest {
 
+	private static int setUpCounter=0;
+	private static int testCounter=0;
 	@Autowired
 	private WebApplicationContext ctx;
 
 	private MockMvc mockMvc;
 
 	@Before
-	public void setUp() {
-		System.out.println("Setup started");
+	public void setUp12() {
+		System.out.println("Setup started: "+ ++setUpCounter);
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
-		System.out.println("Setup Completed");
+		System.out.println("Setup Completed: "+ setUpCounter);
 	}
 
 	@Test
@@ -76,10 +75,12 @@ public class ProductCategoryControllerTest {
 
 	@Test
 	public void testFindCategoryById() throws Exception {
+		System.out.println("testFindCategoryById() started: "+ ++testCounter);
 		mockMvc.perform(get("/cat/4").accept("application/vnd.shop.app-v0.1+json")
 				.contentType("application/vnd.shop.app-v0.1+json")).andExpect(status().isOk())
 				.andDo(MockMvcResultHandlers.print())
 				.andExpect(jsonPath("$.data").exists());
+		System.out.println("testFindCategoryById() completed: "+testCounter);
 	}
 
 	/**
@@ -123,8 +124,10 @@ public class ProductCategoryControllerTest {
 
 	@Test
 	public void testDeleteCategory() throws Exception {
+		System.out.println("testDeleteCategory() started: "+ ++testCounter);
 		mockMvc.perform(delete("/cat/30000").accept("application/vnd.shop.app-v0.1+json")
 				.contentType("application/vnd.shop.app-v0.1+json")).andExpect(status().isNotFound())
 				.andDo(MockMvcResultHandlers.print());
+		System.out.println("testDeleteCategory() completed: "+ testCounter);
 	}
 }

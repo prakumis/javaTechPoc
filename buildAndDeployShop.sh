@@ -9,7 +9,7 @@ SRC_WEB_APP_ROOT_LOC="D:/Work/Repository/JavaTechPoc/javaTechPoc"
 
 # Comment the follwoing variables if not required.
 MAVEN_SKIP_TEST="-DskipTests=true"
-#MAVEN_SKIP_TEST="-DsharedLocation=${APP_SERVER_HOME}/config -Dcatalina.home=${APP_SERVER_HOME}"
+MAVEN_SKIP_TEST="-DsharedLocation=${APP_SERVER_HOME}/config -Dcatalina.home=${APP_SERVER_HOME}"
 #SONAR_BUILD="sonar:sonar"
 
 # Usually User don't need to change the following

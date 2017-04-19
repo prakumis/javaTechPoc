@@ -13,8 +13,12 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!-- http://stackoverflow.com/questions/3294423/spring-classpath-prefix-difference -->
-    <import resource="classpath*:/config/spring/shoppingApp-service-test.xml"/>
-    <import resource="classpath*:/config/spring/shoppingApp-persistence-test.xml"/>
-    <import resource="classpath:/config/spring/shoppingApp-servlet.xml"/>
+    <!-- <import resource="classpath*:config/spring/shoppingApp-service-test.xml"/>
+    <import resource="classpath*:config/spring/shoppingApp-persistence-test.xml"/>
+    <import resource="classpath:/config/spring/shoppingApp-servlet.xml"/> -->
+
+    <!-- Import Services Services -->
+    <import resource="classpath*:config/spring/shoppingApp-service.xml" />
+    <import resource="classpath*:config/spring/shoppingApp-persistence.xml" />
 
 </beans>

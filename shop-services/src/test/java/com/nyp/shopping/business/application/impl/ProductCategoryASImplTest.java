@@ -12,13 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.nyp.shopping.business.TransactionalDevTest;
+import com.nyp.shopping.business.AbstractCommonTest;
+import com.nyp.shopping.business.TestMetadataConfig;
 import com.nyp.shopping.business.application.ProductCategoryAS;
 import com.nyp.shopping.common.entity.ProductCategory;
 
-@TransactionalDevTest
+@TestMetadataConfig
 @RunWith(SpringJUnit4ClassRunner.class)
-public class ProductCategoryASImplTest {
+public class ProductCategoryASImplTest extends AbstractCommonTest {
 
 	@Autowired
 	private ProductCategoryAS productCategoryAS;
