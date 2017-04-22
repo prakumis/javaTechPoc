@@ -9,7 +9,6 @@ SRC_WEB_APP_ROOT_LOC="D:/Work/Repository/JavaTechPoc/javaTechPoc"
 
 # Comment the follwoing variables if not required.
 MAVEN_SKIP_TEST="-DskipTests=true"
-MAVEN_SKIP_TEST="-DsharedLocation=${APP_SERVER_HOME}/config -Dcatalina.home=${APP_SERVER_HOME}"
 #SONAR_BUILD="sonar:sonar"
 
 # Usually User don't need to change the following
@@ -111,7 +110,8 @@ startAppServer() {
 	echo "$APP_SERVER_NAME [$APP_SERVER_HOME] Started"
 	cd $APP_SERVER_BIN_PATH
 	#sh ${APP_SERVER_START_CMD}
-	sh ./startup.sh $APP_SERVER_START_MODE start
+	#sh ./startup.sh $APP_SERVER_START_MODE start
+	sh ./catalina.sh jpda start 
 	#./run.sh
 	echo "$APP_SERVER_NAME [$APP_SERVER_HOME] Finished"
 }
