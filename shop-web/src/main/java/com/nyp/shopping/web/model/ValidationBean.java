@@ -1,32 +1,28 @@
 package com.nyp.shopping.web.model;
 
 import java.util.List;
-import java.util.Map;
-
-import org.springframework.http.HttpStatus;
 
 /**
  * Created by francesco on 2/11/14.
  */
-public class ValidationBean extends ErrorBean {
+public class ValidationBean {
 
-	private Map<String, List<String>> validationErrors;
+	private List<String> errorList;
 
 	public ValidationBean() {
 		// no arg constructor, actually not required
 	}
 
-	public ValidationBean(String code, String message, Map<String, List<String>> validationErrors) {
-		super(HttpStatus.BAD_REQUEST.value(), code, message);
-		this.validationErrors = validationErrors;
+	public ValidationBean(List<String> validationErrors) {
+		this.errorList = validationErrors;
 	}
 
-	public Map<String, List<String>> getValidationErrors() {
-		return validationErrors;
+	public List<String> getErrorList() {
+		return errorList;
 	}
 
-	public void setValidationErrors(Map<String, List<String>> validationErrors) {
-		this.validationErrors = validationErrors;
+	public void setErrorList(List<String> errorList) {
+		this.errorList = errorList;
 	}
 
 }

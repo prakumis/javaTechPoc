@@ -3,6 +3,7 @@
  */
 package com.nyp.shopping.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nyp.shopping.business.service.ProductCategoryService;
 import com.nyp.shopping.common.constants.WebConstants;
 import com.nyp.shopping.common.vo.ProductCategoryVO;
+import com.nyp.shopping.web.exception.ApplicationValidationException;
 import com.nyp.shopping.web.exception.KeywordNotFoundException;
 import com.nyp.shopping.web.model.ResponseBean;
 
@@ -34,7 +36,9 @@ import com.nyp.shopping.web.model.ResponseBean;
  */
 @RestController 
 //@RequestMapping("/cat")
-@RequestMapping(path = "/cat", produces = { WebConstants.MEDIA_TYPE_XML_VERSION_0_1, WebConstants.MEDIA_TYPE_JSON_VERSION_0_1 }, consumes = { WebConstants.MEDIA_TYPE_XML_VERSION_0_1, WebConstants.MEDIA_TYPE_JSON_VERSION_0_1 })
+@RequestMapping(path = "/cat", produces = { WebConstants.MEDIA_TYPE_XML_VERSION_0_1,
+		WebConstants.MEDIA_TYPE_JSON_VERSION_0_1 }, consumes = { WebConstants.MEDIA_TYPE_XML_VERSION_0_1,
+				WebConstants.MEDIA_TYPE_JSON_VERSION_0_1 })
 //@RequestMapping(path = "/cat", consumes = { "application/json", "application/xml" }, produces = { "application/json", "application/xml" }, headers = { "X-API-Version=v1" })
 public class ProductCategoryController extends BaseController {
 
@@ -52,7 +56,7 @@ public class ProductCategoryController extends BaseController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.GET, path="/test")
+	@RequestMapping(method = RequestMethod.GET, path = "/test")
 	public String testMethod() {
 		logger.debug("testMethod called");
 		return "testMethod success";
@@ -71,20 +75,29 @@ public class ProductCategoryController extends BaseController {
 
 	/**
 	 * This is version [application/vnd.shop.app-v0.2+xml,json] of the url /cat,
-	 * which returns parent cat. 
+	 * which returns parent cat.
 	 * 
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.GET, produces = { WebConstants.MEDIA_TYPE_XML_VERSION_0_2, WebConstants.MEDIA_TYPE_JSON_VERSION_0_2 })
-	//@JsonRequestMapping(method=RequestMethod.GET, headers = "X-API-Version=!v2")
+	@RequestMapping(method = RequestMethod.GET, produces = { WebConstants.MEDIA_TYPE_XML_VERSION_0_2,
+			WebConstants.MEDIA_TYPE_JSON_VERSION_0_2 })
+	// @JsonRequestMapping(method=RequestMethod.GET, headers =
+	// "X-API-Version=!v2")
 	public List<ProductCategoryVO> findTopCategories() {
 		return productCatalogService.findTopCategories();
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
 	public List<ProductCategoryVO> findCategoryById(@PathVariable Long id) throws ServiceNotFoundException {
-		if (id == 1) {
+
+		if (id == 0) {
 			throw new KeywordNotFoundException("The ID is: " + id);
+		}
+		if (id == 1) {
+			List<String> validationErrors = new ArrayList<>();
+			validationErrors.add("First Name is required");
+			validationErrors.add("Last Name is required");
+			throw new ApplicationValidationException("ValidationException caught", validationErrors);
 		}
 		if (id == 2) {
 			throw new ServiceNotFoundException("Custome error caused in doing something");

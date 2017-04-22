@@ -38,13 +38,15 @@ import com.nyp.shopping.web.exception.ErrorCode;
 import com.nyp.shopping.web.exception.KeywordNotFoundException;
 import com.nyp.shopping.web.model.ErrorBean;
 import com.nyp.shopping.web.model.ResponseBean;
-import com.nyp.shopping.web.model.ValidationBean;
 
 /**
  * For more details on this class, please read:
  * http://www.concretepage.com/spring/spring-mvc/spring-mvc-exception-handling-with-exceptionhandler-responseStatus-handlerexceptionresolver-example-global-exception
  * http://www.concretepage.com/spring/spring-mvc/spring-mvc-controlleradvice-annotation-example
  * http://www.concretepage.com/spring/spring-mvc/spring-mvc-validator-with-initbinder-webdatabinder-registercustomeditor-example
+ * 
+ * This class should return only ErrorBean populated with necessary info, which
+ * will be converted into {@link ResponseBean} in {@link RestResponseBodyAdvice}
  * 
  * @author pmis30
  *
@@ -82,7 +84,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
 		// ideally ValidationBean should be returned from controller after
 		// validation
-		return new ValidationBean(ex.getLocalizedMessage(), ex.getLocalizedMessage(), ex.getValidationErrors());
+		return new ErrorBean(ErrorCode.VALIDATION_ERROR, ex.getMessage(), ex.getValidationErrors());
 	}
 
 	@ResponseBody
@@ -95,25 +97,25 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 		} else {
 			response.setStatus(500);
 		}
-		return new ErrorBean(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getExceptionCode(), ex.getExceptionMessage());
+		return new ErrorBean(ex.getExceptionCode(), ex.getExceptionMessage());
 	}
 
 	@ResponseBody
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(value = { ServiceNotFoundException.class })
-	protected ResponseBean<Object> handleServiceNotFoundException(Exception ex, WebRequest request) {
+	protected ErrorBean handleServiceNotFoundException(Exception ex, WebRequest request) {
 
 		log.error("Unable to find service 1", ex);
-		return new ResponseBean<>(HttpStatus.NOT_FOUND.value(), ex.getMessage());
+		return new ErrorBean(ErrorCode.SERVICE_NOT_FOUND, ex.getMessage());
 	}
 
 	@ResponseBody
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(value = { EntityNotFoundException.class })
-	protected ResponseBean<Object> handleEntityNotFoundException(Exception ex, WebRequest request) {
+	protected ErrorBean handleEntityNotFoundException(Exception ex, WebRequest request) {
 
 		log.error("Unable to find service 2", ex);
-		return new ResponseBean<>(HttpStatus.NOT_FOUND.value(), ex.getMessage());
+		return new ErrorBean(ErrorCode.ENTITY_NOT_FOUND, ex.getMessage());
 	}
 
 	@ResponseBody
@@ -121,7 +123,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 	@ExceptionHandler(value = { PersistenceException.class })
 	protected ErrorBean handleEntityNotFoundException2(Exception ex, WebRequest request) {
 		log.error("Unable to find service 3", ex);
-		return new ErrorBean(HttpStatus.NOT_FOUND.value(), ErrorCode.ENTITY_NOT_FOUND, ex.getMessage());
+		return new ErrorBean(ErrorCode.ENTITY_NOT_FOUND, ex.getMessage());
 	}
 
 	/**
@@ -136,12 +138,11 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 	 * @return
 	 */
 	@ResponseBody
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(value = { DataAccessException.class })
 	protected ErrorBean handleExceptionInternal(Exception ex, WebRequest request) {
 		log.error("Internal Exception caught: " + ex.getMessage(), ex);
-		return new ErrorBean(HttpStatus.INTERNAL_SERVER_ERROR.value(), ErrorCode.INTERNAL_SERVER_ERROR,
-				ex.getMessage());
+		return new ErrorBean(ErrorCode.VALIDATION_ERROR, ex.getMessage());
 	}
 
 	/**
@@ -163,8 +164,6 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 		}
 		ErrorBean apiError = new ErrorBean();
 		apiError.setErrorMessage("The request from client has some error");
-		// ErrorBean apiError = new ErrorBean(HttpStatus.BAD_REQUEST,
-		// ex.getLocalizedMessage(), errors);
 		return handleExceptionInternal(ex, apiError, headers, status, request);
 	}
 
