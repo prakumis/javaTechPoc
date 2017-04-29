@@ -140,7 +140,7 @@ startApache() {
 
 # start calling your functions
 #deployStatic;
-stopAppServer;
+#stopAppServer;
 mavenBuild;
-executeDeployment;
-startAppServer;
+#executeDeployment;
+#startAppServer;

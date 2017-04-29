@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 //import org.springframework.transaction.annotation.Propagation;
@@ -32,12 +33,13 @@ import com.nyp.shopping.common.constants.ApplicationConstants;
 //@ActiveProfiles("testMysql")
 //@Profile("testMysql")
 //@ActiveProfiles("testHsql")
+@ActiveProfiles("test")
 //@Profile("testHsql")
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @ContextConfiguration(classes = { TestMetadataConfig.class })
-//@ImportResource({ "classpath*:config/spring/shoppingApp-dataSource.xml", "classpath*:config/spring/shoppingApp-persistence.xml", "classpath*:config/spring/shoppingApp-service-main.xml" })
-@ImportResource({ "classpath*:config/spring/shoppingApp-service-test.xml" })
+@ImportResource({ "classpath*:config/spring/shoppingApp-dataSource.xml", "classpath*:config/spring/shoppingApp-persistence.xml", "classpath*:config/spring/shoppingApp-service-main.xml" })
+//@ImportResource({ "classpath*:config/spring/shoppingApp-service-test.xml" })
 @Configuration
 @Transactional(value = TxType.NOT_SUPPORTED)
 //@Transactional ( propagation = Propagation.NOT_SUPPORTED )
