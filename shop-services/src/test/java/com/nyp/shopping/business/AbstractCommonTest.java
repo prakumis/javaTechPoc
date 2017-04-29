@@ -25,7 +25,6 @@ public abstract class AbstractCommonTest extends AbstractTransactionalJUnit4Spri
     private static final String STATEMENT_SEPARATOR = ";;";
     private static final String INIT_DB_FILE_NAME = "shopService_HSQL2.sql";
 	private static EmbeddedDatabase database;
-	protected static final boolean ROLLBACK = false;
 	private int instanceCounter;
 
 	@Autowired

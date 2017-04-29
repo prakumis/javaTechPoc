@@ -8,8 +8,9 @@
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:/config/spring/shoppingApp-service.xml
-		classpath:/config/spring/shoppingApp-persistence.xml
+		<param-value>classpath:/config/spring/shoppingApp-service-main.xml
+        classpath:/config/spring/shoppingApp-persistence-test.xml
+        classpath:/config/spring/shoppingApp-dataSource.xml
 		</param-value>
 	</context-param>
 

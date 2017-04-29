@@ -8,7 +8,7 @@ PROJECT_VERSION="0.0.1-SNAPSHOT"
 SRC_WEB_APP_ROOT_LOC="D:/Work/Repository/JavaTechPoc/javaTechPoc"
 
 # Comment the follwoing variables if not required.
-MAVEN_SKIP_TEST="-DskipTests=true"
+#MAVEN_SKIP_TEST="-DskipTests=true"
 #SONAR_BUILD="sonar:sonar"
 
 # Usually User don't need to change the following

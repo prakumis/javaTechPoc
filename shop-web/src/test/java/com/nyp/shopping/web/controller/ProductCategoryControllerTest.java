@@ -40,16 +40,29 @@ public class ProductCategoryControllerTest {
 
 	private static int setUpCounter=0;
 	private static int testCounter=0;
+	private static boolean done=false;
 	@Autowired
 	private WebApplicationContext ctx;
 
 	private MockMvc mockMvc;
 
 	@Before
-	public void setUp12() {
+	public void setUp() {
+		if(!done) {
+			printBeans();
+		}
 		System.out.println("Setup started: "+ ++setUpCounter);
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 		System.out.println("Setup Completed: "+ setUpCounter);
+	}
+
+	private void printBeans() {
+		// TODO Auto-generated method stub
+		String[] beanNames = ctx.getBeanDefinitionNames();
+		for(String beanName: beanNames) {
+			System.out.println("\n\n"+beanName+":"+ctx.getBean(beanName));
+		}
+		done=true;
 	}
 
 	@Test
@@ -91,7 +104,7 @@ public class ProductCategoryControllerTest {
 	 */
 	@Test
 	public void testCreateCategory() throws Exception {
-		ProductCategoryVO ad = createVO();
+		ProductCategoryVO ad = createVO("ProductCategoryControllerTest.testCreateCategory()");
 		String requestBody = saveRequestJsonString(ad);
 		System.out.println("requestBody: "+requestBody);
 		mockMvc.perform(post("/cat").accept("application/vnd.shop.app-v0.1+json").content(requestBody)
@@ -99,9 +112,9 @@ public class ProductCategoryControllerTest {
 				.andDo(MockMvcResultHandlers.print());
 	}
 
-	private ProductCategoryVO createVO() { 
+	private ProductCategoryVO createVO(String pcName) { 
 		ProductCategoryVO ad = new ProductCategoryVO(); 
-        ad.setName("need it now!"); 
+        ad.setName(pcName); 
         ad.setDescription("description referenceUser"); 
         return ad; 
     } 
@@ -115,7 +128,7 @@ public class ProductCategoryControllerTest {
 
 	@Test
 	public void testUpdateCategory() throws Exception {
-		ProductCategoryVO ad = createVO();
+		ProductCategoryVO ad = createVO("ProductCategoryControllerTest.testUpdateCategory()");
 		String requestBody = saveRequestJsonString(ad);
 		mockMvc.perform(put("/cat/4").accept("application/vnd.shop.app-v0.1+json").content(requestBody)
 				.contentType("application/vnd.shop.app-v0.1+json")).andExpect(status().isOk())

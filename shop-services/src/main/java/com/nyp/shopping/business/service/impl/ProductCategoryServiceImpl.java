@@ -22,6 +22,13 @@ import com.nyp.shopping.common.vo.ProductCategoryVO;
 @Repository
 public class ProductCategoryServiceImpl implements ProductCategoryService {
 
+	static {
+		// Following line is printed twice,
+		// 1) execution of service project - jar
+		// 2) execution of web project - war
+		// means this class and its project is loaded twice
+		System.out.println("\n\n\n\n\n********************************Static block initialized");
+	}
 	@Inject
 	private ProductCategoryAS productCategoryAS;
 

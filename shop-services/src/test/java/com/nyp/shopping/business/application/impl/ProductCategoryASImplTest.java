@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.nyp.shopping.business.AbstractCommonTest;
@@ -30,7 +29,6 @@ public class ProductCategoryASImplTest extends AbstractCommonTest {
 	}
 
 	@Test
-	@Rollback(true)
 	public void findAllCategories() {
 		List<ProductCategory> productCategoryList = productCategoryAS.findAllCategories();
 		Assert.assertNotNull(productCategoryList);
@@ -38,7 +36,6 @@ public class ProductCategoryASImplTest extends AbstractCommonTest {
 	}
 
 	@Test
-	@Rollback(true)
 	public void findTopCategories() {
 		List<ProductCategory> productCategoryList = productCategoryAS.findTopCategories();
 		Assert.assertNotNull(productCategoryList);
@@ -60,7 +57,7 @@ public class ProductCategoryASImplTest extends AbstractCommonTest {
 	@Test
 	public void createCategory() {
 		ProductCategory productCategory = new ProductCategory();
-		productCategory.setName("Test");
+		productCategory.setName("ProductCategoryASImplTest.createCategory()");
 		Long id = productCategoryAS.createCategory(productCategory);
 		System.out.println("*****************Created successfully ProductCategory: " + id);
 		Assert.assertNotNull(id);
@@ -69,10 +66,10 @@ public class ProductCategoryASImplTest extends AbstractCommonTest {
 	@Test
 	public void updateCategory() {
 		ProductCategory productCategory = new ProductCategory();
-		productCategory.setName("Product Category for Update");
+		productCategory.setName("ProductCategoryASImplTest.updateCategory_1()");
 		productCategoryAS.createCategory(productCategory);
 		System.out.println("******** Created productCategory for UPDATE: " + productCategory.getId());
-		String updatedName = "Updating Test";
+		String updatedName = "ProductCategoryASImplTest.updateCategory()";
 		productCategory.setName(updatedName);
 		ProductCategory updatedProductCategory = productCategoryAS.updateCategory(productCategory);
 		Assert.assertEquals(updatedProductCategory.getName(), updatedName);
@@ -81,7 +78,7 @@ public class ProductCategoryASImplTest extends AbstractCommonTest {
 	@Test(expected = EntityNotFoundException.class)
 	public void deleteCategory() {
 		ProductCategory productCategory = new ProductCategory();
-		productCategory.setName("Product Category for Delete");
+		productCategory.setName("ProductCategoryASImplTest.deleteCategory()");
 		productCategoryAS.createCategory(productCategory);
 		List<ProductCategory> createdProductCategory = productCategoryAS.getCategoryById(productCategory.getId());
 		Assert.assertFalse(createdProductCategory.isEmpty());

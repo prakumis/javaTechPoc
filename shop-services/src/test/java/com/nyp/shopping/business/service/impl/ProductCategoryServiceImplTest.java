@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.nyp.shopping.business.AbstractCommonTest;
@@ -34,7 +33,6 @@ public class ProductCategoryServiceImplTest extends AbstractCommonTest {
 	}
 
 	@Test
-	@Rollback(true)
 	public void findAllCategories() {
 		List<ProductCategoryVO> productCategoryList = productCategoryService.findAllCategories();
 		Assert.assertNotNull(productCategoryList);
@@ -65,7 +63,7 @@ public class ProductCategoryServiceImplTest extends AbstractCommonTest {
 	public void createCategory() {
 		ProductCategoryVO productCategoryVO = new ProductCategoryVO();
 		productCategoryVO.setId(null);
-		productCategoryVO.setName("Test Name for Create");
+		productCategoryVO.setName("ProductCategoryServiceImplTest.createCategory()");
 		try {
 			Long id = productCategoryService.createCategory(productCategoryVO);
 			Assert.assertNotNull(id);
@@ -78,10 +76,10 @@ public class ProductCategoryServiceImplTest extends AbstractCommonTest {
 	@Test
 	public void updateCategory() {
 		ProductCategoryVO productCategoryVO = new ProductCategoryVO();
-		productCategoryVO.setName("Test Name for Update");
+		productCategoryVO.setName("ProductCategoryServiceImplTest.updateCategory_1()");
 		Long id = productCategoryService.createCategory(productCategoryVO);
 		System.out.println("******** Created productCategoryVO for UPDATE: " + productCategoryVO.getId());
-		String updatedName = "Updating Test";
+		String updatedName = "ProductCategoryServiceImplTest.updateCategory()";
 		productCategoryVO.setId(id);
 		productCategoryVO.setName(updatedName);
 		ProductCategoryVO updatedProductCategoryVO = productCategoryService.updateCategory(productCategoryVO);
@@ -91,7 +89,7 @@ public class ProductCategoryServiceImplTest extends AbstractCommonTest {
 	@Test(expected = EntityNotFoundException.class)
 	public void deleteCategory() {
 		ProductCategoryVO productCategory = new ProductCategoryVO();
-		productCategory.setName("Product Category for Delete");
+		productCategory.setName("ProductCategoryServiceImplTest.deleteCategory()");
 
 		Long id = productCategoryService.createCategory(productCategory);
 		List<ProductCategoryVO> createdProductCategory = productCategoryService.getCategoryById(id);
