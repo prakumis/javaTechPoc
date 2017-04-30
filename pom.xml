@@ -25,6 +25,7 @@
 		<!-- <version.hibernate>4.3.11.Final</version.hibernate> -->
 		<version.hibernate>4.3.5.Final</version.hibernate>
 		<version.mysql>5.1.32</version.mysql>
+        <h2.version>1.4.187</h2.version>
 		<version.aspectj>1.7.4</version.aspectj>
 		<!-- <version.slf4j>1.7.5</version.slf4j> -->
 		<version.org.slf4j>1.7.16</version.org.slf4j>
@@ -136,6 +137,12 @@
 			    <artifactId>hsqldb</artifactId>
 			    <version>1.8.0.7</version>
 			</dependency>
+            <!-- H2 DB -->
+	        <dependency>
+	            <groupId>com.h2database</groupId>
+	            <artifactId>h2</artifactId>
+	            <version>${h2.version}</version>
+	        </dependency>
 
 			<!-- Spring Framework: MVC -->
 			<dependency>

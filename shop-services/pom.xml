@@ -78,6 +78,12 @@
 		    <groupId>hsqldb</groupId>
 		    <artifactId>hsqldb</artifactId>
 		</dependency>
+        <!-- H2 DB -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+        </dependency>
 
         <!-- Spring Core-->
         <dependency>

@@ -96,6 +96,15 @@ public class ProductCategoryControllerTest {
 		System.out.println("testFindCategoryById() completed: "+testCounter);
 	}
 
+	@Test
+	public void testFindCategoryById_throws404NotFound() throws Exception {
+		System.out.println("testFindCategoryById() started: "+ ++testCounter);
+		mockMvc.perform(get("/cat/41").accept("application/vnd.shop.app-v0.1+json")
+				.contentType("application/vnd.shop.app-v0.1+json")).andExpect(status().isNotFound())
+				.andDo(MockMvcResultHandlers.print());
+		System.out.println("testFindCategoryById_throws404NotFound() completed: "+testCounter);
+	}
+
 	/**
 	 * http://www.programcreek.com/java-api-examples/index.php?api=org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 	 * http://www.programcreek.com/java-api-examples/index.php?source_dir=spring-rest-black-market-master/src/test/java/org/vtsukur/spring/rest/market/AdsHttpApiTests.java
@@ -114,7 +123,7 @@ public class ProductCategoryControllerTest {
 
 	private ProductCategoryVO createVO(String pcName) { 
 		ProductCategoryVO ad = new ProductCategoryVO(); 
-        ad.setName(pcName); 
+        ad.setName(pcName);
         ad.setDescription("description referenceUser"); 
         return ad; 
     } 

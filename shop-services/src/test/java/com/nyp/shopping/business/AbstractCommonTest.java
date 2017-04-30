@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
@@ -29,6 +30,7 @@ public abstract class AbstractCommonTest extends AbstractTransactionalJUnit4Spri
 
 	@Autowired
 	protected ApplicationContext context;
+    private static EmbeddedDatabase db;
 
 	static {
 		try {
@@ -42,9 +44,20 @@ public abstract class AbstractCommonTest extends AbstractTransactionalJUnit4Spri
 	@BeforeClass
 	public static void initBeforeClass() {
 		System.out.println("***************** @BeforeClass.initBeforeClass() called: "+ staticCounter++);
+//		initH2Db();
 //		initHsqlDb();
 //		initMysqlDb();
 	}
+
+    public static void initH2Db() {
+		System.out.println("***************** @BeforeClass.setUp() called: "+ staticCounter++);
+        //db = new EmbeddedDatabaseBuilder().addDefaultScripts().build();
+    	db = new EmbeddedDatabaseBuilder()
+    		.setType(EmbeddedDatabaseType.H2)
+//    		.addScript("config/database/h2/shop_create_table.sql")
+    		.addScript("config/database/h2/shop_insert_master_data.sql")
+    		.build();
+    }
 
 	protected static void initMysqlDb() {
 

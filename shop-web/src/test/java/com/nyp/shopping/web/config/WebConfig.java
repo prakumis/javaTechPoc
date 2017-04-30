@@ -20,7 +20,7 @@ import com.nyp.shopping.web.listener.LogbackConfigListener;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = { "com.nyp.shopping" })
-@ImportResource({ "classpath*:config/spring/shoppingApp-dataSource.xml", "classpath*:config/spring/shoppingApp-persistence.xml", "classpath*:config/spring/shoppingApp-service-main.xml" })
+@ImportResource({ "classpath*:config/spring/appContext-dataSource-main.xml", "classpath*:config/spring/shoppingApp-persistence.xml", "classpath*:config/spring/shoppingApp-service-main.xml" })
 //@ImportResource({"classpath*:config/spring/shoppingApp-service-test.xml"})
 @ContextConfiguration(classes={WebConfig.class})
 public class WebConfig extends WebMvcConfigurerAdapter {

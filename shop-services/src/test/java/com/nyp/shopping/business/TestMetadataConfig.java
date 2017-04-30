@@ -33,12 +33,12 @@ import com.nyp.shopping.common.constants.ApplicationConstants;
 //@ActiveProfiles("testMysql")
 //@Profile("testMysql")
 //@ActiveProfiles("testHsql")
-@ActiveProfiles("test")
+@ActiveProfiles(ApplicationConstants.ACTIVE_PROFILE)
 //@Profile("testHsql")
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @ContextConfiguration(classes = { TestMetadataConfig.class })
-@ImportResource({ "classpath*:config/spring/shoppingApp-dataSource.xml", "classpath*:config/spring/shoppingApp-persistence.xml", "classpath*:config/spring/shoppingApp-service-main.xml" })
+@ImportResource({ "classpath*:config/spring/appContext-dataSource-main.xml", "classpath*:config/spring/shoppingApp-persistence.xml", "classpath*:config/spring/shoppingApp-service-main.xml" })
 //@ImportResource({ "classpath*:config/spring/shoppingApp-service-test.xml" })
 @Configuration
 @Transactional(value = TxType.NOT_SUPPORTED)
@@ -49,7 +49,7 @@ import com.nyp.shopping.common.constants.ApplicationConstants;
 /**
  * Some Notes of using @Transactional along with @Rollback(boolean)
  * 
- * @Transactional Type Use										COMMIT		Service-Result			MVC-Result
+ * @Transactional Type Use										ROLLBACK		Service-Result			MVC-Result
  * 
  * NONE															ANY			PASS-Created/Updated	PASS-Created/Updated
  * 

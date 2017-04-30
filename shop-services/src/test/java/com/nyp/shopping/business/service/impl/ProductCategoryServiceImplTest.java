@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.nyp.shopping.business.AbstractCommonTest;
@@ -64,13 +63,9 @@ public class ProductCategoryServiceImplTest extends AbstractCommonTest {
 		ProductCategoryVO productCategoryVO = new ProductCategoryVO();
 		productCategoryVO.setId(null);
 		productCategoryVO.setName("ProductCategoryServiceImplTest.createCategory()");
-		try {
-			Long id = productCategoryService.createCategory(productCategoryVO);
-			Assert.assertNotNull(id);
-		} catch (DataAccessException e) {
-			// exception will be caught if name is not set before CREATE above
-			System.out.println(e);
-		}
+		productCategoryVO.setDescription("Some Description");
+		Long id = productCategoryService.createCategory(productCategoryVO);
+		Assert.assertNotNull(id);
 	}
 
 	@Test
