@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,7 +26,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  */
 @Entity
 @Table(name = "PRODUCT_CATEGORY")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE, region = "ProductCategory")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "com.nyp.shopping.common.entity.ProductCategory")
 public class ProductCategory implements Serializable {
 
 	private static final long serialVersionUID = 1L;

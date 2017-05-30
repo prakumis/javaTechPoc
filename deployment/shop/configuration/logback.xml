@@ -23,16 +23,16 @@
 	</appender>
 
 	<!-- asset management log appender -->
-	<appender name="SHOP-CATALOG-MANAGEMENT"
+	<appender name="SHOP-OTHERS"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_LOC}/shop-catalog-management.log</file>
+		<file>${LOG_LOC}/shop-others.log</file>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<Pattern>[%d{yyyy-MM-dd HH:mm:ss,SSS}] %-5level [%file %method] -
 				 | %X{request} | %X{organization} | %X{userId} | %X{client} | %X{session} | %X{service} | %msg%n</Pattern>
 		</encoder>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- rollover daily -->
-			<fileNamePattern>${LOG_LOC}/archived/shop-catalog-management.%d{yyyy-MM-dd}.%i.log
+			<fileNamePattern>${LOG_LOC}/archived/shop-others.%d{yyyy-MM-dd}.%i.log
 			</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy
 				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
@@ -53,8 +53,8 @@
 		<appender-ref ref="SHOP-GENERAL" />
 	</logger>
 
-	<logger name="org.hibernate" level="ERROR" additivity="false">
-		<appender-ref ref="SHOP-GENERAL" />
+	<logger name="org.hibernate" level="DEBUG" additivity="false">
+		<appender-ref ref="SHOP-OTHERS" />
 	</logger>
 
 	<root level="ERROR">
