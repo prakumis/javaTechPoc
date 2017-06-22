@@ -6,6 +6,10 @@ package com.nyp.shopping.common.vo;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+
 /**
  * @author pmis30
  *
@@ -13,8 +17,18 @@ import java.util.Set;
 public class ProductCategoryVO extends BaseVO {
 
 	private Long id;
+
+	@NotNull(message = "{error.NotNull.name}")
+	@Length(min=5, max=50, message="{error.Length.name}")
 	private String name;
+
+	//TODO check why this @Size is not working (Ref: https://docs.jboss.org/hibernate/validator/5.1/reference/en-US/html/chapter-message-interpolation.html#section-interpolation-with-message-expressions)
+	//@Size(min = 2, max = 14, message = "The license plate '${validatedValue}' must be between {min} and {max} characters long")
+//	@NotBlank(message = "Task description must not be blank!")
+	@NotNull(message = "{Description may not be null}")
+	@Length(min=5, max=50, message="{The length of description should be between 5 and 50 characters long}")
 	private String description;
+
 	private Set<ProductCategoryVO> subCategories = new HashSet<>(0);
 //	private Set<ProductVO> productList = new HashSet<>(0);
 	private ProductCategoryVO parentCategory;

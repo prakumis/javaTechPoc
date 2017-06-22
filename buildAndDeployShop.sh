@@ -8,7 +8,7 @@ PROJECT_VERSION="0.0.1-SNAPSHOT"
 SRC_WEB_APP_ROOT_LOC="D:/Work/Repository/JavaTechPoc/javaTechPoc"
 
 # Comment the follwoing variables if not required.
-#MAVEN_SKIP_TEST="-DskipTests=true"
+MAVEN_SKIP_TEST="-DskipTests=true"
 #SONAR_BUILD="sonar:sonar"
 
 # Usually User don't need to change the following
@@ -17,7 +17,10 @@ WEB_APP_NAME="shop-web"			# from the shop-web/pom.xml => <finalName>shop-web</fi
 WEB_APP_WAR_FILE_NAME="$WEB_APP_NAME.war"
 SRC_WEB_APP_POM_LOC="${SRC_WEB_APP_ROOT_LOC}"
 SRC_WEB_APP_TARGET_PATH="$SRC_WEB_APP_ROOT_LOC/shop-web/target"
-SRC_WEB_APP_CONFIG_PATH="${SRC_WEB_APP_ROOT_LOC}/deployment/shop/configuration"
+SRC_WEB_APP_CONFIG_DEPLOYMENT_PATH="${SRC_WEB_APP_ROOT_LOC}/deployment/shop"
+SRC_WEB_APP_CONFIG_WAR_PATH="${SRC_WEB_APP_ROOT_LOC}/shop-web/src/main/resources"
+SRC_WEB_APP_CONFIG_SERVICES_PATH="${SRC_WEB_APP_ROOT_LOC}/shop-services/src/main/resources"
+SRC_WEB_APP_CONFIG_COMMONS_PATH="${SRC_WEB_APP_ROOT_LOC}/shop-common/src/main/resources"
 #WEB_APP_DEPLOY_ENV="dev"
 
 STATIC_CODE_GIT_LOC="$SRC_WEB_APP_ROOT_LOC/shop-web-client/"
@@ -27,7 +30,7 @@ APP_SERVER_NAME="Tomcat Application Server v 9.0"
 APP_SERVER_DEPLOYEMENT_PATH="$APP_SERVER_HOME/webapps"
 APP_SERVER_LOG_PATH="$APP_SERVER_HOME/logs"
 APP_SERVER_BIN_PATH="$APP_SERVER_HOME/bin"
-APP_SERVER_WEB_CONFIG_PATH="$APP_SERVER_HOME/shop/configuration"
+APP_SERVER_WEB_CONFIG_PATH="$APP_SERVER_HOME/shop"
 APP_SERVER_WEB_LOG_PATH="${APP_SERVER_HOME}/shop/logs"
 APP_SERVER_START_CMD="./${APP_SERVER_START_MODE}.sh"
 
@@ -42,8 +45,6 @@ stopAppServer() {
 	./shutdown.sh
 	echo "$APP_SERVER_NAME [$APP_SERVER_HOME] Shutdown Finished"
 }
-
-
 mavenBuild() {
 
 	echo "Maven Build Started"
@@ -72,7 +73,6 @@ cleanWebAppLogs() {
 	rm -fr $APP_SERVER_WEB_LOG_PATH/*
 	echo "$APP_SERVER_NAME [$APP_SERVER_HOME] Log Cleaning Finished"
 }
-
 cleanWebAppWar() {
 
 	echo "$WEB_APP_NAME Cleaning Started"
@@ -81,21 +81,22 @@ cleanWebAppWar() {
 	rm -fr $WEB_APP_NAME/
 	echo "$WEB_APP_NAME Cleaning Finished"
 }
-
 cleanResource() {
 
 	echo "$APP_SERVER_WEB_CONFIG_PATH Cleaning Started"
 	rm -rf $APP_SERVER_WEB_CONFIG_PATH/*
 	echo "$APP_SERVER_WEB_CONFIG_PATH Cleaning Finished"
 }
-
 copyResources() {
 
-	echo "Copying Resources from $SRC_WEB_APP_CONFIG_PATH to $APP_SERVER_WEB_CONFIG_PATH Started"
+	echo "Copying Resources from multiple [PROJECT-NAME/src/main/resources/PATH] to $APP_SERVER_WEB_CONFIG_PATH Started"
 	mkdir -p $APP_SERVER_WEB_CONFIG_PATH
-	cd $SRC_WEB_APP_CONFIG_PATH
-	cp *.* $APP_SERVER_WEB_CONFIG_PATH/
-	echo "Copying Resources from $SRC_WEB_APP_CONFIG_PATH to $APP_SERVER_WEB_CONFIG_PATH Finished"
+	cd $APP_SERVER_WEB_CONFIG_PATH
+	cp -r "$SRC_WEB_APP_CONFIG_DEPLOYMENT_PATH"/* ./
+	cp -r "$SRC_WEB_APP_CONFIG_WAR_PATH"/* ./
+	cp -r "$SRC_WEB_APP_CONFIG_SERVICES_PATH"/* ./
+	#cp *.* $APP_SERVER_WEB_CONFIG_PATH/
+	echo "Copying Resources from $SRC_WEB_APP_CONFIG_DEPLOYMENT_PATH to $APP_SERVER_WEB_CONFIG_PATH Finished"
 }
 deployWar() {
 
@@ -104,7 +105,6 @@ deployWar() {
 	cp $SRC_WEB_APP_TARGET_PATH/$WEB_APP_WAR_FILE_NAME .
 	echo "Deploying $WEB_APP_WAR_FILE_NAME Finished"
 }
-
 startAppServer() {
 
 	echo "$APP_SERVER_NAME [$APP_SERVER_HOME] Started"
@@ -115,7 +115,6 @@ startAppServer() {
 	#./run.sh
 	echo "$APP_SERVER_NAME [$APP_SERVER_HOME] Finished"
 }
-
 deployStatic() {
 
 	echo "Moving latest files from etme_integrate to ${WEB_SERVER_HOME}"
@@ -128,7 +127,6 @@ deployStatic() {
 	cp -r ${STATIC_CODE_GIT_LOC}/* ${WEB_SERVER_HOME}/
 	echo "Static GUI contents moved to ${WEB_SERVER_HOME}"
 }
-
 startApache() {
 
 	echo "Re-Starting Apache"
@@ -137,7 +135,6 @@ startApache() {
 	httpd.exe -k restart
 	echo "Apache restarted"
 }
-
 # start calling your functions
 #deployStatic;
 stopAppServer;

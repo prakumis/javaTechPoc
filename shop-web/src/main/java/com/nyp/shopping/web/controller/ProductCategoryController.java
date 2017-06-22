@@ -9,6 +9,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.management.ServiceNotFoundException;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.WebDataBinder;
@@ -107,7 +108,8 @@ public class ProductCategoryController extends BaseController {
 
 	// @ResponseStatus( HttpStatus.CREATED )
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseBean<Object> createCategory(@RequestBody ProductCategoryVO category) {
+	public ResponseBean<Object> createCategory(@Valid @RequestBody ProductCategoryVO category) {
+
 		Long id = productCatalogService.createCategory(category);
 		return new ResponseBean<>(HttpStatus.CREATED.value(), String.format("Category %s created successfully", id));
 	}

@@ -23,16 +23,33 @@
     </bean> -->
 
     <!-- Configures the annotation-driven Spring MVC Controller -->
-    <mvc:annotation-driven />
+	<mvc:annotation-driven />
 
 	<!-- Scan for Controllers -->
 	<context:component-scan base-package="com.nyp.shopping.web" />
 	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/**" />
-			<bean class="com.nyp.shopping.web.interceptor.CustomRequestHandler" />
-		</mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <bean class="com.nyp.shopping.web.interceptor.CustomRequestHandler" />
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/l10n/switchLocale" />
+            <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" >
+                <property name="paramName" value="language" />
+            </bean>
+        </mvc:interceptor>
 	</mvc:interceptors>
+
+    <!-- Start:: Support for i18n 
+        More Read: 
+            http://www.mkyong.com/spring-mvc/spring-mvc-internationalization-example/
+            https://www.mkyong.com/spring-mvc/cannot-change-http-accept-header-use-a-different-locale-resolution-strategy/
+    -->
+    <bean id="localeResolver"
+        class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="en" />
+    </bean>
+    <!-- End:: Support for i18n -->
 
 	<!-- Error View Page is not required as RestResponseEntityExceptionHandler 
 		is doing the error handling job. Again this is REST service so there is no 

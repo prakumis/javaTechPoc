@@ -16,7 +16,25 @@
         http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <!-- Configurer that replaces ${...} placeholders with values from a properties file -->
-    <context:property-placeholder location="classpath:config/database/jdbc.properties" ignore-unresolvable="true"/>
+	<context:property-placeholder order="1"
+		location="classpath:config/database/jdbc.properties"
+		ignore-unresolvable="true" />
+    <context:property-placeholder order="2"
+        location="file:${CONFDIR}/config/message/errorMessage.properties"
+        ignore-unresolvable="true" />
+    <!-- Notes: 
+    	1. Commenting the ValidationMessage property is also working as long as the files are present in classpath.
+    	2. Surprisingly, it is also working is the files are present in the config location:: {CONFDIR} 
+    	3. Surprisingly, the above configured errorMessage.properties not able to return the message on runtime, but the ValidationMessage.properties are returing the values.
+    	-->
+    <!--
+    <context:property-placeholder order="3"
+        location="classpath:ValidationMessages.properties"
+        ignore-unresolvable="true" /> -->
+    <!-- This xml configuration is moved to JavaConfig: MessageConfig -->
+	<!-- <context:property-placeholder order="1"
+		location="file:${CONFDIR}/config/message/errorMessage.properties"
+		ignore-unresolvable="true" /> -->
 
     <!-- The global application DataSource -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"

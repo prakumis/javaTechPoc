@@ -4,7 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
+import javax.inject.Inject;
 import javax.management.ServiceNotFoundException;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceException;
@@ -12,7 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -56,6 +61,10 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
 	private Logger log = LoggerFactory.getLogger(getClass());
 
+	//@Inject
+	@Autowired
+	private MessageSource messageSource;
+
 	@InitBinder
 	public void dataBindingGlobal(WebDataBinder binder) {
 		log.debug("RestResponseEntityExceptionHandler.dataBindingGlobal()");
@@ -75,6 +84,14 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 		model.addAttribute("msg", "Welcome to My World!");
 	}
 
+	/**
+	 * Probably this method is not used as handleMethodArgumentNotValid() is
+	 * taking care of validation error.
+	 * 
+	 * @param ex
+	 * @param request
+	 * @return
+	 */
 	@ResponseBody
 	@ExceptionHandler(value = { ApplicationValidationException.class, KeywordNotFoundException.class })
 	protected ErrorBean handleValidationErrors(ApplicationValidationException ex, WebRequest request) {
@@ -157,15 +174,33 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		List<String> errors = new ArrayList<>();
 		for (FieldError error : ex.getBindingResult().getFieldErrors()) {
-			errors.add(error.getField() + ": " + error.getDefaultMessage());
+			String localizedErrorMessage = resolveLocalizedErrorMessage(error);
+			errors.add(error.getField() + ": " + localizedErrorMessage);
 		}
 		for (ObjectError error : ex.getBindingResult().getGlobalErrors()) {
 			errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
 		}
-		ErrorBean apiError = new ErrorBean();
-		apiError.setErrorMessage("The request from client has some error");
-		return handleExceptionInternal(ex, apiError, headers, status, request);
+		ErrorBean apiError =  new ErrorBean(ErrorCode.VALIDATION_ERROR, ex.getMessage(), errors);
+		apiError.setErrorMessage("The request from client has some validation error in input data");
+		return new ResponseEntity<>(apiError, headers, status);
 	}
+
+	/**
+	 * This is able to resolve the localized error message only from
+	 * ValidationMessage.properties files. This is not able to resolve the
+	 * localized error message from other resource bundle even if it is
+	 * configured as a bean through JavaConfig or Xml Config.
+	 * 
+	 * @param fieldError
+	 * @return
+	 */
+    private String resolveLocalizedErrorMessage(FieldError fieldError) {
+
+    	Locale currentLocale = LocaleContextHolder.getLocale();
+
+        //Read more: http://mrbool.com/how-to-implement-internationalization-and-localization-in-java/31035#ixzz4jlrS9wN0
+    	return messageSource.getMessage(fieldError, currentLocale);
+    }
 
 	/**
 	 * This method here is to log any such error for log analysis.
