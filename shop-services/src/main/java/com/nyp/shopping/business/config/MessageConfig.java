@@ -6,17 +6,29 @@ package com.nyp.shopping.business.config;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
 /**
+ * Link: http://www.baeldung.com/properties-with-spring, section: 3. Register a
+ * Properties File via Java Annotations
+ * 
  * @author its_me
  *
  */
-//@Configuration
+@Configuration
+@PropertySource("classpath:application.properties")
+@PropertySource("classpath:config/database/jdbc.properties")
 public class MessageConfig {
 
-//	@Bean
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+		return new PropertySourcesPlaceholderConfigurer();
+	}
+
+	// @Bean
 	public MessageSource messageSource() {
 
 		// TODO: ReloadableResourceBundleMessageSource need to be tested for

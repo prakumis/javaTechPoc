@@ -16,12 +16,14 @@
         http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <!-- Configurer that replaces ${...} placeholders with values from a properties file -->
-	<context:property-placeholder order="1"
+	<!-- Commented below property loading in xml, to use loading using the annotation, 
+		as given in http://www.baeldung.com/properties-with-spring -->
+	<!-- <context:property-placeholder order="1"
 		location="classpath:config/database/jdbc.properties"
 		ignore-unresolvable="true" />
     <context:property-placeholder order="2"
         location="file:${CONFDIR}/config/message/errorMessage.properties"
-        ignore-unresolvable="true" />
+        ignore-unresolvable="true" /> -->
     <!-- Notes: 
     	1. Commenting the ValidationMessage property is also working as long as the files are present in classpath.
     	2. Surprisingly, it is also working is the files are present in the config location:: {CONFDIR} 

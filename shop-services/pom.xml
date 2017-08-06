@@ -150,6 +150,17 @@
             <artifactId>aspectjweaver</artifactId>
         </dependency>
 
+        <!-- apache -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <!-- Apache -->
 	</dependencies>
 
     <build>

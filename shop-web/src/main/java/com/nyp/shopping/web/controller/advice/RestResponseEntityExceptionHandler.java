@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import javax.inject.Inject;
 import javax.management.ServiceNotFoundException;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceException;
