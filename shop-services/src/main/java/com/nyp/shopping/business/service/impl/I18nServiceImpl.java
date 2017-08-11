@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.nyp.shopping.business.application.MessageResourceAS;
 import com.nyp.shopping.business.service.I18nService;
+import com.nyp.shopping.business.service.model.LanguageBean;
 import com.nyp.shopping.business.service.model.MessageResourceLocale;
 
 /**
@@ -95,6 +96,12 @@ public class I18nServiceImpl implements I18nService {
 		final Map<String, String> result = new LinkedHashMap<String, String>();
 		buildMessages(language, messageResource, result, prefixesList);
 		return result;
+	}
+
+	@Override
+	public List<LanguageBean> retrieveSupportedLanguages() {
+
+		return messageResourceAS.getSupportedLanguages();
 	}
 
 }

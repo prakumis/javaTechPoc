@@ -1,5 +1,6 @@
 package com.nyp.shopping.web.controller;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.LocaleResolver;
 
 import com.nyp.shopping.business.service.I18nService;
+import com.nyp.shopping.business.service.model.LanguageBean;
 
 @RestController
 @RequestMapping("/l10n")
@@ -33,6 +35,12 @@ public class L10NController extends BaseController {
 
 	@Value("${language.resources}")
 	private String prefixes;
+
+    @RequestMapping ( method = RequestMethod.GET, value = "/languages" )
+    public @ResponseBody List<LanguageBean> getLanguages() {
+        logger.debug( "Retrieve all available languages" );
+        return i18nService.retrieveSupportedLanguages();
+    }
 
 	@RequestMapping(method = RequestMethod.PUT, path = "/switchLocale")
 	public String switchLocale(final HttpSession session, String language) {
