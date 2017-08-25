@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.LocaleResolver;
 
 import com.nyp.shopping.business.service.I18nService;
-import com.nyp.shopping.business.service.model.LanguageBean;
+import com.nyp.shopping.common.vo.LanguageBean;
 
 @RestController
 @RequestMapping("/l10n")

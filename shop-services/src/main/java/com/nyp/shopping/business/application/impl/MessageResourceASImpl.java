@@ -27,9 +27,9 @@ import org.springframework.stereotype.Service;
 
 import com.nyp.shopping.business.application.MessageResourceAS;
 import com.nyp.shopping.business.service.I18nService;
-import com.nyp.shopping.business.service.model.LanguageBean;
 import com.nyp.shopping.business.service.model.MessageResourceLocale;
 import com.nyp.shopping.common.constants.ApplicationConstants;
+import com.nyp.shopping.common.vo.LanguageBean;
 
 /**
  * @author its_me

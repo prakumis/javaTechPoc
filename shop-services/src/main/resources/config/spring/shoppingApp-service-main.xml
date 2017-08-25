@@ -19,6 +19,7 @@
         http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <context:component-scan base-package="com.nyp.shopping.business" />
+    <context:component-scan base-package="com.nyp.shopping.common" />
 
 	<!-- ensure that the below transactional advice runs for any execution of 
 		an operation defined in any of the Service interface -->

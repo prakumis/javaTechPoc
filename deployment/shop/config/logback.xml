@@ -9,7 +9,7 @@
 		<file>${LOG_LOC}/shop.log</file>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<Pattern>[%d{yyyy-MM-dd HH:mm:ss,SSS}] %-5level [%file %method] -
-				 | %X{request} | %X{organization} | %X{userId} | %X{client} | %X{session} | %X{service} | %msg%n</Pattern>
+				 | %X{request} | %X{organization} | %X{userId} | %X{client} | %X{session} | %X{service} | - %msg%n</Pattern>
 		</encoder>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- rollover daily -->
@@ -28,7 +28,7 @@
 		<file>${LOG_LOC}/shop-others.log</file>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<Pattern>[%d{yyyy-MM-dd HH:mm:ss,SSS}] %-5level [%file %method] -
-				 | %X{request} | %X{organization} | %X{userId} | %X{client} | %X{session} | %X{service} | %msg%n</Pattern>
+				 | %X{request} | %X{organization} | %X{userId} | %X{client} | %X{session} | %X{service} | - %msg%n</Pattern>
 		</encoder>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- rollover daily -->
@@ -45,7 +45,7 @@
 		<appender-ref ref="SHOP-GENERAL" />
 	</logger>
 
-	<logger name="org.springframework" level="DEBUG" additivity="false">
+	<logger name="org.springframework" level="ERROR" additivity="false">
 		<appender-ref ref="SHOP-GENERAL" />
 	</logger>
 
@@ -53,7 +53,7 @@
 		<appender-ref ref="SHOP-GENERAL" />
 	</logger>
 
-	<logger name="org.hibernate" level="DEBUG" additivity="false">
+	<logger name="org.hibernate" level="ERROR" additivity="false">
 		<appender-ref ref="SHOP-OTHERS" />
 	</logger>
 

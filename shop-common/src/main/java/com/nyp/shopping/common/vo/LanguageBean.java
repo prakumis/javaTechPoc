@@ -1,4 +1,4 @@
-package com.nyp.shopping.business.service.model;
+package com.nyp.shopping.common.vo;
 
 import java.io.Serializable;
 import java.util.Locale;
