@@ -20,7 +20,7 @@ import com.nyp.shopping.common.vo.ProductCategoryVO;
  *
  */
 @Repository
-public class ProductCategoryServiceImpl implements ProductCategoryService {
+public class ProductCategoryServiceImpl extends BaseServiceImpl implements ProductCategoryService {
 
 	static {
 		// Following line is printed twice,

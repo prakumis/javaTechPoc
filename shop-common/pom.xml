@@ -87,6 +87,11 @@
 		    <groupId>org.hibernate</groupId>
 		    <artifactId>hibernate-validator</artifactId>
 		</dependency>
+        <dependency>
+        	<groupId>com.nyp.shopping</groupId>
+        	<artifactId>openframework</artifactId>
+        	<version>0.0.1-SNAPSHOT</version>
+        </dependency>
 	</dependencies>
 
 	<build>

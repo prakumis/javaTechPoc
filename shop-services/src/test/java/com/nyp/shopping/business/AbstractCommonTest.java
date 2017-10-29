@@ -57,6 +57,7 @@ public abstract class AbstractCommonTest extends AbstractTransactionalJUnit4Spri
 //    		.addScript("config/database/h2/shop_create_table.sql")
     		.addScript("config/database/h2/shop_insert_master_data.sql")
     		.build();
+    	System.out.println(db);
     }
 
 	protected static void initMysqlDb() {

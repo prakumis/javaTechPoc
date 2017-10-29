@@ -21,7 +21,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
- * @author Praveen
+ * @author Java Developer
  *
  */
 
@@ -36,6 +36,9 @@ public class Customer implements Serializable {
 	@Column(name = "ID", nullable = false, unique = true)
 	private Long id;
 
+	@Column(name = "PASSWORD", length = 500)
+	private String password;
+
 	@Column(name = "CUSTOMER_NAME", length = 50)
 	private String customerName;
 
@@ -45,6 +48,9 @@ public class Customer implements Serializable {
 
 	@Column(name = "EMAIL", length = 50)
 	private String email;
+
+	@Column(name = "MOBILE")
+	private String mobile;
 
 	@Column(name = "DATE_DOB")
 	private Date dateOfBirth;
@@ -138,6 +144,22 @@ public class Customer implements Serializable {
 
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 
 }

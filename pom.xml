@@ -323,6 +323,14 @@
                 <version>2.4</version>
             </dependency>
             <!-- Apache end -->
+
+            <!-- Java Mail API -->
+	        <dependency>
+	            <groupId>javax.mail</groupId>
+	            <artifactId>mail</artifactId>
+	            <version>1.4.7</version>
+	        </dependency>
+
 		</dependencies>
 
 	</dependencyManagement>
@@ -331,6 +339,7 @@
 		<module>shop-web</module>
 		<module>shop-common</module>
 		<module>shop-services</module>
+		<module>openframework</module>
 	</modules>
 
     <profiles>

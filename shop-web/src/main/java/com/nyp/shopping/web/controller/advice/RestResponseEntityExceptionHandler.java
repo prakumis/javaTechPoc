@@ -36,6 +36,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.nyp.shopping.common.exception.AuthenticationException;
 import com.nyp.shopping.web.exception.ApplicationValidationException;
 import com.nyp.shopping.web.exception.DashboardException;
 import com.nyp.shopping.web.exception.ErrorCode;
@@ -212,6 +213,19 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 		log.warn(ex.getMessage(), ex);
 		return super.handleExceptionInternal(ex, body, headers, status, request);
 
+	}
+
+	/**
+	 * This method here is to log any such error for log analysis.
+	 * <p>
+	 * {@inheritDoc}
+	 */
+	@ResponseBody
+	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+	@ExceptionHandler(value = { AuthenticationException.class })
+	protected ErrorBean handleAuthenticationException(AuthenticationException ex) {
+		log.warn(ex.getMessage(), ex);
+		return new ErrorBean(ErrorCode.AUTHENTICATION_ERROR, ex.getMessage());
 	}
 
 }

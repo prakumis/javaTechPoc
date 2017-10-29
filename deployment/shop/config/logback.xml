@@ -53,7 +53,7 @@
 		<appender-ref ref="SHOP-GENERAL" />
 	</logger>
 
-	<logger name="org.hibernate" level="ERROR" additivity="false">
+	<logger name="org.hibernate" level="DEBUG" additivity="false">
 		<appender-ref ref="SHOP-OTHERS" />
 	</logger>
 
