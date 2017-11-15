@@ -45,7 +45,7 @@ public class UserHelper extends BaseHelper {
 		}
 		
 		logger.debug("Exited validatePasswordAgainstDB()");
-		testSendEmail(customer);
+		//testSendEmail(customer);
 	}
 
 	private void testSendEmail(Customer customer) {
