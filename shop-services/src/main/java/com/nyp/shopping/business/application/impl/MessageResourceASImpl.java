@@ -4,9 +4,7 @@
 package com.nyp.shopping.business.application.impl;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.FilenameFilter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -86,29 +84,22 @@ public class MessageResourceASImpl implements MessageResourceAS {
 				Collection<File> listFiles = FileUtils.listFiles(file, new RegexFileFilter("^.+\\.properties"),
 						DirectoryFileFilter.DIRECTORY);
 				for (File innerFile : listFiles) {
-					Properties props = new Properties();
-					try {
-						props.load(new FileReader(innerFile));
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					Properties props = com.nyp.shopping.opensource.utils.FileUtils.loadPropFromFile(innerFile);
 					String localeCode = getLocale(innerFile.getName())[1];
 					messageResourceLocale.getPropertiesMap().put(localeCode, props);
-					if (!I18nService.DEFAULT.equals(localeCode)) {
+					if (!I18nService.DEFAULT.equals(localeCode)
+							&& ApplicationConstants.MESSAGE_TYPE_DASHBOARD.equalsIgnoreCase(file.getName())) {
 
-						if (ApplicationConstants.MESSAGE_TYPE_DASHBOARD.equalsIgnoreCase(file.getName())) {
-							// add above supported language/localeCode in a list
-							String languageName = props.getProperty("languageName");
-							String nameAsImgProperty = props.getProperty("languageImg");
-							Boolean nameAsImg = false;
-							if (nameAsImgProperty != null && !nameAsImgProperty.equalsIgnoreCase("no")) {
-								nameAsImg = true;
-							}
-							Locale languageLocale = new Locale(localeCode);
-							LanguageBean toAdd = new LanguageBean(languageName, languageLocale.getLanguage(),
-									nameAsImg);
-							newSupportedLanguages.add(toAdd);
+						// add above supported language/localeCode in a list
+						String languageName = props.getProperty("languageName");
+						String nameAsImgProperty = props.getProperty("languageImg");
+						Boolean nameAsImg = false;
+						if (nameAsImgProperty != null && !nameAsImgProperty.equalsIgnoreCase("no")) {
+							nameAsImg = true;
 						}
+						Locale languageLocale = new Locale(localeCode);
+						LanguageBean toAdd = new LanguageBean(languageName, languageLocale.getLanguage(), nameAsImg);
+						newSupportedLanguages.add(toAdd);
 					}
 				}
 				if (ApplicationConstants.MESSAGE_TYPE_DASHBOARD.equalsIgnoreCase(file.getName())) {
@@ -144,7 +135,7 @@ public class MessageResourceASImpl implements MessageResourceAS {
 		try {
 			logger.trace("Start getLocale");
 			if (fileName == null || fileName.trim().isEmpty())
-				throw new RuntimeException("wrong input parameter: " + fileName);
+				throw new IllegalArgumentException("wrong input parameter: " + fileName);
 			String[] split = fileName.split(".properties");
 			int fromIndex = split[0].indexOf("_");
 			if (fromIndex == -1) {
@@ -153,7 +144,7 @@ public class MessageResourceASImpl implements MessageResourceAS {
 			return new String[] { split[0].substring(0, fromIndex), (split[0].substring(++fromIndex).toUpperCase()) };
 		} catch (Exception e) {
 			logger.error("Unable to getLocale");
-			throw new RuntimeException("Unable to getLocale", e);
+			throw new IllegalArgumentException("Unable to getLocale", e);
 		} finally {
 			logger.trace("End getLocale");
 		}
@@ -177,12 +168,18 @@ public class MessageResourceASImpl implements MessageResourceAS {
 
 		String messageConfigDir = System.getProperty(ApplicationConstants.CONFIG_PATH_PROPERTY_NAME);
 		final File dir = new File(messageConfigDir);
+		return dir.listFiles((dir1, name) -> name.toLowerCase().endsWith(".yml"));
+	}
+
+	public File[] getGlobalPropertyFileList1() {
+
+		String messageConfigDir = System.getProperty(ApplicationConstants.CONFIG_PATH_PROPERTY_NAME);
+		final File dir = new File(messageConfigDir);
 		return dir.listFiles(new FilenameFilter() {
 
 			@Override
 			public boolean accept(File dir, String name) {
 				return name.toLowerCase().endsWith(".yml");
-				// return true;
 			}
 		});
 	}
