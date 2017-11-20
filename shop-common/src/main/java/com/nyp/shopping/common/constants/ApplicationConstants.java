@@ -16,6 +16,12 @@ public abstract class ApplicationConstants {
 	public static final String EMAIL_TEMPLATE_PATH = "/email/templates/";
 	public static final String EMAIL_TEMPLATE_AUTHENTICATION_FAILURE = "emailPasswordResetTemplate.xml";
 
+	public static final String MESSAGE_TYPE_DASHBOARD = "dashboard";
+	public static final String MESSAGE_TYPE_ERRORS = "errors";
+	public static final String DOT = ".";
+	public static final String SEPARATOR = null;
+	public static final Object FORWARD_SLASH = "/";
+
 	private ApplicationConstants(){
 		// do nothing
 	}

@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Properties;
 
+import javax.inject.Inject;
 import javax.management.ServiceNotFoundException;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceException;
@@ -13,9 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpHeaders;
@@ -36,6 +36,8 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.nyp.shopping.business.application.MessageResourceAS;
+import com.nyp.shopping.common.constants.ApplicationConstants;
 import com.nyp.shopping.common.exception.AuthenticationException;
 import com.nyp.shopping.web.exception.ApplicationValidationException;
 import com.nyp.shopping.web.exception.DashboardException;
@@ -62,8 +64,11 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 	private Logger log = LoggerFactory.getLogger(getClass());
 
 	//@Inject
-	@Autowired
-	private MessageSource messageSource;
+	//@Autowired
+	//private MessageSource messageSource;
+
+	@Inject
+	private MessageResourceAS messageResourceAS;
 
 	@InitBinder
 	public void dataBindingGlobal(WebDataBinder binder) {
@@ -199,7 +204,11 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     	Locale currentLocale = LocaleContextHolder.getLocale();
 
         //Read more: http://mrbool.com/how-to-implement-internationalization-and-localization-in-java/31035#ixzz4jlrS9wN0
-    	return messageSource.getMessage(fieldError, currentLocale);
+    	//return messageSource.getMessage(fieldError, currentLocale);
+
+		Properties localeErrorProperties = messageResourceAS.getMessageResourceMap()
+				.get(ApplicationConstants.MESSAGE_TYPE_ERRORS).getPropertiesMap().get(currentLocale.getLanguage().toUpperCase());
+		return localeErrorProperties.getProperty(fieldError.getCode()+"."+fieldError.getField());
     }
 
 	/**

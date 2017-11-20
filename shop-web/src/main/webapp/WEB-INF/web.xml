@@ -19,7 +19,7 @@
     </context-param>
 
 	<listener>
-    	<listener-class>com.nyp.shopping.web.listener.LogbackConfigListener</listener-class>
+    	<listener-class>com.nyp.shopping.web.listener.ApplicationClasspathListener</listener-class>
 	</listener>
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

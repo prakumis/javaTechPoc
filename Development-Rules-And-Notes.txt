@@ -1,0 +1,33 @@
+Resources-Notes.txt
+================================================================================
+All resouces - spring config in xml, properties files etc to be in services/resources
+the spring mvc app context file [/shop-web/src/main/resources/config/spring/shoppingApp-servlet.xml] is allowed in web
+common jar should not have any resources/*
+openframework may have resources but it will be specific to openframework only and should be bundled inside the jar only
+Services-Resources
+    a) config 
+        - all spring and other files like xml which will not be accessible for view by globalConfigServiceImpl
+        - to be packaged in war(shop-web) and jar (shop-services) and NOT in CONFDIR
+    b) env-config - all resources that might vary across different env (dev, qa, prod etc)
+        i)  application.properties
+        ii) jdbc.properties
+        iii)logback.xml 
+    c) message 
+        - all message properties that support multiple languages. read only access from globalConfigServiceImpl
+        - currently two types of message: dashboard (for label names etc) and error (for form validation)
+
+
+
+
+Logging Rules:
+    a) INFO log level in Spring AOP
+    b) ERROR log level in all exceptions
+    c) DEBUG log level to print any value
+
+
+
+
+
+
+
+

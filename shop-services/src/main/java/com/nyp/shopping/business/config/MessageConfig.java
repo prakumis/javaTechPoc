@@ -19,8 +19,11 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
  *
  */
 @Configuration
-@PropertySource("classpath:application.properties")
-@PropertySource("classpath:config/database/jdbc.properties")
+//@PropertySource("classpath:application.properties")
+/**
+ * Currently this file is used only to load below jdbc property
+ */
+@PropertySource("classpath:jdbc.properties")
 public class MessageConfig {
 
 	@Bean
@@ -48,7 +51,7 @@ public class MessageConfig {
 
 		// Test the message resource by printing a key-value pair
 		System.out.println("MessageConfig.messageSource()");
-		String value = messageSource.getMessage("error.NotNull.name", new Object[] {}, "defaultMessage",
+		String value = messageSource.getMessage("NotNull.name", new Object[] {}, "defaultMessage",
 				LocaleContextHolder.getLocale());
 		System.out.println("Value for key: " + value);
 		return messageSource;

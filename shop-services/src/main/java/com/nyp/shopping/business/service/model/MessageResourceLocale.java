@@ -9,7 +9,7 @@ public class MessageResourceLocale implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Map<String, Properties> propertiesMap = new HashMap<String, Properties>();
+	private Map<String, Properties> propertiesMap = new HashMap<>();
 
 	public Map<String, Properties> getPropertiesMap() {
 		return propertiesMap;

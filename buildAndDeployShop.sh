@@ -14,14 +14,15 @@ MAVEN_SKIP_TEST="-DskipTests=true"
 # Usually User don't need to change the following
 #WEB_APP_NAME="shop-web-${PROJECT_VERSION}"
 WEB_APP_NAME="shop-web"			# from the shop-web/pom.xml => <finalName>shop-web</finalName>
+WEB_APP_DEPLOY_ENV="dev"
 WEB_APP_WAR_FILE_NAME="$WEB_APP_NAME.war"
 SRC_WEB_APP_POM_LOC="${SRC_WEB_APP_ROOT_LOC}"
 SRC_WEB_APP_TARGET_PATH="$SRC_WEB_APP_ROOT_LOC/shop-web/target"
 SRC_WEB_APP_CONFIG_DEPLOYMENT_PATH="${SRC_WEB_APP_ROOT_LOC}/deployment/shop"
 SRC_WEB_APP_CONFIG_WAR_PATH="${SRC_WEB_APP_ROOT_LOC}/shop-web/src/main/resources"
 SRC_WEB_APP_CONFIG_SERVICES_PATH="${SRC_WEB_APP_ROOT_LOC}/shop-services/src/main/resources"
+SRC_WEB_APP_CONFIG_ENV_PATH="${SRC_WEB_APP_CONFIG_SERVICES_PATH}/env-config/${WEB_APP_DEPLOY_ENV}"
 SRC_WEB_APP_CONFIG_COMMONS_PATH="${SRC_WEB_APP_ROOT_LOC}/shop-common/src/main/resources"
-#WEB_APP_DEPLOY_ENV="dev"
 
 STATIC_CODE_GIT_LOC="$SRC_WEB_APP_ROOT_LOC/shop-web-client/"
 SHOP_CONFIG_PATH="${SHOP_MAIN_POM_LOCATION}/shop-web/src/main/resources"
@@ -92,9 +93,10 @@ copyResources() {
 	echo "Copying Resources from multiple [PROJECT-NAME/src/main/resources/PATH] to $APP_SERVER_WEB_CONFIG_PATH Started"
 	mkdir -p $APP_SERVER_WEB_CONFIG_PATH
 	cd $APP_SERVER_WEB_CONFIG_PATH
-	cp -r "$SRC_WEB_APP_CONFIG_DEPLOYMENT_PATH"/* ./
-	cp -r "$SRC_WEB_APP_CONFIG_WAR_PATH"/* ./
-	cp -r "$SRC_WEB_APP_CONFIG_SERVICES_PATH"/* ./
+	#cp -r "$SRC_WEB_APP_CONFIG_DEPLOYMENT_PATH"/* ./
+	#cp -r "$SRC_WEB_APP_CONFIG_WAR_PATH"/* ./
+	cp -r "$SRC_WEB_APP_CONFIG_SERVICES_PATH"/message ./
+	cp -r "$SRC_WEB_APP_CONFIG_ENV_PATH"/* ./
 	#cp *.* $APP_SERVER_WEB_CONFIG_PATH/
 	echo "Copying Resources from $SRC_WEB_APP_CONFIG_DEPLOYMENT_PATH to $APP_SERVER_WEB_CONFIG_PATH Finished"
 }

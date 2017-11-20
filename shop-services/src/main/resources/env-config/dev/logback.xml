@@ -6,14 +6,14 @@
 	<!-- proxy,common,util,web log appender -->
 	<appender name="SHOP-GENERAL"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_LOC}/shop.log</file>
+		<file>${catalina.home}/logs/shop.log</file>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<Pattern>[%d{yyyy-MM-dd HH:mm:ss,SSS}] %-5level [%file %method] -
 				 | %X{request} | %X{organization} | %X{userId} | %X{client} | %X{session} | %X{service} | - %msg%n</Pattern>
 		</encoder>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- rollover daily -->
-			<fileNamePattern>${LOG_LOC}/archived/shop.%d{yyyy-MM-dd}.%i.log
+			<fileNamePattern>${catalina.home}/logs/archived/shop.%d{yyyy-MM-dd}.%i.log
 			</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy
 				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
@@ -25,14 +25,14 @@
 	<!-- asset management log appender -->
 	<appender name="SHOP-OTHERS"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOG_LOC}/shop-others.log</file>
+		<file>${catalina.home}/logs/shop-others.log</file>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<Pattern>[%d{yyyy-MM-dd HH:mm:ss,SSS}] %-5level [%file %method] -
 				 | %X{request} | %X{organization} | %X{userId} | %X{client} | %X{session} | %X{service} | - %msg%n</Pattern>
 		</encoder>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- rollover daily -->
-			<fileNamePattern>${LOG_LOC}/archived/shop-others.%d{yyyy-MM-dd}.%i.log
+			<fileNamePattern>${catalina.home}/logs/archived/shop-others.%d{yyyy-MM-dd}.%i.log
 			</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy
 				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">

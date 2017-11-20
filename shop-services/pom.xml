@@ -161,6 +161,13 @@
             <artifactId>commons-io</artifactId>
         </dependency>
         <!-- Apache -->
+
+        <!-- YAML -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+        </dependency>
+
 	</dependencies>
 
     <build>

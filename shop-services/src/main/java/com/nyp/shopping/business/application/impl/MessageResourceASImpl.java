@@ -3,7 +3,6 @@
  */
 package com.nyp.shopping.business.application.impl;
 
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.FilenameFilter;
@@ -23,6 +22,8 @@ import org.apache.commons.io.filefilter.DirectoryFileFilter;
 import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 
 import com.nyp.shopping.business.application.MessageResourceAS;
@@ -40,19 +41,44 @@ public class MessageResourceASImpl implements MessageResourceAS {
 
 	private static final Logger logger = LoggerFactory.getLogger(MessageResourceASImpl.class);
 
-    private Map<String, MessageResourceLocale> messageResourceMap;
+	private Map<String, MessageResourceLocale> messageResourceMap;
 	private List<LanguageBean> supportedLanguages = new ArrayList<>();
-    private String availableLanguagesBundleName = "dashboard";
+	private Map<String, Properties> appConfigsMap = new HashMap<>();
 
-    /**
-     * Service Initialization
-     */
-    @PostConstruct
+	/**
+	 * Service Initialization
+	 */
+	@PostConstruct
 	public void init() {
+		initMessage();
+		initAppConfig();
+	}
+
+	private void initAppConfig() {
+
+		File[] globalPropertyFileList = getGlobalPropertyFileList();
+
+		YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
+
+		for (File file : globalPropertyFileList) {
+			final String fileName = file.getName();
+			StringBuilder filePath = new StringBuilder();
+			filePath.append(System.getProperty(ApplicationConstants.CONFIG_PATH_PROPERTY_NAME))
+					.append(ApplicationConstants.FORWARD_SLASH).append(fileName);
+			yaml.setResources(new FileSystemResource(new File(filePath.toString())));
+			final Properties props = yaml.getObject();
+			appConfigsMap.put(fileName.toLowerCase(), props);
+		}
+	}
+
+	/**
+	 * Service Initialization
+	 */
+	private void initMessage() {
 
 		Map<String, MessageResourceLocale> messageResourceMapTemp = new HashMap<>();
-		List<LanguageBean> newSupportedLanguages = new ArrayList<LanguageBean>();
-		final File[] propertyFileList = getPropertyFileList();
+		List<LanguageBean> newSupportedLanguages = new ArrayList<>();
+		final File[] propertyFileList = getMessagePropertyFileList();
 
 		for (File file : propertyFileList) {
 			if (file.isDirectory()) {
@@ -66,10 +92,11 @@ public class MessageResourceASImpl implements MessageResourceAS {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					if (availableLanguagesBundleName.equals(file.getName())) {
-						String localeCode = getLocale(innerFile.getName())[1];
-						if(!I18nService.DEFAULT.equals(localeCode)) {
-							messageResourceLocale.getPropertiesMap().put(getLocale(innerFile.getName())[1], props);
+					String localeCode = getLocale(innerFile.getName())[1];
+					messageResourceLocale.getPropertiesMap().put(localeCode, props);
+					if (!I18nService.DEFAULT.equals(localeCode)) {
+
+						if (ApplicationConstants.MESSAGE_TYPE_DASHBOARD.equalsIgnoreCase(file.getName())) {
 							// add above supported language/localeCode in a list
 							String languageName = props.getProperty("languageName");
 							String nameAsImgProperty = props.getProperty("languageImg");
@@ -78,12 +105,15 @@ public class MessageResourceASImpl implements MessageResourceAS {
 								nameAsImg = true;
 							}
 							Locale languageLocale = new Locale(localeCode);
-							LanguageBean toAdd = new LanguageBean(languageName, languageLocale.getLanguage(), nameAsImg);
+							LanguageBean toAdd = new LanguageBean(languageName, languageLocale.getLanguage(),
+									nameAsImg);
 							newSupportedLanguages.add(toAdd);
 						}
 					}
 				}
-				supportedLanguages.addAll(newSupportedLanguages);
+				if (ApplicationConstants.MESSAGE_TYPE_DASHBOARD.equalsIgnoreCase(file.getName())) {
+					supportedLanguages.addAll(newSupportedLanguages);
+				}
 				messageResourceMapTemp.put(file.getName(), messageResourceLocale);
 			}
 		}
@@ -91,7 +121,7 @@ public class MessageResourceASImpl implements MessageResourceAS {
 		logger.info("message resources initialization completed: {}", messageResourceMap);
 	}
 
-    @Override
+	@Override
 	public List<LanguageBean> getSupportedLanguages() {
 		return supportedLanguages;
 	}
@@ -103,14 +133,14 @@ public class MessageResourceASImpl implements MessageResourceAS {
 
 	/**
 	 * This method return an array that contains in position 0 base filename, in
-	 * position 1 locale code. For example getLocale(messages_IT.properties)
-	 * return {messages,IT}
+	 * position 1 locale code. For example getLocale(messages_IT.properties) return
+	 * {messages,IT}
 	 * 
 	 * @param fileName
 	 * @return
 	 * @throws I18nServiceException
 	 */
-	public String[] getLocale(String fileName)  {
+	public String[] getLocale(String fileName) {
 		try {
 			logger.trace("Start getLocale");
 			if (fileName == null || fileName.trim().isEmpty())
@@ -129,18 +159,31 @@ public class MessageResourceASImpl implements MessageResourceAS {
 		}
 	}
 
-    private File[] getPropertyFileList() {
+	private File[] getMessagePropertyFileList() {
 
-    	String messageConfigDir = System.getProperty(ApplicationConstants.CONFIG_PATH_PROPERTY_NAME) + File.separator
+		String messageConfigDir = System.getProperty(ApplicationConstants.CONFIG_PATH_PROPERTY_NAME) + File.separator
 				+ ApplicationConstants.APPLICATION_MESSAGE_DIR;
-        final File dir = new File(messageConfigDir);
-        return dir.listFiles(new FilenameFilter() {
+		final File dir = new File(messageConfigDir);
+		return dir.listFiles(new FilenameFilter() {
 
-            @Override
-            public boolean accept(File dir, String name) {
-				//return name.toLowerCase().endsWith(".properties");
-            	return true;
-            }
-        });
+			@Override
+			public boolean accept(File dir, String name) {
+				return true;
+			}
+		});
+	}
+
+	private File[] getGlobalPropertyFileList() {
+
+		String messageConfigDir = System.getProperty(ApplicationConstants.CONFIG_PATH_PROPERTY_NAME);
+		final File dir = new File(messageConfigDir);
+		return dir.listFiles(new FilenameFilter() {
+
+			@Override
+			public boolean accept(File dir, String name) {
+				return name.toLowerCase().endsWith(".yml");
+				// return true;
+			}
+		});
 	}
 }
