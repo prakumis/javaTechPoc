@@ -8,14 +8,18 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
 import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.slf4j.Logger;
@@ -50,6 +54,46 @@ public class MessageResourceASImpl implements MessageResourceAS {
 	public void init() {
 		initMessage();
 		initAppConfig();
+		validateLanguageProperties();
+	}
+
+	private void validateLanguageProperties() {
+
+		List<String> languageList = getLocaleList();
+		Iterator<Entry<String, MessageResourceLocale>> messageEntrySetIterator = getMessageResourceMap().entrySet()
+				.iterator();
+		while (messageEntrySetIterator.hasNext()) {
+			Entry<String, MessageResourceLocale> messageEntry = messageEntrySetIterator.next();
+			if (!ApplicationConstants.MESSAGE_TYPE_DASHBOARD.equals(messageEntry.getKey())) {
+
+				Map<String, Properties> propertiesMap = messageEntry.getValue().getPropertiesMap();
+				Iterator<String> propertiesMapIterator = propertiesMap.keySet().iterator();
+				while (propertiesMapIterator.hasNext()) {
+					String propertiesMapLanguage = propertiesMapIterator.next();
+					if (languageList.contains(propertiesMapLanguage)) {
+						languageList.remove(propertiesMapLanguage);
+					} else {
+						logger.error("The Properties of type {} is NOT supported for language {}", messageEntry.getKey(),
+								propertiesMapLanguage);
+					}
+				}
+				logger.error("No properties of languages {} found for the type {}", languageList, messageEntry.getKey());
+			}
+		}
+	}
+
+	private List<String> getLocaleList() {
+
+		List<String> localeList = new ArrayList<>();
+		ListIterator<LanguageBean> iterator = supportedLanguages.listIterator();
+		while (iterator.hasNext()) {
+			localeList.add(iterator.next().getLocale().toUpperCase());
+		}
+		return localeList;
+	}
+
+	public boolean containsName(final List<LanguageBean> list, final String name) {
+		return list.stream().anyMatch(o -> o.getLocale().equals(name));
 	}
 
 	private void initAppConfig() {
@@ -65,7 +109,7 @@ public class MessageResourceASImpl implements MessageResourceAS {
 					.append(ApplicationConstants.FORWARD_SLASH).append(fileName);
 			yaml.setResources(new FileSystemResource(new File(filePath.toString())));
 			final Properties props = yaml.getObject();
-			appConfigsMap.put(fileName.toLowerCase(), props);
+			appConfigsMap.put(FilenameUtils.removeExtension(fileName).toUpperCase(), props);
 		}
 	}
 
@@ -164,6 +208,12 @@ public class MessageResourceASImpl implements MessageResourceAS {
 		});
 	}
 
+	/**
+	 * More Read:
+	 * https://stackoverflow.com/questions/29316310/java-8-lambda-expression-for-filenamefilter
+	 * 
+	 * @return
+	 */
 	private File[] getGlobalPropertyFileList() {
 
 		String messageConfigDir = System.getProperty(ApplicationConstants.CONFIG_PATH_PROPERTY_NAME);
@@ -182,5 +232,26 @@ public class MessageResourceASImpl implements MessageResourceAS {
 				return name.toLowerCase().endsWith(".yml");
 			}
 		});
+	}
+
+	@Override
+	public Map<String, Properties> getAppConfigsMap() {
+		return appConfigsMap;
+	}
+
+	@Override
+	public void updateMessageProperties(String language, String messageType, String key, String value) {
+
+		if (messageResourceMap.get(messageType).getPropertiesMap().containsKey(language.toUpperCase())) {
+			messageResourceMap.get(messageType).getPropertiesMap().get(language.toUpperCase()).put(key, value);
+		} else {
+			logger.error("Message Properties NOT found for messageType: {} and language {}", messageType, language);
+		}
+	}
+
+	@Override
+	public void updateConfigProperties(String configName, String key, String value) {
+
+		appConfigsMap.get(configName).put(key, value);
 	}
 }

@@ -21,6 +21,7 @@ public abstract class ApplicationConstants {
 	public static final String DOT = ".";
 	public static final String SEPARATOR = null;
 	public static final Object FORWARD_SLASH = "/";
+	public static final String APP_URL = "/app";
 
 	private ApplicationConstants(){
 		// do nothing

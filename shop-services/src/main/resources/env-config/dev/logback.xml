@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds" packagingData="true">
 	<contextName>SHOP</contextName>
-	<!-- contextListener class="com.ericsson.etme.processing.logging.listener.LoggerStartupListener"/ -->
 
 	<!-- proxy,common,util,web log appender -->
 	<appender name="SHOP-GENERAL"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${catalina.home}/logs/shop.log</file>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-			<Pattern>[%d{yyyy-MM-dd HH:mm:ss,SSS}] %-5level [%file %method] -
+			<Pattern>[%d{"yyyy-MM-dd HH:mm:ss,SSS,ZZZ", IST}] [%-5level] [%file %method] -
 				 | %X{request} | %X{organization} | %X{userId} | %X{client} | %X{session} | %X{service} | - %msg%n</Pattern>
 		</encoder>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -41,7 +40,7 @@
 		</rollingPolicy>
 	</appender>
 
-	<logger name="com.nyp.shopping" level="DEBUG" additivity="false">
+	<logger name="com.nyp.shopping" level="ERROR" additivity="false">
 		<appender-ref ref="SHOP-GENERAL" />
 	</logger>
 
@@ -53,11 +52,11 @@
 		<appender-ref ref="SHOP-GENERAL" />
 	</logger>
 
-	<logger name="org.hibernate" level="DEBUG" additivity="false">
+	<logger name="org.hibernate" level="ERROR" additivity="false">
 		<appender-ref ref="SHOP-OTHERS" />
 	</logger>
 
-	<root level="DEBUG">
+	<root level="ERROR">
 		<appender-ref ref="SHOP-GENERAL" />
 	</root>
 

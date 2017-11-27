@@ -25,8 +25,8 @@ import com.nyp.shopping.common.vo.LanguageBean;
 @Service
 public class I18nServiceImpl implements I18nService {
 
-	//@Value("${language.resources}")
-	//private String prefixes;
+	// @Value("${language.resources}")
+	// private String prefixes;
 
 	@Inject
 	MessageResourceAS messageResourceAS;
@@ -35,6 +35,12 @@ public class I18nServiceImpl implements I18nService {
 	public Map<String, MessageResourceLocale> getMessageResourceMap() {
 
 		return messageResourceAS.getMessageResourceMap();
+	}
+
+	@Override
+	public Map<String, Properties> getAppConfigsMap() {
+
+		return messageResourceAS.getAppConfigsMap();
 	}
 
 	/**
@@ -46,7 +52,7 @@ public class I18nServiceImpl implements I18nService {
 	 * @param prefixes
 	 */
 	protected void buildMessages(final String language, final Map<String, MessageResourceLocale> messageResource,
-			final Map<String, String> result, String messageType) {
+			final Map<String, String> result, String messageType, boolean inheritanceRequired) {
 
 		if (messageResource.containsKey(messageType)) {
 
@@ -57,21 +63,22 @@ public class I18nServiceImpl implements I18nService {
 			if (properties != null) {
 				// iterate and keep the properties (key, value) in the result map
 				for (Map.Entry<Object, Object> objectEntry : properties.entrySet()) {
-					result.put(String.format("%s.%s", messageType, objectEntry.getKey()), "" + objectEntry.getValue());
+					result.put(String.valueOf(objectEntry.getKey()), String.valueOf(objectEntry.getValue()));
 				}
 			}
 			// get the properties which belongs to DEFAULT language
-			properties = messageResourceLocale.getPropertiesMap().get(I18nService.DEFAULT);
-			if (properties != null) {
-				for (Map.Entry<Object, Object> objectEntry : properties.entrySet()) {
-					final String key = String.format("%s.%s", messageType, objectEntry.getKey());
-					// if the key of DEFAULT properties not already found in result map
-					if (!result.containsKey(key)) {
-						result.put(key, "" + objectEntry.getValue());
+			if(inheritanceRequired) {
+				properties = messageResourceLocale.getPropertiesMap().get(I18nService.DEFAULT);
+				if (properties != null) {
+					for (Map.Entry<Object, Object> objectEntry : properties.entrySet()) {
+						final String key = String.valueOf(objectEntry.getKey());
+						// if the key of DEFAULT properties not already found in result map
+						if (!result.containsKey(key)) {
+							result.put(key, String.valueOf(objectEntry.getValue()));
+						}
 					}
 				}
 			}
-
 		}
 	}
 
@@ -81,12 +88,20 @@ public class I18nServiceImpl implements I18nService {
 		return getMessageProperties(language, ApplicationConstants.MESSAGE_TYPE_DASHBOARD);
 	}
 
+	@Override
 	public Map<String, String> getMessageProperties(String language, String messageType) {
+
+		// TODO - get the inheritanceRequired property from config / properties file
+		return getMessageProperties(language, messageType, false);
+	}
+
+	@Override
+	public Map<String, String> getMessageProperties(String language, String messageType, boolean inheritanceRequired) {
 
 		Map<String, MessageResourceLocale> messageResource = getMessageResourceMap();
 
 		final Map<String, String> result = new LinkedHashMap<>();
-		buildMessages(language, messageResource, result, messageType);
+		buildMessages(language, messageResource, result, messageType, inheritanceRequired);
 		return result;
 	}
 
@@ -94,6 +109,18 @@ public class I18nServiceImpl implements I18nService {
 	public List<LanguageBean> retrieveSupportedLanguages() {
 
 		return messageResourceAS.getSupportedLanguages();
+	}
+
+	@Override
+	public void updateMessageProperties(String language, String messageType, String key, String value) {
+
+		messageResourceAS.updateMessageProperties(language, messageType, key, value);
+	}
+
+	@Override
+	public void updateConfigProperties(String configName, String key, String value) {
+
+		messageResourceAS.updateConfigProperties(configName, key, value);
 	}
 
 }

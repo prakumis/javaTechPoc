@@ -23,7 +23,7 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 /**
  * Currently this file is used only to load below jdbc property
  */
-@PropertySource("classpath:jdbc.properties")
+@PropertySource("classpath:/config/database/jdbc.properties")
 public class MessageConfig {
 
 	@Bean
