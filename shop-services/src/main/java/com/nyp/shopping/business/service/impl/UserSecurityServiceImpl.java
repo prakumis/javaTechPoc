@@ -47,4 +47,11 @@ public class UserSecurityServiceImpl extends BaseServiceImpl implements UserSecu
 		return customerAdaptor.toCustomerVO(customer);
 	}
 
+	@Override
+	public CustomerVO getUserDetails(UserVO userVO) {
+
+		Customer customer = userSecurityAS.getCustomerByUsername(userVO);
+		return customerAdaptor.toCustomerVO(customer);
+	}
+
 }

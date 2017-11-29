@@ -14,4 +14,5 @@ public interface UserSecurityService {
 
 	CustomerVO validateUserLogin(UserVO userVO);
 
+	CustomerVO getUserDetails(UserVO userVO);
 }

@@ -27,6 +27,20 @@ function loadPage(url) {
 	});
 }
 
+function getSystemStatus(url) {
+	$.ajax({
+		type : 'GET',
+		url : url,
+		headers : {
+			Accept : "text/plain; charset=utf-8",
+			"Content-Type" : "text/plain; charset=utf-8"
+		},
+		success : function(response) {
+			$('#content').html(response);
+		}
+	});
+}
+
 function loadLogger(url) {
 	$.ajax({
 		type : 'GET',

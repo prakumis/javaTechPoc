@@ -97,10 +97,10 @@ public abstract class EmailSenderTemplate {
 		return mailServerProperties;
 	}
 
-	public final void processAndSendEmail(Context context) {
+	public final boolean processAndSendEmail(Context context) {
 		EmailVO emailVO = JaxbUtils.getEmailVO(getTemplateName());
 		updateEmailVO(emailVO, context);
-		sendEmail(emailVO);
+		return sendEmail(emailVO);
 	}
 
 	/*
@@ -120,9 +120,10 @@ public abstract class EmailSenderTemplate {
 		emailVO.setTo(new String[] { emailDataMap.get("toArray") });
 	}
 
-	public void sendEmail(EmailVO emailVO) {
+	public boolean sendEmail(EmailVO emailVO) {
 		logger.debug("Send email start ::::" + Thread.currentThread().getId());
 
+		boolean status = true;
 		try {
 			Session session = getSession();
 			Message message = new MimeMessage(session);
@@ -155,9 +156,10 @@ public abstract class EmailSenderTemplate {
 
 			javax.mail.Transport.send(message);
 		} catch (Exception ex) {
+			status = false;
 			logger.debug("unable to send mails " + ex);
 		}
-
+		return status;
 	}
 
 	public String getTemplateName() {

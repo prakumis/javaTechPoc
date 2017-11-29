@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.nyp.shopping.business.service.I18nService;
+import com.nyp.shopping.business.service.SystemService;
 import com.nyp.shopping.business.service.model.MessageResourceLocale;
 import com.nyp.shopping.common.vo.LanguageBean;
 
@@ -26,11 +27,14 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.Appender;
 
 @Controller
-@RequestMapping("/app")
+@RequestMapping("/secure")
 public class AppConfigController extends BaseController {
 
 	@Autowired
 	private I18nService i18nService;
+
+	@Autowired
+	private SystemService systemService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String init(HttpServletRequest request) {
@@ -42,10 +46,16 @@ public class AppConfigController extends BaseController {
 		return "homeTiles";
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "/system/status")
+	public String getSystemStatus(HttpServletRequest request) {
+
+		Map<String, String> systemStatus = systemService.getSystemStatus();
+		request.setAttribute("systemStatus", systemStatus);
+		return "showSystemStatusAjax";
+	}
+
 	@RequestMapping(method = RequestMethod.GET, value = "/logger")
 	public String getLogger(HttpServletRequest request) {
-		// List<Logger> loggerList = findNamesOfConfiguredLoggers();
-		// request.setAttribute("loggerList", loggerList);
 		return "setLogAjax";
 	}
 
@@ -54,7 +64,7 @@ public class AppConfigController extends BaseController {
 
 		final String levels = request.getParameter("levels");
 		final String loggerName = request.getParameter("logger");
-		logger.info("setting new level.................." + levels);
+		logger.info("setting new level.................. {}", levels);
 		setLevel(levels, loggerName);
 		return getLogger(request);
 	}

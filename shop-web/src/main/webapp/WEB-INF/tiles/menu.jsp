@@ -18,7 +18,8 @@
 	<div class="menu">
 		<ul class="nav">
 			<p class="menuSection">System Config</p>
-			<p><a onclick="return loadLogger('${pageContext.request.contextPath}/app/logger')">change log level</a></p>
+            <p><a onclick="return getSystemStatus('${pageContext.request.contextPath}/app/system/status')">show system status</a></p>
+            <p><a onclick="return loadLogger('${pageContext.request.contextPath}/app/logger')">change log level</a></p>
 	</div>
 
 	<div class="menu">

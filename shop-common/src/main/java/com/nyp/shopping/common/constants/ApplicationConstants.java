@@ -21,7 +21,12 @@ public abstract class ApplicationConstants {
 	public static final String DOT = ".";
 	public static final String SEPARATOR = null;
 	public static final Object FORWARD_SLASH = "/";
-	public static final String APP_URL = "/app";
+	public static final String SYSTEM_DB_STATUS = "Database Status";
+	public static final String SYSTEM_EMAIL_STATUS = "Email Status";
+	public static final String SYSTEM_STATUS_RUNNING = "Running";
+	public static final String SYSTEM_STATUS_STOPPED = "Stopped";
+	public static final String SECURITY_SERVICE_APP_URL = "/app";
+	public static final String SECURITY_SECURE_MAPPING = "/secure";
 
 	private ApplicationConstants(){
 		// do nothing

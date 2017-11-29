@@ -33,6 +33,10 @@
             <bean class="com.nyp.shopping.web.interceptor.CustomRequestHandler" />
         </mvc:interceptor>
         <mvc:interceptor>
+            <mvc:mapping path="/secure/**" />
+            <bean class="com.nyp.shopping.web.interceptor.AppConfigSecurityInterceptor" />
+        </mvc:interceptor>
+        <mvc:interceptor>
             <mvc:mapping path="/l10n/switchLocale" />
             <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" >
                 <property name="paramName" value="language" />
