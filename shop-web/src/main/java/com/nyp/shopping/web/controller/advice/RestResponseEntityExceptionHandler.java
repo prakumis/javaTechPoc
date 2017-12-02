@@ -208,7 +208,22 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
 		Properties localeErrorProperties = messageResourceAS.getMessageResourceMap()
 				.get(ApplicationConstants.MESSAGE_TYPE_ERRORS).getPropertiesMap().get(currentLocale.getLanguage().toUpperCase());
-		return localeErrorProperties.getProperty(fieldError.getCode()+"."+fieldError.getField());
+
+		/*
+		 * Build the errorMessage based on the VO's annotation message
+		 * [@NotNull(message="{NotNull.name}")] i.e. "NotNull.name". 
+		 */
+		String errorMessage = localeErrorProperties.getProperty(fieldError.getDefaultMessage());
+		//return localeErrorProperties.getProperty(fieldError.getCode()+"."+fieldError.getField());
+		if(null == errorMessage) {
+			// If its's value in errorMessage Property file is null, then
+			errorMessage = localeErrorProperties.getProperty(fieldError.getCode()+"."+fieldError.getField());
+		}
+		if(null == errorMessage) {
+			// If its's value in errorMessage Property file is null, then
+			errorMessage = localeErrorProperties.getProperty(fieldError.getCode());
+		}
+		return errorMessage;
     }
 
 	/**

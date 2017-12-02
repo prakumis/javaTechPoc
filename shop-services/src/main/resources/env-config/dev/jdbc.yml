@@ -6,8 +6,8 @@ jdbc:
   password: shop
 #Connection Pooling Settings
 c3p0:
-  initialPoolSize: 5
-  minPoolSize: 5
-  maxPoolSize: 50
-  acquireIncrement: 5
-  idle_test_period: 3600
+  initialPoolSize: '5'
+  minPoolSize: '5'
+  maxPoolSize: '50'
+  acquireIncrement: '5'
+  idle_test_period: '3600'

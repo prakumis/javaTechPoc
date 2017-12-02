@@ -23,7 +23,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.nyp.shopping.common.vo.ProductCategoryVO;
-import com.nyp.shopping.web.config.WebConfig;
+import com.nyp.shopping.web.config.TestWebConfig;
 
 /**
  * 
@@ -35,7 +35,7 @@ import com.nyp.shopping.web.config.WebConfig;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = { WebConfig.class })
+@ContextConfiguration(classes = { TestWebConfig.class })
 public class ProductCategoryControllerTest {
 
 	private static int setUpCounter=0;

@@ -31,10 +31,12 @@
 		<!-- <version.slf4j>1.7.5</version.slf4j> -->
 		<version.org.slf4j>1.7.16</version.org.slf4j>
 		<version.ch.qos.logback>1.1.5</version.ch.qos.logback>
-		<version.fasterxml.jackson>2.5.0-rc1</version.fasterxml.jackson>
+		<!--<version.fasterxml.jackson>2.5.0-rc1</version.fasterxml.jackson>-->
+		<version.fasterxml.jackson>2.9.2</version.fasterxml.jackson>
 		<version.modelmapper>0.7.5</version.modelmapper>
 		<version.json-path>2.2.0</version.json-path>
         <apachetiles.version>3.0.5</apachetiles.version>
+        <version.swagger>2.7.0</version.swagger>
 	</properties>
 
 	<build>
@@ -298,7 +300,7 @@
 	        <dependency>
 	            <groupId>com.fasterxml.jackson.dataformat</groupId>
 	            <artifactId>jackson-dataformat-xml</artifactId>
-	            <version>2.4.6</version>
+	            <version>${version.fasterxml.jackson}</version>
 	        </dependency>
 			<!-- <dependency> <groupId>org.apache.commons</groupId> <artifactId>commons-dbcp2</artifactId> 
 				<version>2.1.1</version> <scope>test</scope> </dependency> -->
@@ -375,6 +377,18 @@
                 <artifactId>tiles-template</artifactId>
                 <version>${apachetiles.version}</version>
             </dependency>
+
+            <!--  Swagger API -->
+		    <dependency>
+		       <groupId>io.springfox</groupId>
+		       <artifactId>springfox-swagger2</artifactId>
+		       <version>${version.swagger}</version>
+		   </dependency>
+		   <dependency>
+		       <groupId>io.springfox</groupId>
+		       <artifactId>springfox-swagger-ui</artifactId>
+		       <version>${version.swagger}</version>
+		   </dependency>
 
 		</dependencies>
 

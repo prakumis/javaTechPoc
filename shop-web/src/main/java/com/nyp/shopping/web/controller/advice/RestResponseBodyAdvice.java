@@ -13,6 +13,7 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import com.nyp.shopping.common.constants.ApplicationConstants;
@@ -20,7 +21,8 @@ import com.nyp.shopping.common.vo.BaseVO;
 import com.nyp.shopping.web.model.ErrorBean;
 import com.nyp.shopping.web.model.ResponseBean;
 
-@ControllerAdvice
+//@ControllerAdvice(basePackages = {"com.nyp.shopping.web"} )
+@ControllerAdvice(annotations=RestController.class)
 public class RestResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
 	@Override
@@ -37,6 +39,9 @@ public class RestResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 		Object responseBody = body;
 		HttpServletRequest servletRequest = ((ServletServerHttpRequest) request).getServletRequest();
 		HttpServletResponse servletResponse = ((ServletServerHttpResponse) response).getServletResponse();
+		if(null == servletRequest.getAttribute("startTime")) {
+			servletRequest.setAttribute("startTime", System.currentTimeMillis());
+		}
 		Long elapsedTime = System.currentTimeMillis() - (Long) servletRequest.getAttribute("startTime");
 		if (body instanceof List) {
 			ResponseBean<List<BaseVO>> responseBean = new ResponseBean<>();
@@ -73,6 +78,8 @@ public class RestResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 			ResponseBean<Object> responseBean = new ResponseBean<>(servletResponse.getStatus(), null, (ErrorBean) body);
 			responseBean.setResponseTime(elapsedTime);
 			responseBody = responseBean;
+		} else {
+			return body;
 		}
 		return responseBody;
 	}

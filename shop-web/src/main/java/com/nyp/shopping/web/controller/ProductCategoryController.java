@@ -27,6 +27,8 @@ import com.nyp.shopping.web.exception.ApplicationValidationException;
 import com.nyp.shopping.web.exception.KeywordNotFoundException;
 import com.nyp.shopping.web.model.ResponseBean;
 
+import io.swagger.annotations.Api;
+
 /**
  * 
  * CRUD Operations:
@@ -38,9 +40,9 @@ import com.nyp.shopping.web.model.ResponseBean;
 @RestController 
 //@RequestMapping("/cat")
 @RequestMapping(path = "/cat", produces = { WebConstants.MEDIA_TYPE_XML_VERSION_0_1,
-		WebConstants.MEDIA_TYPE_JSON_VERSION_0_1 }, consumes = { WebConstants.MEDIA_TYPE_XML_VERSION_0_1,
-				WebConstants.MEDIA_TYPE_JSON_VERSION_0_1 })
+		WebConstants.MEDIA_TYPE_JSON_VERSION_0_1 })
 //@RequestMapping(path = "/cat", consumes = { "application/json", "application/xml" }, produces = { "application/json", "application/xml" }, headers = { "X-API-Version=v1" })
+@Api(value = "ProductCategory Controller", description = "REST APIs related to ProductCategory Entity!!!!", consumes="JSON", produces="JSON")
 public class ProductCategoryController extends BaseController {
 
 	@Inject
@@ -107,14 +109,16 @@ public class ProductCategoryController extends BaseController {
 	}
 
 	// @ResponseStatus( HttpStatus.CREATED )
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST, consumes = { WebConstants.MEDIA_TYPE_XML_VERSION_0_1,
+			WebConstants.MEDIA_TYPE_JSON_VERSION_0_1 })
 	public ResponseBean<Object> createCategory(@Valid @RequestBody ProductCategoryVO category) {
 
 		Long id = productCatalogService.createCategory(category);
 		return new ResponseBean<>(HttpStatus.CREATED.value(), String.format("Category %s created successfully", id));
 	}
 
-	@RequestMapping(method = RequestMethod.PUT, path = "/{id}")
+	@RequestMapping(method = RequestMethod.PUT, path = "/{id}", consumes = { WebConstants.MEDIA_TYPE_XML_VERSION_0_1,
+			WebConstants.MEDIA_TYPE_JSON_VERSION_0_1 })
 	public ProductCategoryVO updateCategory(@PathVariable Long id, @RequestBody ProductCategoryVO category) {
 		category.setId(id);
 		return productCatalogService.updateCategory(category);

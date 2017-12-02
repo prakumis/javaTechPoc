@@ -25,9 +25,11 @@ import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.Appender;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Controller
 @RequestMapping("/secure")
+@ApiIgnore
 public class AppConfigController extends BaseController {
 
 	@Autowired

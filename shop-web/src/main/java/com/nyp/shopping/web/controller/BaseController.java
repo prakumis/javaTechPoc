@@ -15,6 +15,7 @@ import org.springframework.validation.ObjectError;
  * @author pmis30
  *
  */
+//@RequestMapping("restapi")
 public class BaseController {
 
 	/** Logger that is available to subclasses */
@@ -25,7 +26,7 @@ public class BaseController {
 		List<String> errorsList = new ArrayList<>(allErrors.size());
 		ListIterator<ObjectError> iterator = allErrors.listIterator();
 		while (iterator.hasNext()) {
-			ObjectError objectError = (ObjectError) iterator.next();
+			ObjectError objectError = iterator.next();
 			errorsList.add(objectError.getDefaultMessage());
 		}
 		return errorsList;

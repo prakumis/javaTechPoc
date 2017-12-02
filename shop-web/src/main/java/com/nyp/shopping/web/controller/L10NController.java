@@ -21,8 +21,11 @@ import com.nyp.shopping.business.service.I18nService;
 import com.nyp.shopping.common.constants.ApplicationConstants;
 import com.nyp.shopping.common.vo.LanguageBean;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/l10n")
+@Api(value = "L10N Controller", description = "REST APIs related to Student Entity!!!!")
 public class L10NController extends BaseController {
 
 	@Autowired
