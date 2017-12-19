@@ -1,4 +1,4 @@
-package com.nyp.shopping.web.controller;
+package com.nyp.shopping.web.controller.mvc;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,12 +25,11 @@ import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.Appender;
-import springfox.documentation.annotations.ApiIgnore;
 
 @Controller
 @RequestMapping("/secure")
-@ApiIgnore
-public class AppConfigController extends BaseController {
+//@ApiIgnore
+public class AppConfigController {
 
 	@Autowired
 	private I18nService i18nService;
@@ -66,7 +65,7 @@ public class AppConfigController extends BaseController {
 
 		final String levels = request.getParameter("levels");
 		final String loggerName = request.getParameter("logger");
-		logger.info("setting new level.................. {}", levels);
+		//logger.info("setting new level.................. {}", levels);
 		setLevel(levels, loggerName);
 		return getLogger(request);
 	}

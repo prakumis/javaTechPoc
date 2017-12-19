@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.nyp.shopping.web.controller;
+package com.nyp.shopping.web.controller.rest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nyp.shopping.business.service.ProductCategoryService;
+import com.nyp.shopping.common.constants.ApplicationConstants;
 import com.nyp.shopping.common.constants.WebConstants;
 import com.nyp.shopping.common.vo.ProductCategoryVO;
 import com.nyp.shopping.web.exception.ApplicationValidationException;

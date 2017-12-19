@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -58,7 +59,8 @@ import com.nyp.shopping.web.model.ResponseBean;
  * @author pmis30
  *
  */
-@ControllerAdvice()
+//@ControllerAdvice("com.nyp.shopping.web.controller.rest")
+@ControllerAdvice(annotations=RestController.class)
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
 	private Logger log = LoggerFactory.getLogger(getClass());

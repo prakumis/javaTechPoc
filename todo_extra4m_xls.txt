@@ -1,0 +1,2 @@
+1. Compare the pom.xml for maven war/compiler plugins
+2. 

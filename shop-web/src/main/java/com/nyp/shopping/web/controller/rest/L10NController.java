@@ -1,4 +1,4 @@
-package com.nyp.shopping.web.controller;
+package com.nyp.shopping.web.controller.rest;
 
 import java.util.List;
 import java.util.Locale;
@@ -34,8 +34,8 @@ public class L10NController extends BaseController {
 	@Autowired
 	private LocaleResolver localeResolver;
 
-	@Value("${language.resources}")
-	private String prefixes;
+	//@Value("${language.resources}")
+	//private String prefixes;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/languages")
 	public @ResponseBody List<LanguageBean> getLanguages() {

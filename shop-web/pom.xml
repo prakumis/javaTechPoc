@@ -179,6 +179,15 @@
 					<target>${version.java}</target>
 				</configuration>
 			</plugin>
+			<!-- maven-war-plugin was required after converting into web.xml less project -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<webappDirectory>src/main/webapp</webappDirectory>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.nyp.shopping.web.controller;
+package com.nyp.shopping.web.controller.rest;
 
 import javax.inject.Inject;
 
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nyp.shopping.business.service.UserSecurityService;
+import com.nyp.shopping.common.constants.ApplicationConstants;
 import com.nyp.shopping.common.vo.CustomerVO;
 import com.nyp.shopping.common.vo.UserVO;
 

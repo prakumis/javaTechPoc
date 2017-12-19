@@ -37,6 +37,13 @@
             <artifactId>commons-configuration</artifactId>
             <version>1.10</version>
         </dependency>
+
+		<!-- YamlUtils.YamlPropertiesFactoryBean -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+
 	</dependencies>
 
 	<build>

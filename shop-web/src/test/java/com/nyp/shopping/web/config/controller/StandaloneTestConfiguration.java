@@ -12,7 +12,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.nyp.shopping.web.controller.ProductCategoryController;
+import com.nyp.shopping.web.controller.rest.ProductCategoryController;
 
 /**
  * 

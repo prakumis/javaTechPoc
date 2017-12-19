@@ -106,7 +106,7 @@ public class MessageResourceASImpl implements MessageResourceAS {
 			final String fileName = file.getName();
 			StringBuilder filePath = new StringBuilder();
 			filePath.append(System.getProperty(ApplicationConstants.CONFIG_PATH_PROPERTY_NAME))
-					.append(ApplicationConstants.FORWARD_SLASH).append(fileName);
+					.append(ApplicationConstants.URL_CONTEXT_ROOT).append(fileName);
 			yaml.setResources(new FileSystemResource(new File(filePath.toString())));
 			final Properties props = yaml.getObject();
 			appConfigsMap.put(FilenameUtils.removeExtension(fileName).toUpperCase(), props);

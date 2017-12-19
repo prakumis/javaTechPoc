@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-This application is running on <%=new java.util.Date() %>
+This application is running on <%=new java.util.Date() %><br>
+
+<a href="/shop-web/app">App Config</a>
 </body>
 </html>

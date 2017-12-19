@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,25 +16,28 @@ import com.nyp.shopping.common.constants.ApplicationConstants;
 /**
  * Servlet implementation class SecurityServlet
  */
-@WebServlet("/SecurityServlet")
+//@WebServlet(urlPatterns = {"/app", "/app/*"}, loadOnStartup=1)
+//@ServletSecurity(@HttpConstraint(rolesAllowed = { ApplicationConstants.TOMCAT_ROLE }))
 public class SecurityServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SecurityServlet() {
-        super();
-    }
+
+	@Override
+	public void init() throws ServletException {
+
+		System.out.println("SecurityServlet.init()");
+		super.init();
+		System.out.println("SecurityServlet.init(2)");
+	}
 
 	/**
 	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
     @Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		logger.warn("App Settings page accessd by User");
+    	logger.warn("App Settings page accessd by User");
 		String appUrl = request.getContextPath().concat(ApplicationConstants.SECURITY_SERVICE_APP_URL);
         RequestDispatcher rd = null;
         if (appUrl.equals(request.getRequestURI())) {

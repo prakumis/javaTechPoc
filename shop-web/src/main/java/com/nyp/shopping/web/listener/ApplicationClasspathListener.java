@@ -21,9 +21,13 @@ import com.nyp.shopping.opensource.config.ClasspathConfigurator;
 @WebListener
 public class ApplicationClasspathListener implements ServletContextListener {
 
+	private static int count = 0;
 	private Logger log = LoggerFactory.getLogger(getClass());
 	private String configLocation;
 
+	static {
+		System.out.println("ApplicationClasspathListener.static{} block's count: "+ count++);
+	}
 	/**
 	 * execution at application shutdown. does nothing.
 	 */
@@ -39,6 +43,7 @@ public class ApplicationClasspathListener implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
 
+		System.out.println("count: "+ count++);
 		System.out.println("CONFDIR: "+System.getProperty(ApplicationConstants.CONFIG_PATH_PROPERTY_NAME));
 		try {
 

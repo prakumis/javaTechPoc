@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.nyp.shopping.web.controller;
+package com.nyp.shopping.web.controller.rest;
 
 import java.util.ArrayList;
 import java.util.List;
