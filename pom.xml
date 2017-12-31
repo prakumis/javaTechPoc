@@ -17,7 +17,7 @@
 		<version.project>0.0.1-SNAPSHOT</version.project>
 		<version.project1>00.01.01</version.project1>
 		<!-- <version.spring>4.2.2.RELEASE</version.spring> -->
-		<version.spring>4.3.7.RELEASE</version.spring>
+		<version.spring>4.3.13.RELEASE</version.spring>
 		<!-- <version.jackson-mapper-asl>1.9.13</version.jackson-mapper-asl> -->
 		<!-- <version.spring-data-jpa>1.9.0.RELEASE</version.spring-data-jpa> -->
 		<version.spring-data-jpa>1.11.1.RELEASE</version.spring-data-jpa>

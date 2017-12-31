@@ -104,7 +104,8 @@ public class SpringWebApplicationInitializer extends AbstractAnnotationConfigDis
 		if (Boolean.valueOf(securityConfig)) {
 			ServletRegistration.Dynamic securityServletConfig = servletContext
 					.addServlet(SecurityServlet.class.getName(), SecurityServlet.class);
-			securityServletConfig.addMapping(ApplicationConstants.SECURITY_CONFIG_MAPPING);
+			securityServletConfig.addMapping(ApplicationConstants.SECURITY_SERVICE_APP_URL,
+					ApplicationConstants.SECURITY_CONFIG_MAPPING);
 			securityServletConfig.setLoadOnStartup(0);
 			HttpConstraintElement httpConstraintElement = new HttpConstraintElement(TransportGuarantee.NONE,
 					ApplicationConstants.TOMCAT_ROLE_ROLE1);

@@ -26,8 +26,8 @@
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${catalina.home}/logs/shop-others.log</file>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-			<Pattern>[%d{yyyy-MM-dd HH:mm:ss,SSS}] %-5level [%file %method] -
-				 | %X{request} | %X{organization} | %X{userId} | %X{client} | %X{session} | %X{service} | - %msg%n</Pattern>
+            <Pattern>[%d{"yyyy-MM-dd HH:mm:ss,SSS,ZZZ", IST}] [%-5level] [%file %method] | %X{req.requestURI} -
+                 | %X{request} | %X{organization} | %X{userId} | %X{client} | %X{session} | %X{service} | - %msg%n</Pattern>
 		</encoder>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- rollover daily -->
