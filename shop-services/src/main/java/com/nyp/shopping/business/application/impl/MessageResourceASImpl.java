@@ -221,19 +221,6 @@ public class MessageResourceASImpl implements MessageResourceAS {
 		return dir.listFiles((dir1, name) -> name.toLowerCase().endsWith(".yml"));
 	}
 
-	public File[] getGlobalPropertyFileList1() {
-
-		String messageConfigDir = System.getProperty(ApplicationConstants.CONFIG_PATH_PROPERTY_NAME);
-		final File dir = new File(messageConfigDir);
-		return dir.listFiles(new FilenameFilter() {
-
-			@Override
-			public boolean accept(File dir, String name) {
-				return name.toLowerCase().endsWith(".yml");
-			}
-		});
-	}
-
 	@Override
 	public Map<String, Properties> getAppConfigsMap() {
 		return appConfigsMap;

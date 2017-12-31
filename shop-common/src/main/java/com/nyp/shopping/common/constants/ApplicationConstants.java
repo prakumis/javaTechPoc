@@ -2,8 +2,8 @@ package com.nyp.shopping.common.constants;
 
 public abstract class ApplicationConstants {
 
-	public static final String CONFIG_PATH_PROPERTY_NAME = "CONFDIR";
-	public static final String APPLICATION_CONFIG_DIR = "config";
+	public static final String CONFIG_PATH_PROPERTY_NAME = "config";
+	public static final String APPLICATION_CONFIG_DIR = CONFIG_PATH_PROPERTY_NAME;
 	public static final String APPLICATION_MESSAGE_DIR = "message";
 	public static final String APPLICATION_LOG_DIR = "logs";
 
