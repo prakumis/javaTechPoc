@@ -42,8 +42,8 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl implements Produ
 	}
 
 	@Override
-	public List<ProductCategoryVO> findTopCategories() {
-		List<ProductCategory> productCategoryList = productCategoryAS.findTopCategories();
+	public List<ProductCategoryVO> findCategoriesByParentId(Long parentId) {
+		List<ProductCategory> productCategoryList = productCategoryAS.findCategoriesByParentId(parentId);
 		return productCategoryAdaptor.toVO(productCategoryList);
 	}
 
@@ -54,16 +54,29 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl implements Produ
 	}
 
 	@Override
+	public List<ProductCategoryVO> findCategoriesByStatus(Boolean status) {
+		List<ProductCategory> productCategoryList = productCategoryAS.findCategoriesByStatus(status);
+		return productCategoryAdaptor.toVO(productCategoryList);
+	}
+
+	@Override
 	public Long createCategory(ProductCategoryVO productCategoryVO) {
 		productCategoryVO.setId(null);
-		ProductCategory productCategory = productCategoryAdaptor.fromVO(productCategoryVO);
+		ProductCategory productCategory = productCategoryAdaptor.fromVO(productCategoryVO, true);
 		return productCategoryAS.createCategory(productCategory);
 	}
 
 	@Override
 	public ProductCategoryVO updateCategory(ProductCategoryVO productCategoryVO) {
-		ProductCategory productCategory = productCategoryAdaptor.fromVO(productCategoryVO);
+		ProductCategory productCategory = productCategoryAdaptor.fromVO(productCategoryVO, false);
 		productCategory = productCategoryAS.updateCategory(productCategory);
+		return productCategoryAdaptor.toVO(productCategory);
+	}
+
+	@Override
+	public ProductCategoryVO updateStatus(ProductCategoryVO productCategoryVO) {
+		ProductCategory productCategory = productCategoryAdaptor.fromVO(productCategoryVO, false);
+		productCategory = productCategoryAS.updateStatus(productCategory);
 		return productCategoryAdaptor.toVO(productCategory);
 	}
 

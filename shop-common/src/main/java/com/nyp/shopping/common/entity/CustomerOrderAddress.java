@@ -1,6 +1,7 @@
 package com.nyp.shopping.common.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,8 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -17,8 +17,8 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "CUSTOMER_ADDRESS")
-public class CustomerAddress implements Serializable {
+@Table(name = "CUSTOMER_ORDER_ADDRESS")
+public class CustomerOrderAddress implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -51,9 +51,14 @@ public class CustomerAddress implements Serializable {
 	@Column(name = "ZIPCODE", length = 6)
 	private Integer zipCode;
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="CUSTOMER_ID")
-	private Customer customer;
+	@Column(name = "ADDRESS_TYPE", length = 50)
+	private String addressType;
+
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="deliveryAddress")
+	private List<CustomerOrder> customerDeliveryOrders;
+
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="billingAddress")
+	private List<CustomerOrder> customerBillingOrders;
 
 	/*
 	 * This is unidirectional mapping. Customer can get its address, but address can't get customer details.
@@ -62,7 +67,7 @@ public class CustomerAddress implements Serializable {
 	private Customer customer;
 	*/
 
-	public CustomerAddress() {
+	public CustomerOrderAddress() {
 		super();
 	}
 
@@ -140,12 +145,33 @@ public class CustomerAddress implements Serializable {
 	}
 
 
-	public synchronized Customer getCustomer() {
-		return customer;
+	public synchronized String getAddressType() {
+		return addressType;
 	}
 
 
-	public synchronized void setCustomer(Customer customer) {
-		this.customer = customer;
+	public synchronized void setAddressType(String addressType) {
+		this.addressType = addressType;
 	}
+
+
+	public synchronized List<CustomerOrder> getCustomerDeliveryOrders() {
+		return customerDeliveryOrders;
+	}
+
+
+	public synchronized void setCustomerDeliveryOrders(List<CustomerOrder> customerDeliveryOrders) {
+		this.customerDeliveryOrders = customerDeliveryOrders;
+	}
+
+
+	public synchronized List<CustomerOrder> getCustomerBillingOrders() {
+		return customerBillingOrders;
+	}
+
+
+	public synchronized void setCustomerBillingOrders(List<CustomerOrder> customerBillingOrders) {
+		this.customerBillingOrders = customerBillingOrders;
+	}
+
 }

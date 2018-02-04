@@ -11,9 +11,7 @@ public class RecordInfoAdaptor {
 	public RecordInfo toRecordInfo(BaseVO baseVO) {
 
 		RecordInfo recordInfo = new RecordInfo();
-		recordInfo.setCreatedBy(baseVO.getCreatedBy());
 		recordInfo.setCreatedDate(baseVO.getCreatedDate());
-		recordInfo.setModifiedBy(baseVO.getModifiedBy());
 		recordInfo.setModifiedDate(baseVO.getModifiedDate());
 		return recordInfo;
 	}
@@ -23,9 +21,7 @@ public class RecordInfoAdaptor {
 		if(null==recordInfo) {
 			return null;
 		}
-		baseVO.setCreatedBy(recordInfo.getCreatedBy());
 		baseVO.setCreatedDate(recordInfo.getCreatedDate());
-		baseVO.setModifiedBy(recordInfo.getModifiedBy());
 		baseVO.setModifiedDate(recordInfo.getModifiedDate());
 		return baseVO;
 	}

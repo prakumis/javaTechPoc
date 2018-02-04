@@ -1,8 +1,10 @@
-package com.nyp.shopping.common.entity.authorization;
+package com.nyp.shopping.common.entity;
 
 import java.io.Serializable;
 
 import javax.persistence.*;
+
+import com.nyp.shopping.common.entity.ProductCategory;
 
 import java.util.List;
 
@@ -11,50 +13,44 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name = "Users")
+@Table(name = "USER")
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
-public class User implements Serializable {
+public class User extends AbstractCommonEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int userID;
-
+	@Column(name = "EMAIL", length = 50)
 	private String email;
-
-	private Boolean globalAdmin;
-
+	@Column(name = "PASSWORD", length = 500)
 	private String password;
-
+	@Column(name = "USERNAME", length = 50)
 	private String userName;
-
+	@Column(name = "FIRST_NAME", length = 50)
 	private String firstName;
+	@Column(name = "LAST_NAME", length = 50)
 	private String lastName;
+	@Column(name = "PHONE", length = 50)
 	private String phone;
+	@Column(name = "STATUS", length = 50)
 	private String status;
-	private Boolean isCustomer;
 
 	// bi-directional many-to-one association to UserGroup
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	private List<UserGroup> usergroups;
 
+	// bi-directional many-to-one association to UserGroup
+	@OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
+	private List<ProductCategory> createdProductCategories;
+
+	// bi-directional many-to-one association to UserGroup
+	@OneToMany(mappedBy = "modifiedBy", fetch = FetchType.LAZY)
+	private List<ProductCategory> updatedProductCategories;
+
 	public User() {
+		// no argument constructor
 	}
 
-	public int getUserID() {
-		return this.userID;
-	}
-
-	public void setUserID(int userID) {
-		this.userID = userID;
-	}
-
-	public Boolean getGlobalAdmin() {
-		return this.globalAdmin;
-	}
-
-	public void setGlobalAdmin(Boolean globalAdmin) {
-		this.globalAdmin = globalAdmin;
+	public User(Long id) {
+		this.setId(id);
 	}
 
 	public String getPassword() {
@@ -105,14 +101,6 @@ public class User implements Serializable {
 		this.status = status;
 	}
 
-	public Boolean getIsCustomer() {
-		return isCustomer;
-	}
-
-	public void setIsCustomer(Boolean isCustomer) {
-		this.isCustomer = isCustomer;
-	}
-
 	public List<UserGroup> getUsergroups() {
 		return this.usergroups;
 	}
@@ -141,6 +129,22 @@ public class User implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public synchronized List<ProductCategory> getCreatedProductCategories() {
+		return createdProductCategories;
+	}
+
+	public synchronized void setCreatedProductCategories(List<ProductCategory> createdProductCategories) {
+		this.createdProductCategories = createdProductCategories;
+	}
+
+	public synchronized List<ProductCategory> getUpdatedProductCategories() {
+		return updatedProductCategories;
+	}
+
+	public synchronized void setUpdatedProductCategories(List<ProductCategory> updatedProductCategories) {
+		this.updatedProductCategories = updatedProductCategories;
 	}
 
 }

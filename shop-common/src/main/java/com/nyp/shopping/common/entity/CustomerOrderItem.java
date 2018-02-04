@@ -3,7 +3,6 @@ package com.nyp.shopping.common.entity;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -49,9 +48,6 @@ public class CustomerOrderItem implements Serializable {
 	@Column(name = "SELLING_PRICE")
 	private Double sellingPrice;
 
-	@Embedded
-	private RecordInfo recordInfo;
-
 	public CustomerOrderItem() {
 		super();
 	}
@@ -94,14 +90,6 @@ public class CustomerOrderItem implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public RecordInfo getRecordInfo() {
-		return recordInfo;
-	}
-
-	public void setRecordInfo(RecordInfo recordInfo) {
-		this.recordInfo = recordInfo;
 	}
 
 	public ProductItem getProductItem() {

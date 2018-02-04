@@ -21,10 +21,10 @@
 		<!-- <version.jackson-mapper-asl>1.9.13</version.jackson-mapper-asl> -->
 		<!-- <version.spring-data-jpa>1.9.0.RELEASE</version.spring-data-jpa> -->
 		<version.spring-data-jpa>1.11.1.RELEASE</version.spring-data-jpa>
-		<version.jpa-hibernate>1.0.1.Final</version.jpa-hibernate>
-		<!-- <version.hibernate>4.3.11.Final</version.hibernate> -->
+		<!-- <version.jpa-hibernate>1.0.0.Final</version.jpa-hibernate> -->
+		<version.jpa-hibernate>2.2</version.jpa-hibernate>
 		<!-- <version.hibernate>4.3.5.Final</version.hibernate> -->
-		<version.hibernate>4.3.11.Final</version.hibernate>
+		<version.hibernate>5.3.0.Beta2</version.hibernate>
 		<version.mysql>5.1.32</version.mysql>
         <h2.version>1.4.187</h2.version>
 		<version.aspectj>1.7.4</version.aspectj>
@@ -213,16 +213,18 @@
 			</dependency>
 
 			<!-- Persistence API -->
-			<!-- <dependency>
-				<groupId>javax.persistence</groupId>
-				<artifactId>persistence-api</artifactId>
-				<version>1.0</version>
-			</dependency> -->
+			<!-- this maven dependency is used for jpa 2.2 -->
 			<dependency>
+				<groupId>javax.persistence</groupId>
+				<artifactId>javax.persistence-api</artifactId>
+				<version>${version.jpa-hibernate}</version>
+			</dependency>
+            <!-- this maven dependency is used for jpa 2.1 -->
+			<!-- <dependency>
 				<groupId>org.hibernate.javax.persistence</groupId>
 				<artifactId>hibernate-jpa-2.1-api</artifactId>
-				<version>1.0.0.Final</version>
-			</dependency>
+                <version>${version.jpa-hibernate}</version>
+			</dependency> -->
 
 			<!-- Hibernate -->
 			<dependency>

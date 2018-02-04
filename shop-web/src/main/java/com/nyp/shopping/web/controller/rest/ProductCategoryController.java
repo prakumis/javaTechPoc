@@ -21,14 +21,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nyp.shopping.business.service.ProductCategoryService;
-import com.nyp.shopping.common.constants.ApplicationConstants;
 import com.nyp.shopping.common.constants.WebConstants;
 import com.nyp.shopping.common.vo.ProductCategoryVO;
+import com.nyp.shopping.common.vo.UserVO;
 import com.nyp.shopping.web.exception.ApplicationValidationException;
 import com.nyp.shopping.web.exception.KeywordNotFoundException;
 import com.nyp.shopping.web.model.ResponseBean;
 
 import io.swagger.annotations.Api;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * 
@@ -38,12 +39,14 @@ import io.swagger.annotations.Api;
  * @author pmis30
  *
  */
-@RestController 
-//@RequestMapping("/cat")
+@RestController
+// @RequestMapping("/cat")
 @RequestMapping(path = "/cat", produces = { WebConstants.MEDIA_TYPE_XML_VERSION_0_1,
 		WebConstants.MEDIA_TYPE_JSON_VERSION_0_1 })
-//@RequestMapping(path = "/cat", consumes = { "application/json", "application/xml" }, produces = { "application/json", "application/xml" }, headers = { "X-API-Version=v1" })
-@Api(value = "ProductCategory Controller", description = "REST APIs related to ProductCategory Entity!!!!", consumes="JSON", produces="JSON")
+// @RequestMapping(path = "/cat", consumes = { "application/json",
+// "application/xml" }, produces = { "application/json", "application/xml" },
+// headers = { "X-API-Version=v1" })
+@Api(value = "ProductCategory Controller", description = "REST APIs related to ProductCategory Entity!!!!", consumes = "JSON", produces = "JSON")
 public class ProductCategoryController extends BaseController {
 
 	@Inject
@@ -60,21 +63,25 @@ public class ProductCategoryController extends BaseController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.GET, path = "/test")
-	public String testMethod() {
-		logger.debug("testMethod called");
-		return "testMethod success";
-	}
-
-	/**
-	 * This is version [application/vnd.shop.app-v0.1+xml,json] of the url /cat,
-	 * which returns all cat
-	 * 
-	 * @return
-	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public List<ProductCategoryVO> findAllCategories() {
 		return productCatalogService.findAllCategories();
+	}
+
+	// @ResponseStatus( HttpStatus.CREATED )
+	@RequestMapping(method = RequestMethod.POST, consumes = { WebConstants.MEDIA_TYPE_XML_VERSION_0_1,
+			WebConstants.MEDIA_TYPE_JSON_VERSION_0_1 })
+	public ResponseBean<Object> createCategory(@Valid @RequestBody ProductCategoryVO category,
+			@ApiIgnore UserVO userProfile) {
+
+		category.setLoggedInUserId(userProfile.getLoggedInUserId());
+		Long id = productCatalogService.createCategory(category);
+		return new ResponseBean<>(HttpStatus.CREATED.value(), String.format("Category %s created successfully", id));
+	}
+
+	@RequestMapping(method = RequestMethod.GET, path = "/parent/{parentId}")
+	public List<ProductCategoryVO> findCategoriesByParentId(@PathVariable Long parentId) {
+		return productCatalogService.findCategoriesByParentId(parentId);
 	}
 
 	/**
@@ -83,12 +90,9 @@ public class ProductCategoryController extends BaseController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.GET, produces = { WebConstants.MEDIA_TYPE_XML_VERSION_0_2,
-			WebConstants.MEDIA_TYPE_JSON_VERSION_0_2 })
-	// @JsonRequestMapping(method=RequestMethod.GET, headers =
-	// "X-API-Version=!v2")
-	public List<ProductCategoryVO> findTopCategories() {
-		return productCatalogService.findTopCategories();
+	@RequestMapping(method = RequestMethod.GET, path = "/status/{status}")
+	public List<ProductCategoryVO> findCategoriesByStatus(@PathVariable Boolean status) {
+		return productCatalogService.findCategoriesByStatus(status);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
@@ -97,32 +101,36 @@ public class ProductCategoryController extends BaseController {
 		if (id == 0) {
 			throw new KeywordNotFoundException("The ID is: " + id);
 		}
-		if (id == 1) {
+		if (id == -1) {
 			List<String> validationErrors = new ArrayList<>();
 			validationErrors.add("First Name is required");
 			validationErrors.add("Last Name is required");
 			throw new ApplicationValidationException("ValidationException caught", validationErrors);
 		}
-		if (id == 2) {
+		if (id == -2) {
 			throw new ServiceNotFoundException("Custome error caused in doing something");
 		}
 		return productCatalogService.getCategoryById(id);
 	}
 
-	// @ResponseStatus( HttpStatus.CREATED )
-	@RequestMapping(method = RequestMethod.POST, consumes = { WebConstants.MEDIA_TYPE_XML_VERSION_0_1,
-			WebConstants.MEDIA_TYPE_JSON_VERSION_0_1 })
-	public ResponseBean<Object> createCategory(@Valid @RequestBody ProductCategoryVO category) {
-
-		Long id = productCatalogService.createCategory(category);
-		return new ResponseBean<>(HttpStatus.CREATED.value(), String.format("Category %s created successfully", id));
-	}
-
 	@RequestMapping(method = RequestMethod.PUT, path = "/{id}", consumes = { WebConstants.MEDIA_TYPE_XML_VERSION_0_1,
 			WebConstants.MEDIA_TYPE_JSON_VERSION_0_1 })
-	public ProductCategoryVO updateCategory(@PathVariable Long id, @RequestBody ProductCategoryVO category) {
+	public ProductCategoryVO updateCategory(@PathVariable Long id, @RequestBody ProductCategoryVO category,
+			@ApiIgnore UserVO userProfile) {
 		category.setId(id);
+		category.setLoggedInUserId(userProfile.getLoggedInUserId());
 		return productCatalogService.updateCategory(category);
+	}
+
+	@RequestMapping(method = RequestMethod.PATCH, path = "/{id}/status/{status}", consumes = {
+			WebConstants.MEDIA_TYPE_XML_VERSION_0_1, WebConstants.MEDIA_TYPE_JSON_VERSION_0_1 })
+	public ProductCategoryVO updateStatus(@PathVariable Long id, @PathVariable Boolean status,
+			@ApiIgnore UserVO userProfile) {
+		ProductCategoryVO categoryVO = new ProductCategoryVO();
+		categoryVO.setId(id);
+		categoryVO.setValid(status);
+		categoryVO.setLoggedInUserId(userProfile.getLoggedInUserId());
+		return productCatalogService.updateStatus(categoryVO);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE, path = "/{id}")

@@ -26,15 +26,9 @@ public class RecordInfo implements Serializable {
 	@Column(name = "IS_VALID")
 	private boolean isValid;
 
-	@Column(name = "CREATED_BY", length = 50)
-	private String createdBy;
-
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "CREATED_DATE", length = 19)
 	private Date createdDate;
-
-	@Column(name = "MODIFIED_BY", length = 50)
-	private String modifiedBy;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "MODIFIED_DATE", length = 19)
@@ -44,34 +38,12 @@ public class RecordInfo implements Serializable {
 		super();
 	}
 
-	public RecordInfo(String createdBy, Date createdDate) {
-		super();
-		this.createdBy = createdBy;
-		this.createdDate = createdDate;
-	}
-
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
 	public Date getCreatedDate() {
 		return createdDate;
 	}
 
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
-	}
-
-	public String getModifiedBy() {
-		return modifiedBy;
-	}
-
-	public void setModifiedBy(String modifiedBy) {
-		this.modifiedBy = modifiedBy;
 	}
 
 	public Date getModifiedDate() {

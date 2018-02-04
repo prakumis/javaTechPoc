@@ -37,7 +37,7 @@ public class ProductCategoryASImplTest extends AbstractCommonTest {
 
 	@Test
 	public void findTopCategories() {
-		List<ProductCategory> productCategoryList = productCategoryAS.findTopCategories();
+		List<ProductCategory> productCategoryList = productCategoryAS.findCategoriesByParentId(null);
 		Assert.assertNotNull(productCategoryList);
 		Assert.assertTrue(productCategoryList.size() > 0);
 	}

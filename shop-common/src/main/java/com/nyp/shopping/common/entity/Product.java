@@ -5,34 +5,31 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.SelectBeforeUpdate;
 
 
 /**
  * Entity implementation class for Entity: PRODUCT
  *
  */
-@Entity(name = "PRODUCT")
-@Cache(usage=CacheConcurrencyStrategy.READ_ONLY, region="Product")
-public class Product implements Serializable {
+@Entity
+@DynamicUpdate
+@SelectBeforeUpdate
+@Table(name = "PRODUCT")
+@Cache(usage=CacheConcurrencyStrategy.READ_WRITE, region="Product")
+public class Product extends AbstractCommonEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID")
-	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CATEGORY_ID", nullable = false)
@@ -43,7 +40,7 @@ public class Product implements Serializable {
 	private Supplier supplier;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-	private Set<ProductItem> productItemList = new HashSet<ProductItem>(0);
+	private Set<ProductItem> productItemList = new HashSet<>(0);
 
 	@Column(name = "NAME", length=50, nullable=false)
 	private String name;
@@ -51,19 +48,8 @@ public class Product implements Serializable {
 	@Column(name = "DESCRIPTION")
 	private String description;
 
-	@Embedded
-	private RecordInfo recordInfo;
-
 	public Product() {
 		super();
-	}
-
-	public Long getId() {
-		return this.id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getName() {
@@ -88,14 +74,6 @@ public class Product implements Serializable {
 
 	public void setCategory(ProductCategory category) {
 		this.category = category;
-	}
-
-	public RecordInfo getRecordInfo() {
-		return recordInfo;
-	}
-
-	public void setRecordInfo(RecordInfo recordInfo) {
-		this.recordInfo = recordInfo;
 	}
 
 	public Supplier getSupplier() {

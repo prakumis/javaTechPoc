@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 /**
- * @author pmis30
+ * @author Java Developer
  *
  */
 public class ProductCategoryVO extends BaseVO {
@@ -32,6 +32,7 @@ public class ProductCategoryVO extends BaseVO {
 	private Set<ProductCategoryVO> subCategories = new HashSet<>(0);
 //	private Set<ProductVO> productList = new HashSet<>(0);
 	private ProductCategoryVO parentCategory;
+	private Long parentCategoryId;
 	private Integer productCount;
 
 	public Long getId() {
@@ -88,6 +89,14 @@ public class ProductCategoryVO extends BaseVO {
 
 	public void setSubCategories(Set<ProductCategoryVO> subCategories) {
 		this.subCategories = subCategories;
+	}
+
+	public synchronized Long getParentCategoryId() {
+		return parentCategoryId;
+	}
+
+	public synchronized void setParentCategoryId(Long parentCategoryId) {
+		this.parentCategoryId = parentCategoryId;
 	}
 
 }

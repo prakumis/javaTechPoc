@@ -40,7 +40,7 @@ public class ProductCategoryServiceImplTest extends AbstractCommonTest {
 
 	@Test
 	public void findTopCategories() {
-		List<ProductCategoryVO> productCategoryList = productCategoryService.findTopCategories();
+		List<ProductCategoryVO> productCategoryList = productCategoryService.findCategoriesByStatus(true);
 		Assert.assertNotNull(productCategoryList);
 		Assert.assertFalse(productCategoryList.isEmpty());
 	}

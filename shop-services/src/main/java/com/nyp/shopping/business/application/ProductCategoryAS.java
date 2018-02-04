@@ -15,14 +15,17 @@ public interface ProductCategoryAS {
 
 	List<ProductCategory> findAllCategories();
 
+	List<ProductCategory> findCategoriesByParentId(Long parentId);
+
+	List<ProductCategory> findCategoriesByStatus(Boolean status);
+
 	List<ProductCategory> getCategoryById(Long id);
 
 	Long createCategory(ProductCategory category);
 
 	ProductCategory updateCategory(ProductCategory category);
 
+	ProductCategory updateStatus(ProductCategory productCategory);
+
 	void deleteCategory(ProductCategory category);
-
-	List<ProductCategory> findTopCategories();
-
 }

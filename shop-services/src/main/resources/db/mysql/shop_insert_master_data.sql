@@ -1,10 +1,10 @@
 -- -------------------------------------------------------
 -- Table `shoppingdb`.`Functions`
 -- -------------------------------------------------------
-DELETE FROM `shoppingdb`.`employee`;
+DELETE FROM `shoppingdb`.`user`;
 
--- insert superuser
-INSERT INTO `shoppingdb`.`employee` (`EmpName`) VALUES ('Praveen Kumar Mishra');
+-- insert adminuser
+INSERT INTO `shoppingdb`.`user` (`CREATED_DATE`, `IS_VALID`, `EMAIL`, `FIRST_NAME`, `LAST_NAME`, `PASSWORD`, `PHONE`, `STATUS`, `USERNAME`) VALUES (now(), 1, 'admin@email.com', 'admin', 'admin', 'password', '1234567890', 'ACTIVE', 'admin');
 
 -- insert suppliers
 INSERT INTO `shoppingdb`.`supplier` (`NAME`, `CREATED_BY`, `CREATED_DATE`, `IS_VALID`) VALUES ('ABC Supplier', '1', now(), 1);

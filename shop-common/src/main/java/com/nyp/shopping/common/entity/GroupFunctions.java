@@ -1,4 +1,4 @@
-package com.nyp.shopping.common.entity.authorization;
+package com.nyp.shopping.common.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -10,12 +10,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "GroupFunctions")
 @NamedQuery(name = "GroupFunctions.findAll", query = "SELECT g FROM GroupFunctions g")
-public class GroupFunctions implements Serializable {
+public class GroupFunctions extends AbstractCommonEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int groupFunctionId;
 
 	@ManyToOne
 	@JoinColumn(name="functionId")
@@ -24,14 +20,6 @@ public class GroupFunctions implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="groupId")
 	private Group group;
-
-	public int getGroupFunctionId() {
-		return groupFunctionId;
-	}
-
-	public void setGroupFunctionId(int groupFunctionId) {
-		this.groupFunctionId = groupFunctionId;
-	}
 
 	public Functions getFunctions() {
 		return functions;
@@ -50,6 +38,7 @@ public class GroupFunctions implements Serializable {
 	}
 
 	public GroupFunctions() {
+		// no argument constructor
 	}
 
 }

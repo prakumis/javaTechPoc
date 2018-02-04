@@ -4,6 +4,7 @@
 package com.nyp.shopping.business.application.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -20,7 +21,7 @@ import com.nyp.shopping.common.entity.ProductCategory;
  *
  */
 @Service
-public class ProductCategoryASImpl implements ProductCategoryAS {
+public class ProductCategoryASImpl extends BaseASImpl implements ProductCategoryAS {
 
 	@Inject
 	private ProductCategoryRepository productCategoryRepository;
@@ -31,22 +32,33 @@ public class ProductCategoryASImpl implements ProductCategoryAS {
 	}
 
 	@Override
-	public List<ProductCategory> findTopCategories() {
-		return productCategoryRepository.findTopCategories();
+	public List<ProductCategory> findCategoriesByParentId(Long parentId) {
+		if (null == parentId) {
+			return productCategoryRepository.findTopCategories();
+		} else {
+			return productCategoryRepository.findCategoriesByParentId(parentId);
+		}
+	}
+
+	@Override
+	public List<ProductCategory> findCategoriesByStatus(Boolean status) {
+		return productCategoryRepository.findCategoriesByStatus(status);
 	}
 
 	@Override
 	public List<ProductCategory> getCategoryById(Long id) {
 		checkIfEntityExists(id);
 		List<ProductCategory> productCategoryList = new ArrayList<>();
-		productCategoryList.add(productCategoryRepository.findOne(id));
+		ProductCategory productCategory = productCategoryRepository.getOne(id);
+		productCategoryList.add(productCategory);
 		return productCategoryList;
 	}
 
 	private void checkIfEntityExists(Long id) {
-		if(!productCategoryRepository.exists(id)) {
-			throw new EntityNotFoundException(
-					String.format("Requested entity %s not found", id));
+
+		ProductCategory productCategory = productCategoryRepository.findOne(id);
+		if (null == productCategory) {
+			throw new EntityNotFoundException(String.format("Requested entity %s not found", id));
 		}
 	}
 
@@ -58,9 +70,20 @@ public class ProductCategoryASImpl implements ProductCategoryAS {
 	}
 
 	@Override
-	public ProductCategory updateCategory(ProductCategory productCategory) {
+	public ProductCategory updateCategory(ProductCategory pc) {
+		checkIfEntityExists(pc.getId());
+		productCategoryRepository.update(pc.getId(),
+				null == pc.getParentCategory() ? null : pc.getParentCategory().getId(), pc.getName(),
+				pc.getDescription(), pc.getModifiedBy().getId(), new Date());
+		return pc;
+	}
+
+	@Override
+	public ProductCategory updateStatus(ProductCategory productCategory) {
 		checkIfEntityExists(productCategory.getId());
-		return productCategoryRepository.save(productCategory);
+		productCategoryRepository.updateStatus(productCategory.getId(), productCategory.isValid(),
+				productCategory.getModifiedBy().getId(), new Date());
+		return productCategory;
 	}
 
 	@Override

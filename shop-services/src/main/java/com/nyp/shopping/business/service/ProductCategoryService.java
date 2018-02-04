@@ -17,12 +17,16 @@ public interface ProductCategoryService {
 
 	List<ProductCategoryVO> getCategoryById(Long id);
 
+	List<ProductCategoryVO> findCategoriesByParentId(Long parentId);
+
+	List<ProductCategoryVO> findCategoriesByStatus(Boolean status);
+
 	Long createCategory(ProductCategoryVO category);
 
 	ProductCategoryVO updateCategory(ProductCategoryVO category);
 
-	void deleteCategory(ProductCategoryVO category);
+	ProductCategoryVO updateStatus(ProductCategoryVO categoryVO);
 
-	List<ProductCategoryVO> findTopCategories();
+	void deleteCategory(ProductCategoryVO category);
 
 }

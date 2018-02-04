@@ -8,9 +8,6 @@ import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -19,6 +16,9 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.SelectBeforeUpdate;
+
 
 /**
  * Entity implementation class for Entity: RefProductCategory
@@ -26,16 +26,13 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  */
 @Entity
 @Table(name = "PRODUCT_CATEGORY")
+@DynamicUpdate
+@SelectBeforeUpdate
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "com.nyp.shopping.common.entity.ProductCategory")
-public class ProductCategory implements Serializable {
+public class ProductCategory extends AbstractCommonEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID", unique = true, nullable = false)
-	private Long id;
 
 	@Column(name = "NAME", length = 50, nullable = false)
 	private String name;
@@ -43,8 +40,8 @@ public class ProductCategory implements Serializable {
 	@Column(name = "DESCRIPTION", length = 500)
 	private String description;
 
-	// TODO CHECK IF THIS FIELD IS BY DEFAULT EMBEDDED
-	private RecordInfo recordInfo;
+	// THIS FIELD IS BY DEFAULT EMBEDDED
+	//private RecordInfo recordInfo;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "parentCategory")
 	private Set<ProductCategory> subCategories = new HashSet<>(0);
@@ -63,17 +60,8 @@ public class ProductCategory implements Serializable {
 		super();
 	}
 
-	public ProductCategory(Long id) {
-		super();
-		this.id = id;
-	}
-
-	public Long getId() {
-		return this.id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	public ProductCategory(Long catId) {
+		this.setId(catId);
 	}
 
 	public String getDescription() {
@@ -82,14 +70,6 @@ public class ProductCategory implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public RecordInfo getRecordInfo() {
-		return this.recordInfo;
-	}
-
-	public void setRecordInfo(RecordInfo recordInfo) {
-		this.recordInfo = recordInfo;
 	}
 
 	public Set<ProductCategory> getSubCategories() {
@@ -136,7 +116,7 @@ public class ProductCategory implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
 		result = prime * result + ((parentCategory == null) ? 0 : parentCategory.hashCode());
 		return result;
 	}
@@ -150,10 +130,10 @@ public class ProductCategory implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		ProductCategory other = (ProductCategory) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (getId() == null) {
+			if (other.getId() != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!getId().equals(other.getId()))
 			return false;
 		if (parentCategory == null) {
 			if (other.parentCategory != null)

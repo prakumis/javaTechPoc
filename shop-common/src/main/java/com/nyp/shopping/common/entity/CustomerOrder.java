@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -53,19 +51,20 @@ public class CustomerOrder implements Serializable {
 	@Column(name = "ORDER_STATUS", length = 100)
 	private String orderStatus;
 
-	@Embedded
-	private RecordInfo recordInfo;
-
-	@OneToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="DELIVERY_ADDRESS_ID")
-	private CustomerAddress deliveryAddress;
+	private CustomerOrderAddress deliveryAddress;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="BILLING_ADDRESS_ID")
+	private CustomerOrderAddress billingAddress;
 
 	/** CustomerOrder is considered as the owner side while Product is on OTHER side of ManyToMany relationship	 */
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customerOrder")
-	private Set<CustomerOrderItem> customerOrderItemsList = new HashSet<CustomerOrderItem>(0);
+	private Set<CustomerOrderItem> customerOrderItemsList = new HashSet<>(0);
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customerOrder")
-	private Set<CustomerOrderPayments> paymentList = new HashSet<CustomerOrderPayments>(0);
+	private Set<CustomerOrderPayments> paymentList = new HashSet<>(0);
 
 	public CustomerOrder() {
 		super();
@@ -127,19 +126,11 @@ public class CustomerOrder implements Serializable {
 		this.orderStatus = orderStatus;
 	}
 
-	public RecordInfo getRecordInfo() {
-		return recordInfo;
-	}
-
-	public void setRecordInfo(RecordInfo recordInfo) {
-		this.recordInfo = recordInfo;
-	}
-
-	public CustomerAddress getDeliveryAddress() {
+	public CustomerOrderAddress getDeliveryAddress() {
 		return deliveryAddress;
 	}
 
-	public void setDeliveryAddress(CustomerAddress deliveryAddress) {
+	public void setDeliveryAddress(CustomerOrderAddress deliveryAddress) {
 		this.deliveryAddress = deliveryAddress;
 	}
 
@@ -157,6 +148,14 @@ public class CustomerOrder implements Serializable {
 
 	public void setPaymentList(Set<CustomerOrderPayments> paymentList) {
 		this.paymentList = paymentList;
+	}
+
+	public synchronized CustomerOrderAddress getBillingAddress() {
+		return billingAddress;
+	}
+
+	public synchronized void setBillingAddress(CustomerOrderAddress billingAddress) {
+		this.billingAddress = billingAddress;
 	}
 
 }

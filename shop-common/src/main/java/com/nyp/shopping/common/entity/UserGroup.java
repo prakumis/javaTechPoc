@@ -1,4 +1,4 @@
-package com.nyp.shopping.common.entity.authorization;
+package com.nyp.shopping.common.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -11,12 +11,8 @@ import javax.persistence.*;
 @Entity
 @Table(name="UserGroups")
 @NamedQuery(name="UserGroup.findAll", query="SELECT u FROM UserGroup u")
-public class UserGroup implements Serializable {
+public class UserGroup extends AbstractCommonEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int userGroupID;
 
 	//bi-directional many-to-one association to Group
 	@ManyToOne
@@ -29,14 +25,7 @@ public class UserGroup implements Serializable {
 	private User user;
 
 	public UserGroup() {
-	}
-
-	public int getUserGroupID() {
-		return this.userGroupID;
-	}
-
-	public void setUserGroupID(int userGroupID) {
-		this.userGroupID = userGroupID;
+		super();
 	}
 
 	public Group getGroup() {
@@ -47,11 +36,11 @@ public class UserGroup implements Serializable {
 		this.group = group;
 	}
 
-	public User getUser() {
-		return this.user;
+	public synchronized User getUser() {
+		return user;
 	}
 
-	public void setUser(User user) {
+	public synchronized void setUser(User user) {
 		this.user = user;
 	}
 

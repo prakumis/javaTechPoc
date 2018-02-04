@@ -1,8 +1,13 @@
-package com.nyp.shopping.common.entity.authorization;
+package com.nyp.shopping.common.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 /**
@@ -12,12 +17,8 @@ import java.util.List;
 @Entity
 @Table(name="Groups")
 @NamedQuery(name="Group.findAll", query="SELECT g FROM Group g")
-public class Group implements Serializable {
+public class Group extends AbstractCommonEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int groupID;
 
 	private Boolean canEditApplications;
 
@@ -28,7 +29,7 @@ public class Group implements Serializable {
 	private String groupName;
 
 	private Boolean userAdmin;
-	
+
 	@OneToMany(mappedBy="group" ,fetch=FetchType.EAGER)
 	private List<GroupFunctions> groupFunctions;
 
@@ -37,14 +38,7 @@ public class Group implements Serializable {
 	private List<UserGroup> usergroups;
 
 	public Group() {
-	}
-
-	public int getGroupID() {
-		return this.groupID;
-	}
-
-	public void setGroupID(int groupID) {
-		this.groupID = groupID;
+		// no argument constructor
 	}
 
 
@@ -117,5 +111,4 @@ public class Group implements Serializable {
 
 		return usergroup;
 	}
-
 }

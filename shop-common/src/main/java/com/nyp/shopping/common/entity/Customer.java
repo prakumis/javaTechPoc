@@ -6,18 +6,16 @@ package com.nyp.shopping.common.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -59,15 +57,11 @@ public class Customer implements Serializable {
 	@Column(name = "STATUS")
 	private String status;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="ADDRESS_ID")
-	private CustomerAddress customerAddress;
-
-	@Embedded
-	private RecordInfo recordInfo;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="customer")
+	private List<CustomerAddress> customerAddresses;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
-	private Set<CustomerOrder> orderList = new HashSet<CustomerOrder>(0);
+	private Set<CustomerOrder> orderList = new HashSet<>(0);
 
 	public Long getId() {
 		return id;
@@ -109,33 +103,12 @@ public class Customer implements Serializable {
 		this.status = status;
 	}
 
-	public RecordInfo getRecordInfo() {
-		return recordInfo;
-	}
-
-	public void setRecordInfo(RecordInfo recordInfo) {
-		this.recordInfo = recordInfo;
-	}
-
-	/*
-	 * public Address getAddress() { return address; }
-	 * 
-	 * public void setAddress(Address address) { this.address = address; }
-	 */
 	public Set<CustomerOrder> getOrderList() {
 		return orderList;
 	}
 
 	public void setOrderList(Set<CustomerOrder> orderList) {
 		this.orderList = orderList;
-	}
-
-	public CustomerAddress getCustomerAddress() {
-		return customerAddress;
-	}
-
-	public void setCustomerAddress(CustomerAddress customerAddress) {
-		this.customerAddress = customerAddress;
 	}
 
 	public String getCustomerName() {
@@ -160,6 +133,14 @@ public class Customer implements Serializable {
 
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+
+	public synchronized List<CustomerAddress> getCustomerAddresses() {
+		return customerAddresses;
+	}
+
+	public synchronized void setCustomerAddresses(List<CustomerAddress> customerAddresses) {
+		this.customerAddresses = customerAddresses;
 	}
 
 }

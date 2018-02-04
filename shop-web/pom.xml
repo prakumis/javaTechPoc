@@ -171,6 +171,23 @@
 	<build>
 		<finalName>shop-web</finalName>
 		<plugins>
+            <!-- Added maven clean plugin to clean the src/main/webapp/WEB-INF/lib directory,
+            so that any other version of jar if created in src/main/webapp/WEB-INF/lib due to 
+            maven dependency, is removed. -->
+			<plugin>
+			    <artifactId>maven-clean-plugin</artifactId>
+			    <version>2.4.1</version>
+			    <configuration>
+			        <filesets>
+			            <fileset>
+			                <directory>src/main/webapp/WEB-INF/classes</directory>
+			            </fileset>
+			            <fileset>
+			                <directory>src/main/webapp/WEB-INF/lib</directory>
+			            </fileset>
+			        </filesets>
+			    </configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

@@ -5,8 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import javax.transaction.Transactional;
-import javax.transaction.Transactional.TxType;
+//import javax.transaction.Transactional;
+//import javax.transaction.Transactional.TxType;
 
 import org.junit.runner.RunWith;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +15,9 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-//import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Propagation;
 //import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nyp.shopping.common.constants.ApplicationConstants;
 
@@ -41,7 +42,7 @@ import com.nyp.shopping.common.constants.ApplicationConstants;
 @ImportResource({ "classpath*:config/spring/appContext-dataSource-main.xml", "classpath*:config/spring/shoppingApp-persistence.xml", "classpath*:config/spring/shoppingApp-service-main.xml" })
 //@ImportResource({ "classpath*:config/spring/shoppingApp-service-test.xml" })
 @Configuration
-@Transactional(value = TxType.NOT_SUPPORTED)
+//@Transactional(Propagation.NOT_SUPPORTED)//TxType.NOT_SUPPORTED)
 //@Transactional ( propagation = Propagation.NOT_SUPPORTED )
 @Rollback(ApplicationConstants.ROLLBACK)
 @RunWith(SpringJUnit4ClassRunner.class)

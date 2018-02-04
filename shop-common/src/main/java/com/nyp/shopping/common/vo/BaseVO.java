@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class BaseVO {
 
 	private boolean isValid;
+	private Long loggedInUserId;
 	private String createdBy;
 	//@JsonDeserialize(using = CustomJsonDateDeserializer.class)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-M-yyyy hh:mm:ss", locale = "en-IN", timezone = "UTC")
@@ -54,6 +55,14 @@ public class BaseVO {
 
 	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
+	}
+
+	public synchronized Long getLoggedInUserId() {
+		return loggedInUserId;
+	}
+
+	public synchronized void setLoggedInUserId(Long loggedInUserId) {
+		this.loggedInUserId = loggedInUserId;
 	}
 
 }

@@ -1,7 +1,8 @@
-package com.nyp.shopping.common.entity.authorization;
+package com.nyp.shopping.common.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
 import java.util.List;
 
 /**
@@ -11,12 +12,8 @@ import java.util.List;
 @Entity
 @Table(name = "Functions")
 @NamedQuery(name = "Functions.findAll", query = "SELECT g FROM Functions g")
-public class Functions implements Serializable {
+public class Functions extends AbstractCommonEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int functionId;
 
 	private String functionName;
 
@@ -31,14 +28,6 @@ public class Functions implements Serializable {
 		this.groupFunctions = groupFunctions;
 	}
 
-	public int getFunctionId() {
-		return functionId;
-	}
-
-	public void setFunctionId(int functionId) {
-		this.functionId = functionId;
-	}
-
 	public String getFunctionName() {
 		return functionName;
 	}
@@ -48,6 +37,7 @@ public class Functions implements Serializable {
 	}
 
 	public Functions() {
+		// no argument constructor
 	}
 
 }

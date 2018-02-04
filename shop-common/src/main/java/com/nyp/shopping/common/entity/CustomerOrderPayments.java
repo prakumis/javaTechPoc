@@ -39,9 +39,6 @@ public class CustomerOrderPayments implements Serializable {
 	@Column(name = "OTHER_DETAILS", length = 50, nullable = true)
 	private String otherDetails;
 
-	@Embedded
-	private RecordInfo recordInfo;
-
 	public CustomerOrderPayments() {
 		super();
 	}
@@ -84,14 +81,6 @@ public class CustomerOrderPayments implements Serializable {
 
 	public void setCustomerOrder(CustomerOrder customerOrder) {
 		this.customerOrder = customerOrder;
-	}
-
-	public RecordInfo getRecordInfo() {
-		return recordInfo;
-	}
-
-	public void setRecordInfo(RecordInfo recordInfo) {
-		this.recordInfo = recordInfo;
 	}
 
 	public Double getAmount() {

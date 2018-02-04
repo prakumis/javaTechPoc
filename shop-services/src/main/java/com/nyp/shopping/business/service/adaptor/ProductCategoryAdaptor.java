@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.ListIterator;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.nyp.shopping.common.entity.ProductCategory;
@@ -20,9 +19,6 @@ import com.nyp.shopping.common.vo.ProductCategoryVO;
  */
 @Component
 public class ProductCategoryAdaptor extends BaseAdaptor {
-
-	@Autowired
-	private RecordInfoAdaptor recordInfoAdaptor;
 
 	public List<ProductCategoryVO> toVO(List<ProductCategory> productCategoryList) {
 
@@ -39,14 +35,18 @@ public class ProductCategoryAdaptor extends BaseAdaptor {
 	public ProductCategoryVO toVO(ProductCategory productCategory) {
 		ProductCategoryVO productCategoryVO = new ProductCategoryVO();
 		BeanUtils.copyProperties(productCategory, productCategoryVO, "subCategories");
-		recordInfoAdaptor.fromRecordInfo(productCategoryVO, productCategory.getRecordInfo());
 		return productCategoryVO;
 	}
 
-	public ProductCategory fromVO(ProductCategoryVO productCategoryVO) {
+	public ProductCategory fromVO(ProductCategoryVO productCategoryVO, boolean isCreateMode) {
 		ProductCategory productCategory = new ProductCategory();
 		BeanUtils.copyProperties(productCategoryVO, productCategory);
-		productCategory.setRecordInfo(recordInfoAdaptor.toRecordInfo(productCategoryVO));
+		if(null!=productCategoryVO.getParentCategoryId()) {
+			ProductCategory parentCategory = new ProductCategory();
+			parentCategory.setId(productCategoryVO.getParentCategoryId());
+			productCategory.setParentCategory(parentCategory);
+		}
+		fromVO(productCategoryVO, productCategory, isCreateMode);
 		return productCategory;
 	}
 
