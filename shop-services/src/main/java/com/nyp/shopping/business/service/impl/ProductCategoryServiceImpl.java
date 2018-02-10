@@ -8,6 +8,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nyp.shopping.business.application.ProductCategoryAS;
 import com.nyp.shopping.business.service.ProductCategoryService;
@@ -20,6 +23,7 @@ import com.nyp.shopping.common.vo.ProductCategoryVO;
  *
  */
 @Repository
+@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackForClassName = "Exception", isolation = Isolation.READ_COMMITTED, rollbackFor = Exception.class)
 public class ProductCategoryServiceImpl extends BaseServiceImpl implements ProductCategoryService {
 
 	static {

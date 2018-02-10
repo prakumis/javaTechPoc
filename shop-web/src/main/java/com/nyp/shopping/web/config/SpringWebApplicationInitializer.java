@@ -17,6 +17,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.nyp.shopping.business.config.ApplicationConfig;
+import com.nyp.shopping.business.config.TransactionManagementConfig;
 import com.nyp.shopping.common.constants.ApplicationConstants;
 import com.nyp.shopping.opensource.utils.YamlUtils;
 import com.nyp.shopping.web.filter.TracerFilter;
@@ -41,7 +42,8 @@ public class SpringWebApplicationInitializer extends AbstractAnnotationConfigDis
 
 		// root context
 		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-		rootContext.register(ApplicationConfig.class); // configuration class for root context
+		// configuration class for root context
+		rootContext.register(ApplicationConfig.class, TransactionManagementConfig.class);
 		servletContext.addListener(new ContextLoaderListener(rootContext));
 
 		// security servlet
