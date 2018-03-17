@@ -37,6 +37,7 @@
 		<version.json-path>2.2.0</version.json-path>
         <apachetiles.version>3.0.5</apachetiles.version>
         <version.swagger>2.7.0</version.swagger>
+        <javax.el.version>2.2.4</javax.el.version>
 	</properties>
 
 	<build>
@@ -384,6 +385,13 @@
                 <artifactId>tiles-template</artifactId>
                 <version>${apachetiles.version}</version>
             </dependency>
+
+            <!-- javax.el  -->
+			<dependency>
+				<groupId>javax.el</groupId>
+				<artifactId>javax.el-api</artifactId>
+				<version>${javax.el.version}</version>
+			</dependency>
 
             <!--  Swagger API -->
 		    <dependency>

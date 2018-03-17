@@ -13,11 +13,11 @@ import com.nyp.shopping.common.entity.ProductCategory;
  */
 public interface ProductCategoryAS {
 
-	List<ProductCategory> findAllCategories();
-
 	List<ProductCategory> findCategoriesByParentId(Long parentId);
 
 	List<ProductCategory> findCategoriesByStatus(Boolean status);
+
+	List<ProductCategory> findCategoriesByParentIdAndStatus(Long parentId, Boolean status);
 
 	List<ProductCategory> getCategoryById(Long id);
 

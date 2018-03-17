@@ -13,13 +13,13 @@ import com.nyp.shopping.common.vo.ProductCategoryVO;
  */
 public interface ProductCategoryService {
 
-	List<ProductCategoryVO> findAllCategories();
-
-	List<ProductCategoryVO> getCategoryById(Long id);
-
 	List<ProductCategoryVO> findCategoriesByParentId(Long parentId);
 
-	List<ProductCategoryVO> findCategoriesByStatus(Boolean status);
+	List<ProductCategoryVO> findTopCategoriesByStatus(Boolean status);
+
+	List<ProductCategoryVO> findCategoriesByParentIdAndStatus(Long parentId, Boolean status);
+
+	List<ProductCategoryVO> getCategoryById(Long id);
 
 	Long createCategory(ProductCategoryVO category);
 

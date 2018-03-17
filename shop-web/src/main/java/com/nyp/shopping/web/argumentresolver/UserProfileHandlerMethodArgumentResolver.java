@@ -20,10 +20,12 @@ public class UserProfileHandlerMethodArgumentResolver implements HandlerMethodAr
 		UserVO userProfile = new UserVO();
 		HttpServletRequest request = (HttpServletRequest) nativeWebRequest.getNativeRequest();
 		Cookie[] cookies = request.getCookies();
-		for(Cookie cookie : cookies){
-		    if(cookie.getName().startsWith("u")){
-		        //userProfile.setUserID(Long.valueOf(cookie.getValue()));
-		    }
+		if(null!=cookies) {
+			for(Cookie cookie : cookies){
+			    if(cookie.getName().startsWith("u")){
+			        //userProfile.setUserID(Long.valueOf(cookie.getValue()));
+			    }
+			}
 		}
 		if(null!=request.getParameter("uid")) {
 			userProfile.setLoggedInUserId(Long.valueOf(request.getParameter("uid")));

@@ -31,7 +31,7 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl implements Produ
 		// 1) execution of service project - jar
 		// 2) execution of web project - war
 		// means this class and its project is loaded twice
-		System.out.println("\n\n\n\n\n********************************Static block initialized");
+		System.out.println("\n\n\n\n\n***************ProductCategoryServiceImpl.Static block initialized");
 	}
 	@Inject
 	private ProductCategoryAS productCategoryAS;
@@ -40,26 +40,28 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl implements Produ
 	private ProductCategoryAdaptor productCategoryAdaptor;
 
 	@Override
-	public List<ProductCategoryVO> findAllCategories() {
-		List<ProductCategory> productCategoryList = productCategoryAS.findAllCategories();
+	public List<ProductCategoryVO> findCategoriesByParentId(Long parentId) {
+		List<ProductCategory> productCategoryList = productCategoryAS.findCategoriesByParentId(parentId);
+		System.out.println("Size: "+productCategoryList.size());
 		return productCategoryAdaptor.toVO(productCategoryList);
 	}
 
 	@Override
-	public List<ProductCategoryVO> findCategoriesByParentId(Long parentId) {
-		List<ProductCategory> productCategoryList = productCategoryAS.findCategoriesByParentId(parentId);
+	public List<ProductCategoryVO> findTopCategoriesByStatus(Boolean status) {
+		List<ProductCategory> productCategoryList = productCategoryAS.findCategoriesByStatus(status);
+		return productCategoryAdaptor.toVO(productCategoryList);
+	}
+
+	@Override
+	public List<ProductCategoryVO> findCategoriesByParentIdAndStatus(Long parentId, Boolean status) {
+		List<ProductCategory> productCategoryList = productCategoryAS.findCategoriesByParentIdAndStatus(parentId,
+				status);
 		return productCategoryAdaptor.toVO(productCategoryList);
 	}
 
 	@Override
 	public List<ProductCategoryVO> getCategoryById(Long id) {
 		List<ProductCategory> productCategoryList = productCategoryAS.getCategoryById(id);
-		return productCategoryAdaptor.toVO(productCategoryList);
-	}
-
-	@Override
-	public List<ProductCategoryVO> findCategoriesByStatus(Boolean status) {
-		List<ProductCategory> productCategoryList = productCategoryAS.findCategoriesByStatus(status);
 		return productCategoryAdaptor.toVO(productCategoryList);
 	}
 

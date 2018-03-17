@@ -27,11 +27,6 @@ public class ProductCategoryASImpl extends BaseASImpl implements ProductCategory
 	private ProductCategoryRepository productCategoryRepository;
 
 	@Override
-	public List<ProductCategory> findAllCategories() {
-		return productCategoryRepository.findAll();
-	}
-
-	@Override
 	public List<ProductCategory> findCategoriesByParentId(Long parentId) {
 		if (null == parentId) {
 			return productCategoryRepository.findTopCategories();
@@ -43,6 +38,12 @@ public class ProductCategoryASImpl extends BaseASImpl implements ProductCategory
 	@Override
 	public List<ProductCategory> findCategoriesByStatus(Boolean status) {
 		return productCategoryRepository.findCategoriesByStatus(status);
+	}
+
+	@Override
+	public List<ProductCategory> findCategoriesByParentIdAndStatus(Long parentId, Boolean status) {
+		checkIfEntityExists(parentId);
+		return productCategoryRepository.findCategoriesByParentIdAndStatus(parentId, status);
 	}
 
 	@Override
@@ -65,8 +66,19 @@ public class ProductCategoryASImpl extends BaseASImpl implements ProductCategory
 	@Override
 	public Long createCategory(ProductCategory productCategory) {
 		productCategory.setId(null);
+		if(null!=productCategory.getParentCategory() && null!= productCategory.getParentCategory().getId()) {
+			checkIfParentExistsAsLeaf(productCategory.getParentCategory().getId());
+		}
 		ProductCategory newProductCategory = productCategoryRepository.save(productCategory);
 		return newProductCategory.getId();
+	}
+
+	private void checkIfParentExistsAsLeaf(Long id) {
+
+		ProductCategory productCategory = productCategoryRepository.findOne(id, Boolean.TRUE);
+		if (null == productCategory) {
+			throw new EntityNotFoundException(String.format("Requested entity %s as leaf node not found", id));
+		}
 	}
 
 	@Override

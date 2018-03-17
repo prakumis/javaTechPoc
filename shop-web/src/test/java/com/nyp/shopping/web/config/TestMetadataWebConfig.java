@@ -1,4 +1,4 @@
-package com.nyp.shopping.business;
+package com.nyp.shopping.web.config;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -14,15 +14,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.nyp.shopping.business.config.ApplicationConfig;
 import com.nyp.shopping.business.config.TransactionManagementConfig;
-import com.nyp.shopping.common.constants.ApplicationConstants;
 
 /**
  * Good Read:
@@ -34,18 +32,15 @@ import com.nyp.shopping.common.constants.ApplicationConstants;
  * @author pmis30
  *
  */
-//@ActiveProfiles("testMysql")
-//@ActiveProfiles("testHsql")
 //@Transactional(Propagation.NOT_SUPPORTED)//TxType.NOT_SUPPORTED)
 //@Transactional ( propagation = Propagation.NOT_SUPPORTED )
 @ActiveProfiles("production")
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@ContextConfiguration(classes = { TestMetadataConfig.class, ApplicationConfig.class,
-		TransactionManagementConfig.class })
+@ContextConfiguration(classes = { TestMetadataWebConfig.class, ApplicationConfig.class,
+		TransactionManagementConfig.class,  SpringRestWebConfig.class})
 @Configuration
-@Rollback(ApplicationConstants.ROLLBACK)
-@EnableTransactionManagement
+@WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @PropertySource("classpath:/config/database/jdbc.properties")
@@ -80,5 +75,5 @@ import com.nyp.shopping.common.constants.ApplicationConstants;
  * 
  */
 
-public @interface TestMetadataConfig {
+public @interface TestMetadataWebConfig {
 }

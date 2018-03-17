@@ -35,6 +35,8 @@ public class ProductCategoryVO extends BaseVO {
 	private Long parentCategoryId;
 	private Integer productCount;
 
+	private Boolean isLeaf;
+
 	public Long getId() {
 		return id;
 	}
@@ -97,6 +99,14 @@ public class ProductCategoryVO extends BaseVO {
 
 	public synchronized void setParentCategoryId(Long parentCategoryId) {
 		this.parentCategoryId = parentCategoryId;
+	}
+
+	public Boolean getIsLeaf() {
+		return isLeaf;
+	}
+
+	public void setIsLeaf(Boolean isLeaf) {
+		this.isLeaf = isLeaf;
 	}
 
 }

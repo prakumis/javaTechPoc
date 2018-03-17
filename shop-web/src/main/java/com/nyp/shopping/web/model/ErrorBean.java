@@ -11,6 +11,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)             // Jackson 2 or higher
 public class ErrorBean extends ValidationBean {
 
+	// TODO add following here; take idea from https://springuni.com/user-management-microservice-part-4/
+	// private int statusCode;
 	private String errorCode;
 	private String errorMessage;
 

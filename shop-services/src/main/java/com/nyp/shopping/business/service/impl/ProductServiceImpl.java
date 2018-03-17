@@ -33,7 +33,7 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 		// 1) execution of service project - jar
 		// 2) execution of web project - war
 		// means this class and its project is loaded twice
-		System.out.println("\n\n\n\n\n********************************Static block initialized");
+		System.out.println("\n\n\n\n\n**********************ProductServiceImpl.Static block initialized");
 	}
 
 	@Inject

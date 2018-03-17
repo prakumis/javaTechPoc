@@ -168,6 +168,12 @@
             <artifactId>snakeyaml</artifactId>
         </dependency>
 
+        <!-- javax.el required for junit test of service/tx-mgmt -->
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+		</dependency>
+
 	</dependencies>
 
     <build>

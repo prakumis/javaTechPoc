@@ -5,7 +5,6 @@ import java.util.Properties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -20,7 +19,7 @@ import com.nyp.shopping.web.listener.LogbackConfigListener;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = { "com.nyp.shopping" })
-@ImportResource({ "classpath*:config/spring/appContext-dataSource-main.xml", "classpath*:config/spring/shoppingApp-persistence.xml", "classpath*:config/spring/shoppingApp-service-main.xml" })
+//@ImportResource({ "classpath*:config/spring/appContext-dataSource-main.xml", "classpath*:config/spring/shoppingApp-persistence.xml", "classpath*:config/spring/shoppingApp-service-main.xml" })
 //@ImportResource({"classpath*:config/spring/shoppingApp-service-test.xml"})
 @ContextConfiguration(classes={TestWebConfig.class})
 public class TestWebConfig extends WebMvcConfigurerAdapter {

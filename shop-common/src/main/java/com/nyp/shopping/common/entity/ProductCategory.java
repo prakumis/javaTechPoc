@@ -40,8 +40,8 @@ public class ProductCategory extends AbstractCommonEntity implements Serializabl
 	@Column(name = "DESCRIPTION", length = 500)
 	private String description;
 
-	// THIS FIELD IS BY DEFAULT EMBEDDED
-	//private RecordInfo recordInfo;
+	@Column(name = "IS_LEAF")
+	private Boolean isLeaf;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "parentCategory")
 	private Set<ProductCategory> subCategories = new HashSet<>(0);
@@ -146,5 +146,13 @@ public class ProductCategory extends AbstractCommonEntity implements Serializabl
 	@Override
 	public String toString() {
 		return String.format("Id: %s, Name: %s, Description: %s", this.getId(), this.getName(), this.getDescription());
+	}
+
+	public Boolean getIsLeaf() {
+		return isLeaf;
+	}
+
+	public void setIsLeaf(Boolean isLeaf) {
+		this.isLeaf = isLeaf;
 	}
 }

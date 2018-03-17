@@ -1,1 +1,7 @@
+Command to execute test class from console::
+mvn clean install -Dconfig=D:/Work/Repository/JavaTechPoc/javaTechPoc/shop-services/src/main/resources > mavenBuild.txt
+
+
+
+
 oAuth2=https://stackoverflow.com/questions/4113934/how-is-oauth-2-different-from-oauth-1

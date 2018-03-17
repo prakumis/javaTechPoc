@@ -6,7 +6,6 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -31,6 +30,7 @@ public class TransactionManagementConfig {
 
 	@Bean
 	public PlatformTransactionManager transactionManager() {
+		System.out.println("TransactionManagementConfig.transactionManager");
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
 		transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
 		return transactionManager;
@@ -39,6 +39,7 @@ public class TransactionManagementConfig {
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 
+		System.out.println("TransactionManagementConfig.entityManagerFactory");
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setDataSource(dataSource());
 		em.setPersistenceUnitName("hibernatePersistenceUnit");
@@ -56,6 +57,7 @@ public class TransactionManagementConfig {
 	 */
 	private Properties getJpaProperties() {
 
+		System.out.println("TransactionManagementConfig.getJpaProperties");
 		Properties prop = new Properties();
 		prop.setProperty("hibernate.hbm2ddl.auto", "update");
 		prop.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
@@ -74,8 +76,9 @@ public class TransactionManagementConfig {
 	@Bean
 	public HibernateJpaVendorAdapter getJpaVendorAdapter() {
 
+		System.out.println("TransactionManagementConfig.getJpaVendorAdapter");
 		HibernateJpaVendorAdapter vendor = new HibernateJpaVendorAdapter();
-		vendor.setShowSql(true);
+		//vendor.setShowSql(true);
 		vendor.setGenerateDdl(true);
 		vendor.setDatabasePlatform("org.hibernate.dialect.MySQL5InnoDBDialect");
 		return vendor;
@@ -84,6 +87,7 @@ public class TransactionManagementConfig {
 	@Bean
 	public DataSource dataSource() {
 
+		System.out.println("TransactionManagementConfig.dataSource");
 		ComboPooledDataSource ds = new ComboPooledDataSource();
 		try {
 			ds.setDriverClass(env.getRequiredProperty("jdbc.driverClassName"));

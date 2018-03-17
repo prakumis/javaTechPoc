@@ -11,17 +11,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.nyp.shopping.business.AbstractCommonTest;
 import com.nyp.shopping.business.TestMetadataConfig;
 import com.nyp.shopping.business.service.ProductCategoryService;
 import com.nyp.shopping.common.vo.ProductCategoryVO;
 
 @TestMetadataConfig
 @RunWith(SpringJUnit4ClassRunner.class)
-public class ProductCategoryServiceImplTest extends AbstractCommonTest {
-
-    static final String STATEMENT_SEPARATOR = ";;";
-    static final String INIT_DB_FILE_NAME = "productNutrition.sql";
+public class ProductCategoryServiceImplTest { //extends AbstractCommonTest {
 
 	@Autowired
 	private ProductCategoryService productCategoryService;
@@ -32,15 +28,8 @@ public class ProductCategoryServiceImplTest extends AbstractCommonTest {
 	}
 
 	@Test
-	public void findAllCategories() {
-		List<ProductCategoryVO> productCategoryList = productCategoryService.findAllCategories();
-		Assert.assertNotNull(productCategoryList);
-		Assert.assertFalse(productCategoryList.isEmpty());
-	}
-
-	@Test
 	public void findTopCategories() {
-		List<ProductCategoryVO> productCategoryList = productCategoryService.findCategoriesByStatus(true);
+		List<ProductCategoryVO> productCategoryList = productCategoryService.findTopCategoriesByStatus(true);
 		Assert.assertNotNull(productCategoryList);
 		Assert.assertFalse(productCategoryList.isEmpty());
 	}
@@ -64,6 +53,7 @@ public class ProductCategoryServiceImplTest extends AbstractCommonTest {
 		productCategoryVO.setId(null);
 		productCategoryVO.setName("ProductCategoryServiceImplTest.createCategory()");
 		productCategoryVO.setDescription("Some Description");
+		productCategoryVO.setLoggedInUserId(1l);
 		Long id = productCategoryService.createCategory(productCategoryVO);
 		Assert.assertNotNull(id);
 	}
@@ -72,6 +62,8 @@ public class ProductCategoryServiceImplTest extends AbstractCommonTest {
 	public void updateCategory() {
 		ProductCategoryVO productCategoryVO = new ProductCategoryVO();
 		productCategoryVO.setName("ProductCategoryServiceImplTest.updateCategory_1()");
+		productCategoryVO.setDescription("Desc ProductCategoryServiceImplTest.updateCategory()");
+		productCategoryVO.setLoggedInUserId(1l);
 		Long id = productCategoryService.createCategory(productCategoryVO);
 		System.out.println("******** Created productCategoryVO for UPDATE: " + productCategoryVO.getId());
 		String updatedName = "ProductCategoryServiceImplTest.updateCategory()";
@@ -85,6 +77,8 @@ public class ProductCategoryServiceImplTest extends AbstractCommonTest {
 	public void deleteCategory() {
 		ProductCategoryVO productCategory = new ProductCategoryVO();
 		productCategory.setName("ProductCategoryServiceImplTest.deleteCategory()");
+		productCategory.setDescription("Desc ProductCategoryServiceImplTest.deleteCategory()");
+		productCategory.setLoggedInUserId(1l);
 
 		Long id = productCategoryService.createCategory(productCategory);
 		List<ProductCategoryVO> createdProductCategory = productCategoryService.getCategoryById(id);

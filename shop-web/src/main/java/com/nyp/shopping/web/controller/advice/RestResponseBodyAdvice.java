@@ -36,7 +36,7 @@ public class RestResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 			Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
 			ServerHttpResponse response) {
 
-		Object responseBody = body;
+		Object responseBody;
 		HttpServletRequest servletRequest = ((ServletServerHttpRequest) request).getServletRequest();
 		HttpServletResponse servletResponse = ((ServletServerHttpResponse) response).getServletResponse();
 		if(null == servletRequest.getAttribute("startTime")) {

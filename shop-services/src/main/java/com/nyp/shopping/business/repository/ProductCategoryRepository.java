@@ -32,11 +32,17 @@ public interface ProductCategoryRepository extends JpaRepository<ProductCategory
 	@Query("from ProductCategory pc where pc.parentCategory.id = :parentId")
 	List<ProductCategory> findCategoriesByParentId(@Param(value = "parentId") Long parentId);
 
+	@Query("from ProductCategory pc where pc.isValid = :status")
+	List<ProductCategory> findCategoriesByStatus(@Param("status") Boolean status);
+
+	@Query("from ProductCategory pc where pc.parentCategory.id = :parentId and pc.isValid = :status")
+	List<ProductCategory> findCategoriesByParentIdAndStatus(@Param(value = "parentId") Long parentId, @Param("status") Boolean status);
+
 	@Query("from ProductCategory pc where pc.id = :id")
 	ProductCategory findOne(@Param(value = "id") Long id);
 
-	@Query("from ProductCategory pc where pc.isValid = :status")
-	List<ProductCategory> findCategoriesByStatus(@Param("status") Boolean status);
+	@Query("from ProductCategory pc where pc.id = :id and pc.isLeaf = :isLeaf")
+	ProductCategory findOne(@Param(value = "id") Long id, @Param(value = "isLeaf") Boolean isLeaf);
 
 	@Modifying
 	@Query("update ProductCategory pc set pc.name = :name, pc.description=:description,  pc.modifiedBy.id = :userId, pc.modifiedDate = :modifiedDate, pc.parentCategory.id = :parentId where pc.id=:id")
